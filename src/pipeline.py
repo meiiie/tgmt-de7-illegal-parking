@@ -35,6 +35,10 @@ def sam3_backend(a, timers):
     ID giua cac chunk duoc noi bang IoU + DINOv3 trong DwellEngine (offset ID theo chunk)."""
     import torch
     from sam3.model_builder import build_sam3_multiplex_video_predictor
+    # T4 (sm75): sam3 decoder ep SDPA FLASH (khong ho tro bf16 tren Turing) -> cho phep EFFICIENT/MATH
+    import sam3.model.decoder as _dec
+    from torch.nn.attention import sdpa_kernel as _sk, SDPBackend as _B
+    _dec.sdpa_kernel = lambda *x, **y: _sk([_B.FLASH_ATTENTION, _B.EFFICIENT_ATTENTION, _B.MATH])
     kw = dict(use_fa3=a.fa3, compile=False, max_num_objects=a.max_objects)
     if a.sam3_ckpt: kw["checkpoint_path"] = a.sam3_ckpt
     pred = build_sam3_multiplex_video_predictor(**kw)
