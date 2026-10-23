@@ -57,10 +57,11 @@ run('yolo26n_bytetrack', '--backend yolo --model yolo26n.pt --tracker bytetrack.
 run('yolo26s_botsort', '--backend yolo --model yolo26s.pt --tracker botsort.yaml')
 run('yolo26s_bytetrack_dino', f'--backend yolo --model yolo26s.pt --reid {DINO}')
 # SAM 3.1 tren T4 16GB: thu cau hinh giam dan VRAM (offload frames ra CPU, chunk ngan, it object)
-SAM = f'--backend sam3 --sam3_ckpt {SAM3_CKPT} --amp none --offload_video'
-for ch, mo in [(60, 16), (30, 16), (30, 8), (16, 8)]:
-    if run(f'sam31_c{ch}_o{mo}', f'{SAM} --chunk_frames {ch} --max_objects {mo}'):
-        run(f'sam31_c{ch}_o{mo}_dino', f'{SAM} --chunk_frames {ch} --max_objects {mo} --reid {DINO}'); break""")
+SAM = f'--backend sam3 --sam3_ckpt {SAM3_CKPT} --amp bf16 --offload_video'
+for ch, mo, db in [(150, 16, 2), (150, 16, 1), (60, 8, 1)]:
+    tag = f'sam31_c{ch}_o{mo}_b{db}'
+    if run(tag, f'{SAM} --chunk_frames {ch} --max_objects {mo} --det_batch {db}'):
+        run(tag + '_dino', f'{SAM} --chunk_frames {ch} --max_objects {mo} --det_batch {db} --reid {DINO}'); break""")
 code("""import csv
 rows = [json.load(open(p)) for p in sorted(glob.glob('out/*/metrics.json'))]
 keys = ['backend','model','tracker','reid','device','amp','stride','frames_processed','fps_model','fps_end2end','vram_peak_mb','n_alerts','jam_frames','reid_merges']

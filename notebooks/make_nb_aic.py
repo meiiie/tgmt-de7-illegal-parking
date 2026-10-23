@@ -37,7 +37,7 @@ code("""os.environ['PYTORCH_CUDA_ALLOC_CONF']='expandable_segments:True'
 STRIDE=15  # 30 fps -> 2 fps
 CFG={'yolo26s_bytetrack': '--backend yolo --model yolo26s.pt',
      'yolo26s_bytetrack_dino': f'--backend yolo --model yolo26s.pt --reid {DINO}',
-     'sam31_dino': f'--backend sam3 --sam3_ckpt {SAM3_CKPT} --amp none --offload_video --chunk_frames 30 --max_objects 16 --reid {DINO}'}
+     'sam31_dino': f'--backend sam3 --sam3_ckpt {SAM3_CKPT} --amp bf16 --offload_video --chunk_frames 150 --max_objects 16 --det_batch 2 --reid {DINO}'}
 SAM_MAX_FRAMES = int(os.environ.get('SAM_MAX_FRAMES', '0'))
 for name,args in CFG.items():
     for i in SEL:

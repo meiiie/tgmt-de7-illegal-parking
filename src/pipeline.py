@@ -43,6 +43,10 @@ def sam3_backend(a, timers):
     def _init_state(**k):
         k.pop("offload_state_to_cpu", None); return _orig(**k)
     pred.model.init_state = _init_state
+    # T4 16GB: detector mac dinh batch 16 frame 1008x1008 -> OOM; giam batch grounding/postprocess
+    for attr in ("batched_grounding_batch_size", "postprocess_batch_size"):
+        if hasattr(pred.model, attr): setattr(pred.model, attr, a.det_batch)
+    print("SAM3 loaded, VRAM MB", round(torch.cuda.memory_allocated() / 2**20), flush=True)
     buf, chunk_id = [], 0
     def run_chunk(buf, chunk_id):
         tmp = tempfile.mkdtemp(prefix="sam3chunk_")
@@ -130,7 +134,7 @@ def main():
     ap.add_argument("--device", default=None); ap.add_argument("--half", action="store_true")
     ap.add_argument("--prompt", default="car"); ap.add_argument("--sam3_ckpt", default=None)
     ap.add_argument("--chunk_frames", type=int, default=150); ap.add_argument("--max_objects", type=int, default=16)
-    ap.add_argument("--fa3", action="store_true"); ap.add_argument("--offload_video", action="store_true"); ap.add_argument("--amp", default="fp16", choices=["none", "fp16", "bf16"])
+    ap.add_argument("--fa3", action="store_true"); ap.add_argument("--offload_video", action="store_true"); ap.add_argument("--det_batch", type=int, default=16); ap.add_argument("--amp", default="fp16", choices=["none", "fp16", "bf16"])
     ap.add_argument("--reid", default="none", help="none | HF id, vd facebook/dinov3-vits16-pretrain-lvd1689m")
     ap.add_argument("--reid_thr", type=float, default=0.6)
     ap.add_argument("--stride", type=int, default=1); ap.add_argument("--max_frames", type=int, default=0)
