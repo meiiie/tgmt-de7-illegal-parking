@@ -1,0 +1,3 @@
+config,videos,frames,fps_model,fps_e2e,vram_peak_mb,tp,fp,fn,precision,recall,f1,start_mae_s,mean_alert_latency_s
+yolo26s_bytetrack,9,15079,55.5,34.22,100.0,4,16,3,0.2,0.571,0.296,19.38,36.88
+yolo26s_bytetrack_dino,9,15079,57.73,33.61,174.9,5,35,2,0.125,0.714,0.213,32.4,45.1

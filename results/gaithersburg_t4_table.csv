@@ -1,0 +1,4 @@
+backend,model,tracker,reid,device,amp,stride,frames_processed,fps_model,fps_end2end,vram_peak_mb,n_alerts,jam_frames,reid_merges
+yolo,yolo26n.pt,bytetrack.yaml,none,Tesla T4,fp16,3,658,27.87,23.67,63.1,0,13,0
+yolo,yolo26s.pt,botsort.yaml,none,Tesla T4,fp16,3,658,33.91,27.7,102.9,0,19,0
+yolo,yolo26s.pt,bytetrack.yaml,weights/dinov3-vits16-pretrain-lvd1689m,Tesla T4,fp16,3,658,62.33,45.87,176.0,0,16,0

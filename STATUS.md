@@ -41,3 +41,13 @@ Fix SAM 3.1 trước đó: offload frames ra CPU + chunk 60→16 frame + max_obj
 - `de7-aic21-eval` v1 ERROR: đọc nhầm ReadMe thay vì train-anomaly-results.txt (đã sửa). Tải 15.1 GB zip trên Kaggle mất ~3 phút; 100 video train.
 - Kernel tiếp theo (gộp): `holilihu/de7-aic21-eval` — SAM3.1 FPS/VRAM trên Gaithersburg + AIC21 (baseline 9 video, SAM 4 video), budget 100 phút. CHỜ Đề 14/12 chạy xong mới push.
 - 22:48 UTC+7: push `holilihu/de7-aic21-eval` v2 (Đề 12 đã COMPLETE, Đề 14 đang chạy → de7 dùng 1 slot). Hạn dừng nếu >2h: 00:48.
+
+## 23:28 UTC+7 — `de7-aic21-eval` v2 COMPLETE (≈40 phút)
+AIC21 Track 4 train: 6 video dương (2, 9, 11, 14, 33, 35) + 3 âm (58, 62, 7), 15 phút/video, stride 15 (2 fps), ROI toàn khung, dwell ≥ 20 s, tol 30 s. Kết quả: `results/aic21_table.csv`.
+| Config | Video | Frames | FPS model | FPS e2e | VRAM MB | TP | FP | FN | P | R | F1 | MAE bắt đầu (s) | Độ trễ cảnh báo (s) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| YOLO26s + ByteTrack | 9 | 15079 | 55.50 | 34.22 | 100.0 | 4 | 16 | 3 | 0.200 | 0.571 | 0.296 | 19.38 | 36.88 |
+| YOLO26s + ByteTrack + DINOv3-S | 9 | 15079 | 57.73 | 33.61 | 174.9 | 5 | 35 | 2 | 0.125 | 0.714 | 0.213 | 32.40 | 45.10 |
+| SAM 3.1 + DINOv3 | 4 | — | — | — | OOM | — | — | — | — | — | — | — | — |
+Nhận xét: FP chủ yếu do xe đứng yên hợp lệ/xa (ROI toàn khung) và re-ID nối timer quá dễ (DINOv3 tăng recall nhưng tăng FP). Cần ROI theo làn/lề và ngưỡng re-ID chặt hơn.
+SAM 3.1: load OK (3734 MB VRAM sau load), nhưng propagate vẫn OOM trên T4: cross-attention cần 4.82 GiB (shim fp16 chưa có tác dụng → vẫn rơi về MATH) và chỗ khác 1.01 GiB khi đã dùng 13.4 GB. **Blocker: SAM 3.1 video multiplex chưa chạy được trong 15 GB T4.**
