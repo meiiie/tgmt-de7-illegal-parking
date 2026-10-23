@@ -37,7 +37,7 @@ code("""os.environ['PYTORCH_CUDA_ALLOC_CONF']='expandable_segments:True'
 STRIDE=15  # 30 fps -> 2 fps
 CFG={'yolo26s_bytetrack': '--backend yolo --model yolo26s.pt',
      'yolo26s_bytetrack_dino': f'--backend yolo --model yolo26s.pt --reid {DINO}',
-     'sam31_dino': f'--backend sam3 --sam3_ckpt {SAM3_CKPT} --amp bf16 --offload_video --chunk_frames 150 --max_objects 16 --det_batch 2 --reid {DINO}'}
+     'sam31_dino': f'--backend sam3 --sam3_ckpt {SAM3_CKPT} --amp bf16 --offload_video --chunk_frames 150 --max_objects 8 --det_batch 1 --reid {DINO}'}
 import time
 T0=time.time(); BUDGET_S=float(os.environ.get('BUDGET_S','6000'))   # ~100 phut, duoi tran 2h
 SAM_SEL = sel_pos[:3] + sel_neg[:1]
@@ -47,7 +47,9 @@ for name,args in [('g_sam31', CFG['sam31_dino'].replace(f' --reid {DINO}','')), 
     r=subprocess.run(cmd,shell=True,capture_output=True,text=True)
     print(name, [l[:400] for l in r.stdout.splitlines() if l.startswith(('METRICS','SAM3'))] or '\\n'.join([l for l in r.stderr.splitlines() if 'sam3/' in l or 'Error' in l][-8:]), flush=True)
 # 2) AIC21: baseline tren ca 9 video, SAM tren 4 video (gioi han thoi gian)
+RUN_BASELINE = False  # baseline da co ket qua (v2, results/aic21_table.csv)
 for name,args in CFG.items():
+    if name.startswith('yolo') and not RUN_BASELINE: continue
     vids_run = SAM_SEL if name.startswith('sam') else SEL
     for i in vids_run:
         if time.time()-T0 > BUDGET_S: print('BUDGET HIT, skip', name, i); continue

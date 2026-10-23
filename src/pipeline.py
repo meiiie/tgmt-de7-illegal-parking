@@ -43,9 +43,16 @@ def sam3_backend(a, timers):
     import types, torch.nn.functional as _F
     _bf16_ok = torch.cuda.is_available() and torch.cuda.get_device_capability()[0] >= 8
     def _sdpa(q, k, v, *x, **y):
-        if not _bf16_ok and q.dtype == torch.bfloat16:
-            return _F.scaled_dot_product_attention(q.half(), k.half(), v.half(), *x, **y).to(q.dtype)
-        return _F.scaled_dot_product_attention(q, k, v, *x, **y)
+        dt = q.dtype
+        if not _bf16_ok and dt == torch.bfloat16: q, k, v = q.half(), k.half(), v.half()
+        # chia query thanh block de neu roi ve MATH thi ma tran attention nho (<~0.5 GB)
+        nq, nk = q.shape[-2], k.shape[-2]
+        bs = max(256, int(1.2e8 // max(nk * max(q[..., :1, :1].numel(), 1), 1)))
+        if nq * nk * q[..., :1, :1].numel() > 2e8 and not y.get("attn_mask") is not None:
+            out = torch.cat([_F.scaled_dot_product_attention(q[..., i:i + bs, :], k, v, *x, **y) for i in range(0, nq, bs)], dim=-2)
+        else:
+            out = _F.scaled_dot_product_attention(q, k, v, *x, **y)
+        return out.to(dt)
     _dec.torchF = types.SimpleNamespace(**{n: getattr(_F, n) for n in dir(_F) if not n.startswith("__")})
     _dec.torchF.scaled_dot_product_attention = _sdpa
     kw = dict(use_fa3=a.fa3, compile=False, max_num_objects=a.max_objects)

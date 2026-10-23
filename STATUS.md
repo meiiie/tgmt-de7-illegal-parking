@@ -51,3 +51,4 @@ AIC21 Track 4 train: 6 video dương (2, 9, 11, 14, 33, 35) + 3 âm (58, 62, 7),
 | SAM 3.1 + DINOv3 | 4 | — | — | — | OOM | — | — | — | — | — | — | — | — |
 Nhận xét: FP chủ yếu do xe đứng yên hợp lệ/xa (ROI toàn khung) và re-ID nối timer quá dễ (DINOv3 tăng recall nhưng tăng FP). Cần ROI theo làn/lề và ngưỡng re-ID chặt hơn.
 SAM 3.1: load OK (3734 MB VRAM sau load), nhưng propagate vẫn OOM trên T4: cross-attention cần 4.82 GiB (shim fp16 chưa có tác dụng → vẫn rơi về MATH) và chỗ khác 1.01 GiB khi đã dùng 13.4 GB. **Blocker: SAM 3.1 video multiplex chưa chạy được trong 15 GB T4.**
+- 23:29 UTC+7: SAM-only kernel v3 đã chuẩn bị (attention chia block + fp16, max_objects 8, det_batch 1) nhưng CHƯA push: Đề 14 vừa ERROR và có thể đang chờ slot → chờ coordinator xác nhận.
