@@ -29,3 +29,8 @@ Fix SAM 3.1 trước đó: offload frames ra CPU + chunk 60→16 frame + max_obj
 ## Đang làm / tiếp theo
 1. Kaggle T4: chạy 5 cấu hình (yolo26n, yolo26s+BoT-SORT, yolo26s+DINOv3, SAM3.1 fp16, SAM3.1+DINOv3) → bảng FPS/VRAM.
 2. Dữ liệu có sự kiện dương: AI City 2021 Track 4 (14 GB, Google Drive, tải thẳng trong kernel Kaggle); i-LIDS AVSS2007: link gốc/FTP/AODsurvey **không truy cập được** từ box.
+
+## 22:15 UTC+7 — Kaggle
+- Đang chạy (push 22:08–22:09, trước quy tắc 1 kernel): `holilihu/de7-sam31-dinov3` v7 (fix SDPA FLASH→EFFICIENT/MATH) và `holilihu/de7-aic21-eval` v1 (AIC21 T4: 6 video dương + 3 âm, YOLO26s, YOLO26s+DINOv3, SAM3.1+DINOv3).
+- Kaggle CLI 2.2.5 không có lệnh cancel; SDK có `cancel_kernel_session` nhưng cần kernel_session_id mà API status/get_kernel không trả về → không tự dừng được kernel.
+- Quy tắc: tối đa 1 kernel de7 GPU; không push mới cho đến khi Đề 14/12 chạy xong; dừng kernel de7 >2h. Trọng số chỉ từ dataset `holilihu/de7-weights` (dùng chung Đề 12/14 — không xoá/sửa). Không dùng HF/Secrets trong kernel.
