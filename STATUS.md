@@ -34,3 +34,9 @@ Fix SAM 3.1 trước đó: offload frames ra CPU + chunk 60→16 frame + max_obj
 - Đang chạy (push 22:08–22:09, trước quy tắc 1 kernel): `holilihu/de7-sam31-dinov3` v7 (fix SDPA FLASH→EFFICIENT/MATH) và `holilihu/de7-aic21-eval` v1 (AIC21 T4: 6 video dương + 3 âm, YOLO26s, YOLO26s+DINOv3, SAM3.1+DINOv3).
 - Kaggle CLI 2.2.5 không có lệnh cancel; SDK có `cancel_kernel_session` nhưng cần kernel_session_id mà API status/get_kernel không trả về → không tự dừng được kernel.
 - Quy tắc: tối đa 1 kernel de7 GPU; không push mới cho đến khi Đề 14/12 chạy xong; dừng kernel de7 >2h. Trọng số chỉ từ dataset `holilihu/de7-weights` (dùng chung Đề 12/14 — không xoá/sửa). Không dùng HF/Secrets trong kernel.
+
+## 22:25 UTC+7
+- v7 `de7-sam31-dinov3` COMPLETE: SDPA hết lỗi kernel nhưng cross-attention rơi về MATH → OOM (cần 4.82 GiB). Baseline v7: YOLO26n 27.87/23.67 FPS 63 MB; YOLO26s+BoT-SORT 33.91/27.70 103 MB; YOLO26s+DINOv3 62.33/45.87 176 MB.
+- Fix kế tiếp (đã code, chưa chạy): ép q,k,v bf16→fp16 trong attention của decoder SAM3 trên GPU sm<80 để dùng kernel EFFICIENT.
+- `de7-aic21-eval` v1 ERROR: đọc nhầm ReadMe thay vì train-anomaly-results.txt (đã sửa). Tải 15.1 GB zip trên Kaggle mất ~3 phút; 100 video train.
+- Kernel tiếp theo (gộp): `holilihu/de7-aic21-eval` — SAM3.1 FPS/VRAM trên Gaithersburg + AIC21 (baseline 9 video, SAM 4 video), budget 100 phút. CHỜ Đề 14/12 chạy xong mới push.

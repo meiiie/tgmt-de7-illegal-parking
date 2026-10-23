@@ -39,6 +39,15 @@ def sam3_backend(a, timers):
     import sam3.model.decoder as _dec
     from torch.nn.attention import sdpa_kernel as _sk, SDPBackend as _B
     _dec.sdpa_kernel = lambda *x, **y: _sk([_B.FLASH_ATTENTION, _B.EFFICIENT_ATTENTION, _B.MATH])
+    # bf16 khong co kernel EFFICIENT tren sm75 -> roi ve MATH (attention matrix ~5 GB, OOM). Ep q,k,v sang fp16 cho attention.
+    import types, torch.nn.functional as _F
+    _bf16_ok = torch.cuda.is_available() and torch.cuda.get_device_capability()[0] >= 8
+    def _sdpa(q, k, v, *x, **y):
+        if not _bf16_ok and q.dtype == torch.bfloat16:
+            return _F.scaled_dot_product_attention(q.half(), k.half(), v.half(), *x, **y).to(q.dtype)
+        return _F.scaled_dot_product_attention(q, k, v, *x, **y)
+    _dec.torchF = types.SimpleNamespace(**{n: getattr(_F, n) for n in dir(_F) if not n.startswith("__")})
+    _dec.torchF.scaled_dot_product_attention = _sdpa
     kw = dict(use_fa3=a.fa3, compile=False, max_num_objects=a.max_objects)
     if a.sam3_ckpt: kw["checkpoint_path"] = a.sam3_ckpt
     pred = build_sam3_multiplex_video_predictor(**kw)
