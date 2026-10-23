@@ -32,7 +32,11 @@ os.makedirs('aic', exist_ok=True)
 for i in SEL:
     with zf.open(vids[f'{i}.mp4']) as s, open(f'aic/{i}.mp4','wb') as d: shutil.copyfileobj(s, d)
 GT = [{'video': f'{int(r[0])}.mp4', 'zone': 'all', 'stop_start_s': float(r[1]), 'stop_end_s': float(r[2])} for r in rows if int(r[0]) in SEL]
-json.dump(GT, open('aic/gt.json','w'), indent=1); print(GT)""")
+json.dump(GT, open('aic/gt.json','w'), indent=1); print(GT)
+import cv2; os.makedirs('out/thumbs', exist_ok=True)
+for i in SEL:  # anh khung hinh de ve ROI lan/le offline
+    c = cv2.VideoCapture(f'aic/{i}.mp4'); c.set(1, 300); ok, f = c.read()
+    if ok: cv2.imwrite(f'out/thumbs/{i}.jpg', f, [cv2.IMWRITE_JPEG_QUALITY, 85])""")
 code("""os.environ['PYTORCH_CUDA_ALLOC_CONF']='expandable_segments:True'
 STRIDE=15  # 30 fps -> 2 fps
 CFG={'yolo26s_bytetrack': '--backend yolo --model yolo26s.pt',
