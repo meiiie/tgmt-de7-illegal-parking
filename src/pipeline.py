@@ -38,6 +38,11 @@ def sam3_backend(a, timers):
     kw = dict(use_fa3=a.fa3, compile=False, max_num_objects=a.max_objects)
     if a.sam3_ckpt: kw["checkpoint_path"] = a.sam3_ckpt
     pred = build_sam3_multiplex_video_predictor(**kw)
+    # workaround upstream (sam3@7f473cf): base start_session truyen offload_state_to_cpu nhung multiplex init_state khong nhan
+    _orig = pred.model.init_state
+    def _init_state(**k):
+        k.pop("offload_state_to_cpu", None); return _orig(**k)
+    pred.model.init_state = _init_state
     buf, chunk_id = [], 0
     def run_chunk(buf, chunk_id):
         tmp = tempfile.mkdtemp(prefix="sam3chunk_")
@@ -45,7 +50,7 @@ def sam3_backend(a, timers):
         H, W = buf[0][1].shape[:2]
         t0 = time.perf_counter()
         with torch.autocast("cuda", dtype=a.amp_dtype, enabled=a.amp_dtype is not None):
-            sid = pred.handle_request(dict(type="start_session", resource_path=tmp))["session_id"]
+            sid = pred.handle_request(dict(type="start_session", resource_path=tmp, offload_video_to_cpu=a.offload_video))["session_id"]
             pred.handle_request(dict(type="add_prompt", session_id=sid, frame_index=0, text=a.prompt))
             outs = {r["frame_index"]: r["outputs"] for r in pred.handle_stream_request(dict(type="propagate_in_video", session_id=sid))}
             pred.handle_request(dict(type="close_session", session_id=sid))
@@ -125,7 +130,7 @@ def main():
     ap.add_argument("--device", default=None); ap.add_argument("--half", action="store_true")
     ap.add_argument("--prompt", default="car"); ap.add_argument("--sam3_ckpt", default=None)
     ap.add_argument("--chunk_frames", type=int, default=150); ap.add_argument("--max_objects", type=int, default=16)
-    ap.add_argument("--fa3", action="store_true"); ap.add_argument("--amp", default="fp16", choices=["none", "fp16", "bf16"])
+    ap.add_argument("--fa3", action="store_true"); ap.add_argument("--offload_video", action="store_true"); ap.add_argument("--amp", default="fp16", choices=["none", "fp16", "bf16"])
     ap.add_argument("--reid", default="none", help="none | HF id, vd facebook/dinov3-vits16-pretrain-lvd1689m")
     ap.add_argument("--reid_thr", type=float, default=0.6)
     ap.add_argument("--stride", type=int, default=1); ap.add_argument("--max_frames", type=int, default=0)

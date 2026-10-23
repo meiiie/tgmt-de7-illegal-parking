@@ -10,7 +10,7 @@ IN_KAGGLE = os.path.exists('/kaggle')
 WORK = '/kaggle/working' if IN_KAGGLE else '/content'
 os.chdir(WORK)
 !nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
-!pip -q install "git+https://github.com/facebookresearch/sam3.git" ultralytics lap "transformers>=4.56" einops decord pycocotools 2>&1 | tail -2
+!pip -q install "git+https://github.com/facebookresearch/sam3.git@7f473cf" ultralytics lap "transformers>=4.56" einops decord pycocotools 2>&1 | tail -2
 import torch; print(torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0))""")
 code("""# Code + du lieu: Kaggle -> dataset de7-code; Colab -> git/zip tu Drive (tu chinh duong dan)
 _c = glob.glob('/kaggle/input/**/src/pipeline.py', recursive=True)
@@ -56,8 +56,11 @@ for name, args in runs.items():
     cmd = f'python src/pipeline.py --video {VID} --zones {Z} --stride {STRIDE} --out out/{name} --save_video {args}'
     print('>>>', name); r = subprocess.run(cmd, shell=True, capture_output=True, text=True)
     print('\\n'.join([l for l in r.stdout.splitlines() if l.startswith(('ALERT','METRICS'))][-6:])); print(r.stderr[-1500:] if r.returncode else '')""")
-code("""import pandas as pd
+code("""import csv
 rows = [json.load(open(p)) for p in sorted(glob.glob('out/*/metrics.json'))]
-df = pd.DataFrame(rows); print(df.to_string()); df.to_csv('out/metrics_table.csv', index=False)""")
+keys = ['backend','model','tracker','reid','device','amp','stride','frames_processed','fps_model','fps_end2end','vram_peak_mb','n_alerts','jam_frames','reid_merges']
+with open('out/metrics_table.csv','w',newline='') as f:
+    w = csv.DictWriter(f, fieldnames=keys, extrasaction='ignore'); w.writeheader(); [w.writerow(r) for r in rows]
+print(open('out/metrics_table.csv').read())""")
 nb = {"cells": cells, "metadata": {"kernelspec": {"name": "python3", "display_name": "Python 3"}, "language_info": {"name": "python"}}, "nbformat": 4, "nbformat_minor": 5}
 json.dump(nb, open("notebooks/de7_sam31_dinov3.ipynb", "w"), indent=1, ensure_ascii=False)
