@@ -3,7 +3,7 @@ cells = []
 def md(s): cells.append({"cell_type": "markdown", "metadata": {}, "source": s})
 def code(s): cells.append({"cell_type": "code", "metadata": {}, "execution_count": None, "outputs": [], "source": s})
 md("# Đề 7 — Phát hiện & cảnh báo xe dừng/đỗ trái phép: SAM 3.1 + DINOv3 vs YOLO26+ByteTrack\n"
-   "Chạy được trên Kaggle (GPU T4) hoặc Colab. Token: Kaggle Secrets / Colab userdata `HF_TOKEN` (không hardcode). "
+   "Chạy được trên Kaggle (GPU T4) hoặc Colab. Trọng số chỉ đọc từ /kaggle/input (dataset holilihu/de7-weights: SAM 3.1 + DINOv3), không tải HF, không dùng Secrets. "
    "Trên Kaggle của tác giả, trọng số lấy từ dataset riêng `de7-weights` nên không cần token.")
 code("""import os, sys, subprocess, json, glob, shutil
 IN_KAGGLE = os.path.exists('/kaggle')
@@ -33,15 +33,8 @@ if os.path.exists(WDIR):
             dst = f'weights/{r}/' + os.path.basename(f).split('__', 1)[1]
             if not os.path.exists(dst): os.symlink(f, dst)
     DINO = 'weights/dinov3-vits16-pretrain-lvd1689m'
-else:  # Colab / Kaggle khong co dataset: tai bang HF_TOKEN tu secrets
-    try:
-        from google.colab import userdata; tok = userdata.get('HF_TOKEN')
-    except Exception:
-        from kaggle_secrets import UserSecretsClient; tok = UserSecretsClient().get_secret('HF_TOKEN')
-    from huggingface_hub import login, hf_hub_download, snapshot_download
-    login(token=tok)
-    SAM3_CKPT = hf_hub_download('facebook/sam3.1', 'sam3.1_multiplex.pt')
-    DINO = snapshot_download('facebook/dinov3-vits16-pretrain-lvd1689m')
+else:
+    raise SystemExit('Thieu dataset holilihu/de7-weights (Kaggle) — notebook khong tai tu HF')
 print(SAM3_CKPT, DINO)""")
 code("""os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
 VID = 'data/gaithersburg_480p.webm'; Z = 'configs/zones_gaithersburg.json'
