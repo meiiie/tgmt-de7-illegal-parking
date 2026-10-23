@@ -40,3 +40,4 @@ Fix SAM 3.1 trước đó: offload frames ra CPU + chunk 60→16 frame + max_obj
 - Fix kế tiếp (đã code, chưa chạy): ép q,k,v bf16→fp16 trong attention của decoder SAM3 trên GPU sm<80 để dùng kernel EFFICIENT.
 - `de7-aic21-eval` v1 ERROR: đọc nhầm ReadMe thay vì train-anomaly-results.txt (đã sửa). Tải 15.1 GB zip trên Kaggle mất ~3 phút; 100 video train.
 - Kernel tiếp theo (gộp): `holilihu/de7-aic21-eval` — SAM3.1 FPS/VRAM trên Gaithersburg + AIC21 (baseline 9 video, SAM 4 video), budget 100 phút. CHỜ Đề 14/12 chạy xong mới push.
+- 22:48 UTC+7: push `holilihu/de7-aic21-eval` v2 (Đề 12 đã COMPLETE, Đề 14 đang chạy → de7 dùng 1 slot). Hạn dừng nếu >2h: 00:48.
