@@ -22,7 +22,9 @@ Các run CPU dài hơn (yolo26s, +DINOv3) bị timeout do box quá tải → chu
 | YOLO26s + ByteTrack + DINOv3-S re-ID | 63.19 | 46.26 | 177.4 | 0 |
 | SAM 3.1 (chunk 150, 16 obj, frames trên GPU) | — | — | **OOM** (>14.3 GB) | — |
 (0 alert = đúng: video không có xe dừng trong ROI; FPS chênh do warm-up/GPU dùng chung — chưa lặp lại)
-Fix SAM 3.1: offload frames ra CPU + chunk 60→16 frame + max_objects 16→8 (kernel v5 đang chạy). Bug upstream sam3@7f473cf `offload_state_to_cpu` đã vá bằng wrapper.
+v6 (det_batch 2/1, bf16 autocast, offload frames): qua detector OK, nhưng tracker lỗi `RuntimeError: No available kernel` trong `scaled_dot_product_attention` (bf16 trên T4 sm75 không có flash/mem-efficient kernel) → fix: ép SDPA backend MATH quanh propagate.
+Baseline v6: YOLO26n 34.28/27.04 FPS 63 MB; YOLO26s+BoT-SORT 31.03/24.91 103 MB; YOLO26s+DINOv3 54.25/39.54 176 MB.
+Fix SAM 3.1 trước đó: offload frames ra CPU + chunk 60→16 frame + max_objects 16→8 (kernel v5 đang chạy). Bug upstream sam3@7f473cf `offload_state_to_cpu` đã vá bằng wrapper.
 
 ## Đang làm / tiếp theo
 1. Kaggle T4: chạy 5 cấu hình (yolo26n, yolo26s+BoT-SORT, yolo26s+DINOv3, SAM3.1 fp16, SAM3.1+DINOv3) → bảng FPS/VRAM.
