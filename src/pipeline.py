@@ -156,7 +156,7 @@ def main():
     ap.add_argument("--chunk_frames", type=int, default=150); ap.add_argument("--max_objects", type=int, default=16)
     ap.add_argument("--fa3", action="store_true"); ap.add_argument("--offload_video", action="store_true"); ap.add_argument("--det_batch", type=int, default=16); ap.add_argument("--amp", default="fp16", choices=["none", "fp16", "bf16"])
     ap.add_argument("--reid", default="none", help="none | HF id, vd facebook/dinov3-vits16-pretrain-lvd1689m")
-    ap.add_argument("--reid_thr", type=float, default=0.6)
+    ap.add_argument("--reid_thr", type=float, default=0.75); ap.add_argument("--dedup_iou", type=float, default=0.3); ap.add_argument("--min_area", type=float, default=200)
     ap.add_argument("--stride", type=int, default=1); ap.add_argument("--max_frames", type=int, default=0)
     ap.add_argument("--out", default="outputs/run"); ap.add_argument("--save_video", action="store_true")
     a = ap.parse_args()
@@ -221,6 +221,10 @@ def main():
         for tr in seen:
             dwell = (t - tr.still_since) if tr.still_since is not None else 0
             x1, y1, x2, y2 = tr.box
+            dup = any(iou(e["bbox"], tr.box) >= a.dedup_iou for e in alerts) if a.dedup_iou > 0 else False
+            small = (x2 - x1) * (y2 - y1) < a.min_area
+            if tr.zone and dwell >= tr.zone["max_dwell_s"] and not tr.alerted and (dup or small) and not jam:
+                tr.alerted = True  # cung vi tri voi canh bao truoc (cung su co) hoac xe qua xa -> khong canh bao lai
             if tr.zone and dwell >= tr.zone["max_dwell_s"] and not tr.alerted and not jam:
                 tr.alerted = True
                 ev = {"video": os.path.basename(a.video), "backend": a.backend, "track_id": tr.id, "class": tr.cls, "zone": tr.zone["name"],

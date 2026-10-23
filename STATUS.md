@@ -52,3 +52,11 @@ AIC21 Track 4 train: 6 video dương (2, 9, 11, 14, 33, 35) + 3 âm (58, 62, 7),
 Nhận xét: FP chủ yếu do xe đứng yên hợp lệ/xa (ROI toàn khung) và re-ID nối timer quá dễ (DINOv3 tăng recall nhưng tăng FP). Cần ROI theo làn/lề và ngưỡng re-ID chặt hơn.
 SAM 3.1: load OK (3734 MB VRAM sau load), nhưng propagate vẫn OOM trên T4: cross-attention cần 4.82 GiB (shim fp16 chưa có tác dụng → vẫn rơi về MATH) và chỗ khác 1.01 GiB khi đã dùng 13.4 GB. **Blocker: SAM 3.1 video multiplex chưa chạy được trong 15 GB T4.**
 - 23:29 UTC+7: SAM-only kernel v3 đã chuẩn bị (attention chia block + fp16, max_objects 8, det_batch 1) nhưng CHƯA push: Đề 14 vừa ERROR và có thể đang chờ slot → chờ coordinator xác nhận.
+
+## 23:35 UTC+7 — Re-score offline AIC21 (từ alerts v2, không chạy GPU)
+Không lưu track từng frame → chỉ lọc lại được trên alerts. Phát hiện: phần lớn FP là **cảnh báo lặp** cùng một xe/vị trí (ID tracker đổi sau che khuất). Gộp theo bbox IoU≥0.3 trong cùng video (= 1 sự cố) + bỏ bbox < 200 px² (xe quá xa):
+| Config | Raw P/R/F1 | Dedup IoU0.3 | Dedup + min_area 200 | Dedup + min_area 400 |
+|---|---|---|---|---|
+| YOLO26s+ByteTrack | 0.200/0.571/0.296 (FP 16) | 0.400/0.571/0.471 (FP 6) | 0.444/0.571/0.500 (FP 5) | 0.571/0.571/0.571 (FP 3) |
+| +DINOv3 (thr 0.6) | 0.125/0.714/0.213 (FP 35) | 0.312/0.714/0.435 (FP 11) | 0.385/0.714/0.500 (FP 8) | 0.417/0.714/0.526 (FP 7) |
+Lưu ý: ngưỡng min_area chọn trên chính tập test (7 sự kiện) → có thiên lệch; chỉ dedup là quy tắc không tinh chỉnh. Mặc định mới trong pipeline: dedup_iou 0.3, min_area 200, reid_thr 0.75 (chặt hơn 0.6). ROI làn/lề theo từng video: cần ảnh khung hình AIC (chỉ có trên Kaggle) → chưa vẽ được.
