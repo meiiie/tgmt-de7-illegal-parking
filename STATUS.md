@@ -61,3 +61,8 @@ Không lưu track từng frame → chỉ lọc lại được trên alerts. Phá
 | +DINOv3 (thr 0.6) | 0.125/0.714/0.213 (FP 35) | 0.312/0.714/0.435 (FP 11) | 0.385/0.714/0.500 (FP 8) | 0.417/0.714/0.526 (FP 7) |
 Lưu ý: ngưỡng min_area chọn trên chính tập test (7 sự kiện) → có thiên lệch; chỉ dedup là quy tắc không tinh chỉnh. Mặc định mới trong pipeline: dedup_iou 0.3, min_area 200, reid_thr 0.75 (chặt hơn 0.6). ROI làn/lề theo từng video: cần ảnh khung hình AIC (chỉ có trên Kaggle) → chưa vẽ được.
 - 00:09 UTC+7: Darren duyệt → push `de7-aic21-eval` v3 (SAM-only + thumbnails). Hạn dừng 02:09.
+
+## 00:15 UTC+7 — Gradio app (`app.py`) chạy end-to-end trên CPU box
+- Video: Gaithersburg clip 20 s (giây 40–60, CC BY 4.0), YOLO26n + ByteTrack, stride 2 → 300 frame, **13.5 s**, FPS model 30.91 / e2e 26.96, 1 cảnh báo (track 5, car, dừng từ 0 s, cảnh báo 5 s, ngưỡng 5 s).
+- Trung thực: vùng vẽ ở làn chờ đèn đỏ phía xa; xe trigger là xe **dừng đèn đỏ** (không phải đỗ trái phép) — chỉ để chứng minh luồng alert/snapshot/clip. Chưa có clip license rõ có xe đỗ trái phép thật.
+- Screenshot thật (Playwright + Chrome headless): `docs/screenshots/01_zone_drawn.png`, `docs/screenshots/02_results.png`.
