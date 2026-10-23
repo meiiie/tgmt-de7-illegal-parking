@@ -12,3 +12,10 @@ __pycache__/
 venv/
 runs/
 outputs/
+checkpoints/
+weights/
+*.webm
+*.jpg
+*.zip
+*.tar
+yolo26*.pt

@@ -1,0 +1,2 @@
+{"still_window_s": 2.0, "still_tol": 0.15, "lost_grace_s": 3.0, "jam_ratio": 0.6, "jam_min_vehicles": 4, "clip_s": 6,
+ "zones": [{"name": "intersection_box", "polygon": [[150,262],[800,262],[854,360],[60,360]], "max_dwell_s": 8}]}

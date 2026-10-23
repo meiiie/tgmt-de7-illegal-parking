@@ -1,0 +1,63 @@
+import json
+cells = []
+def md(s): cells.append({"cell_type": "markdown", "metadata": {}, "source": s})
+def code(s): cells.append({"cell_type": "code", "metadata": {}, "execution_count": None, "outputs": [], "source": s})
+md("# Đề 7 — Phát hiện & cảnh báo xe dừng/đỗ trái phép: SAM 3.1 + DINOv3 vs YOLO26+ByteTrack\n"
+   "Chạy được trên Kaggle (GPU T4) hoặc Colab. Token: Kaggle Secrets / Colab userdata `HF_TOKEN` (không hardcode). "
+   "Trên Kaggle của tác giả, trọng số lấy từ dataset riêng `de7-weights` nên không cần token.")
+code("""import os, sys, subprocess, json, glob, shutil
+IN_KAGGLE = os.path.exists('/kaggle')
+WORK = '/kaggle/working' if IN_KAGGLE else '/content'
+os.chdir(WORK)
+!nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+!pip -q install "git+https://github.com/facebookresearch/sam3.git" ultralytics lap "transformers>=4.56" einops decord pycocotools 2>&1 | tail -2
+import torch; print(torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0))""")
+code("""# Code + du lieu: Kaggle -> dataset de7-code; Colab -> git/zip tu Drive (tu chinh duong dan)
+_c = glob.glob('/kaggle/input/**/src/pipeline.py', recursive=True)
+CODE = os.path.dirname(os.path.dirname(_c[0])) if _c else '/content/de7'
+print('CODE', CODE)
+for d in ['src', 'configs', 'data']:
+    if os.path.exists(f'{CODE}/{d}') and not os.path.exists(d): shutil.copytree(f'{CODE}/{d}', d)
+_w = glob.glob('/kaggle/input/**/sam31_sha256.txt', recursive=True)
+WDIR = os.path.dirname(_w[0]) if _w else '/nonexistent'
+print('WDIR', WDIR)
+if os.path.exists(WDIR):
+    import hashlib
+    os.makedirs('weights', exist_ok=True); SAM3_CKPT = 'weights/sam3.1_multiplex.pt'
+    if not os.path.exists(SAM3_CKPT):
+        subprocess.run(f'cat {WDIR}/sam31_part_* > {SAM3_CKPT}', shell=True, check=True)
+    print('sha256 ok:', open(f'{WDIR}/sam31_sha256.txt').read().strip() == subprocess.check_output(['sha256sum', SAM3_CKPT]).decode()[:64])
+    for r in ['dinov3-vits16-pretrain-lvd1689m', 'dinov3-vitb16-pretrain-lvd1689m']:
+        os.makedirs(f'weights/{r}', exist_ok=True)
+        for f in glob.glob(f'{WDIR}/{r}__*'):
+            dst = f'weights/{r}/' + os.path.basename(f).split('__', 1)[1]
+            if not os.path.exists(dst): os.symlink(f, dst)
+    DINO = 'weights/dinov3-vits16-pretrain-lvd1689m'
+else:  # Colab / Kaggle khong co dataset: tai bang HF_TOKEN tu secrets
+    try:
+        from google.colab import userdata; tok = userdata.get('HF_TOKEN')
+    except Exception:
+        from kaggle_secrets import UserSecretsClient; tok = UserSecretsClient().get_secret('HF_TOKEN')
+    from huggingface_hub import login, hf_hub_download, snapshot_download
+    login(token=tok)
+    SAM3_CKPT = hf_hub_download('facebook/sam3.1', 'sam3.1_multiplex.pt')
+    DINO = snapshot_download('facebook/dinov3-vits16-pretrain-lvd1689m')
+print(SAM3_CKPT, DINO)""")
+code("""VID = 'data/gaithersburg_480p.webm'; Z = 'configs/zones_gaithersburg.json'
+runs = {
+ 'yolo26n_bytetrack':      f'--backend yolo --model yolo26n.pt --tracker bytetrack.yaml',
+ 'yolo26s_botsort':        f'--backend yolo --model yolo26s.pt --tracker botsort.yaml',
+ 'yolo26s_bytetrack_dino': f'--backend yolo --model yolo26s.pt --reid {DINO}',
+ 'sam31_fp16':             f'--backend sam3 --sam3_ckpt {SAM3_CKPT} --amp fp16 --chunk_frames 150 --max_objects 16',
+ 'sam31_fp16_dino':        f'--backend sam3 --sam3_ckpt {SAM3_CKPT} --amp fp16 --chunk_frames 150 --max_objects 16 --reid {DINO}',
+}
+STRIDE = 3   # 30 fps -> 10 fps
+for name, args in runs.items():
+    cmd = f'python src/pipeline.py --video {VID} --zones {Z} --stride {STRIDE} --out out/{name} --save_video {args}'
+    print('>>>', name); r = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    print('\\n'.join([l for l in r.stdout.splitlines() if l.startswith(('ALERT','METRICS'))][-6:])); print(r.stderr[-1500:] if r.returncode else '')""")
+code("""import pandas as pd
+rows = [json.load(open(p)) for p in sorted(glob.glob('out/*/metrics.json'))]
+df = pd.DataFrame(rows); print(df.to_string()); df.to_csv('out/metrics_table.csv', index=False)""")
+nb = {"cells": cells, "metadata": {"kernelspec": {"name": "python3", "display_name": "Python 3"}, "language_info": {"name": "python"}}, "nbformat": 4, "nbformat_minor": 5}
+json.dump(nb, open("notebooks/de7_sam31_dinov3.ipynb", "w"), indent=1, ensure_ascii=False)
