@@ -14,6 +14,16 @@
 | YOLO26n, CPU | intel car-detection (toy) | 377 | 28.95 | 26.98 | 0 | xe mô hình, detector chỉ bắt 3/38 frame mẫu → bỏ |
 Các run CPU dài hơn (yolo26s, +DINOv3) bị timeout do box quá tải → chuyển sang Kaggle GPU.
 
+## Kaggle T4 (Tesla T4 15 GB, torch 2.11.0+cu128) — Gaithersburg 480p, stride 3 (10 fps), 658 frame
+| Config | FPS model | FPS e2e | VRAM peak MB | Alerts |
+|---|---|---|---|---|
+| YOLO26n + ByteTrack | 34.62 | 27.47 | 63.1 | 0 |
+| YOLO26s + BoT-SORT | 33.17 | 26.45 | 103.9 | 0 |
+| YOLO26s + ByteTrack + DINOv3-S re-ID | 63.19 | 46.26 | 177.4 | 0 |
+| SAM 3.1 (chunk 150, 16 obj, frames trên GPU) | — | — | **OOM** (>14.3 GB) | — |
+(0 alert = đúng: video không có xe dừng trong ROI; FPS chênh do warm-up/GPU dùng chung — chưa lặp lại)
+Fix SAM 3.1: offload frames ra CPU + chunk 60→16 frame + max_objects 16→8 (kernel v5 đang chạy). Bug upstream sam3@7f473cf `offload_state_to_cpu` đã vá bằng wrapper.
+
 ## Đang làm / tiếp theo
 1. Kaggle T4: chạy 5 cấu hình (yolo26n, yolo26s+BoT-SORT, yolo26s+DINOv3, SAM3.1 fp16, SAM3.1+DINOv3) → bảng FPS/VRAM.
 2. Dữ liệu có sự kiện dương: AI City 2021 Track 4 (14 GB, Google Drive, tải thẳng trong kernel Kaggle); i-LIDS AVSS2007: link gốc/FTP/AODsurvey **không truy cập được** từ box.

@@ -1,0 +1,2 @@
+{"still_window_s": 3.0, "still_tol": 0.1, "lost_grace_s": 4.0, "reid_keep_s": 60, "jam_ratio": 0.6, "jam_min_vehicles": 4, "clip_s": 8,
+ "zones": [{"name": "all", "polygon": [[0,0],[1,0],[1,1],[0,1]], "max_dwell_s": 20}]}

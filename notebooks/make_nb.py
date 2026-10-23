@@ -43,19 +43,24 @@ else:  # Colab / Kaggle khong co dataset: tai bang HF_TOKEN tu secrets
     SAM3_CKPT = hf_hub_download('facebook/sam3.1', 'sam3.1_multiplex.pt')
     DINO = snapshot_download('facebook/dinov3-vits16-pretrain-lvd1689m')
 print(SAM3_CKPT, DINO)""")
-code("""VID = 'data/gaithersburg_480p.webm'; Z = 'configs/zones_gaithersburg.json'
-runs = {
- 'yolo26n_bytetrack':      f'--backend yolo --model yolo26n.pt --tracker bytetrack.yaml',
- 'yolo26s_botsort':        f'--backend yolo --model yolo26s.pt --tracker botsort.yaml',
- 'yolo26s_bytetrack_dino': f'--backend yolo --model yolo26s.pt --reid {DINO}',
- 'sam31_fp16':             f'--backend sam3 --sam3_ckpt {SAM3_CKPT} --amp fp16 --chunk_frames 150 --max_objects 16',
- 'sam31_fp16_dino':        f'--backend sam3 --sam3_ckpt {SAM3_CKPT} --amp fp16 --chunk_frames 150 --max_objects 16 --reid {DINO}',
-}
+code("""os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
+VID = 'data/gaithersburg_480p.webm'; Z = 'configs/zones_gaithersburg.json'
 STRIDE = 3   # 30 fps -> 10 fps
-for name, args in runs.items():
+def run(name, args):
     cmd = f'python src/pipeline.py --video {VID} --zones {Z} --stride {STRIDE} --out out/{name} --save_video {args}'
-    print('>>>', name); r = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-    print('\\n'.join([l for l in r.stdout.splitlines() if l.startswith(('ALERT','METRICS'))][-6:])); print(r.stderr[-1500:] if r.returncode else '')""")
+    print('>>>', name, flush=True); r = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    print('\\n'.join([l for l in r.stdout.splitlines() if l.startswith(('ALERT','METRICS'))][-6:]))
+    if r.returncode:
+        err = r.stderr.splitlines(); print('\\n'.join([l for l in err if 'sam3/' in l or 'pipeline.py' in l][-12:] + err[-3:]))
+    return r.returncode == 0
+run('yolo26n_bytetrack', '--backend yolo --model yolo26n.pt --tracker bytetrack.yaml')
+run('yolo26s_botsort', '--backend yolo --model yolo26s.pt --tracker botsort.yaml')
+run('yolo26s_bytetrack_dino', f'--backend yolo --model yolo26s.pt --reid {DINO}')
+# SAM 3.1 tren T4 16GB: thu cau hinh giam dan VRAM (offload frames ra CPU, chunk ngan, it object)
+SAM = f'--backend sam3 --sam3_ckpt {SAM3_CKPT} --amp none --offload_video'
+for ch, mo in [(60, 16), (30, 16), (30, 8), (16, 8)]:
+    if run(f'sam31_c{ch}_o{mo}', f'{SAM} --chunk_frames {ch} --max_objects {mo}'):
+        run(f'sam31_c{ch}_o{mo}_dino', f'{SAM} --chunk_frames {ch} --max_objects {mo} --reid {DINO}'); break""")
 code("""import csv
 rows = [json.load(open(p)) for p in sorted(glob.glob('out/*/metrics.json'))]
 keys = ['backend','model','tracker','reid','device','amp','stride','frames_processed','fps_model','fps_end2end','vram_peak_mb','n_alerts','jam_frames','reid_merges']
