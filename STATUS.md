@@ -66,3 +66,4 @@ Lưu ý: ngưỡng min_area chọn trên chính tập test (7 sự kiện) → c
 - Video: Gaithersburg clip 20 s (giây 40–60, CC BY 4.0), YOLO26n + ByteTrack, stride 2 → 300 frame, **13.5 s**, FPS model 30.91 / e2e 26.96, 1 cảnh báo (track 5, car, dừng từ 0 s, cảnh báo 5 s, ngưỡng 5 s).
 - Trung thực: vùng vẽ ở làn chờ đèn đỏ phía xa; xe trigger là xe **dừng đèn đỏ** (không phải đỗ trái phép) — chỉ để chứng minh luồng alert/snapshot/clip. Chưa có clip license rõ có xe đỗ trái phép thật.
 - Screenshot thật (Playwright + Chrome headless): `docs/screenshots/01_zone_drawn.png`, `docs/screenshots/02_results.png`.
+- 02:10 UTC+7 (24/10): `de7-aic21-eval` v3 vẫn RUNNING quá hạn 02:09 (~2h kể từ 00:09) → cần dừng thủ công trên Kaggle web UI (CLI không có lệnh cancel). Chưa có kết quả SAM 3.1.
