@@ -34,11 +34,24 @@ Thêm dataset `holilihu/de7-weights` (SAM 3.1 + DINOv3), ghép checkpoint: `cat 
 |---|---|---|---|---|---|
 | YOLO26s + ByteTrack (baseline) | 0.40 | 0.57 | 0.471 | 34.2 | 100 MB |
 | YOLO26s + ByteTrack + DINOv3 re-ID | – | – | 0.435 | 33.6 | 175 MB |
-| SAM 3.1 (+ DINOv3) | đang chờ (kernel v4) | | | | |
+| SAM 3.1 (+ DINOv3) | xem bảng v4 | | | | |
 
 Số đo SAM 3.1 đã có (v3, clip Gaithersburg 480p, stride 3, 658 frame, bf16 autocast + attention fp16): **0.18 FPS**, VRAM đỉnh **10.5 GB** (10.6 GB có DINOv3), 0 cảnh báo (đúng, clip không có xe đỗ). v3 hết ngân sách thời gian trước khi chạy AIC21 nên chưa có P/R/F1.
 
 Kernel v4 (`kaggle/kernel_v4/`, tạo bằng `notebooks/make_nb_v4.py`): fp16, prompt `car`, 1 fps, 240 s đầu của video 9/33/35/7, cạnh dài 640 px, chunk 60, sanity 5 frame (0 box → dừng), ngân sách 100 phút, baseline chạy lại trên cùng cửa sổ, tất cả gộp vào `out/de7_v4_results.json`.
+
+### Kernel v4 (T4, fp16, 240 s đầu video 9/33/35/7, 1 fps, 640 px, 4 sự kiện; cùng eval)
+
+Sanity 5 frame prompt `car`: 33 box, VRAM 7.9 GB → đạt. Tổng 4934 s.
+
+| Cấu hình | P | R | F1 | FPS e2e | VRAM đỉnh |
+|---|---|---|---|---|---|
+| YOLO26s + ByteTrack | 1.0 | 0.75 | 0.857 | 13.315 | 66.1 MB |
+| YOLO26s + ByteTrack + DINOv3 | 0.8 | 1.0 | 0.889 | 14.076 | 145.2 MB |
+| SAM 3.1 fp16 | 0.0 | 0.0 | 0.0 | 0.482 | 7862.3 MB |
+| SAM 3.1 fp16 + DINOv3 | 0.0 | 0.0 | 0.0 | 0.481 | 7985.8 MB |
+
+SAM 3.1: 0 cảnh báo trên cả 4 video (0 jam frame, 0 re-ID merge) dù detector ra box → lỗi nằm ở khâu track/dwell với output SAM (nghi: ID đổi giữa các chunk 60 frame hoặc box dao động vượt `still_tol`), chưa kiểm chứng. Cửa sổ ngắn, 4 sự kiện → số baseline v4 không so trực tiếp với bảng 9 video.
 
 ## Công nghệ và license
 

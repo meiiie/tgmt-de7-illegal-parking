@@ -67,3 +67,8 @@ Lưu ý: ngưỡng min_area chọn trên chính tập test (7 sự kiện) → c
 - Trung thực: vùng vẽ ở làn chờ đèn đỏ phía xa; xe trigger là xe **dừng đèn đỏ** (không phải đỗ trái phép) — chỉ để chứng minh luồng alert/snapshot/clip. Chưa có clip license rõ có xe đỗ trái phép thật.
 - Screenshot thật (Playwright + Chrome headless): `docs/screenshots/01_zone_drawn.png`, `docs/screenshots/02_results.png`.
 - 02:10 UTC+7 (24/10): `de7-aic21-eval` v3 vẫn RUNNING quá hạn 02:09 (~2h kể từ 00:09) → cần dừng thủ công trên Kaggle web UI (CLI không có lệnh cancel). Chưa có kết quả SAM 3.1.
+
+## 27/10 ~02:35 (UTC+7) — v4 COMPLETE (holilihu/de7-sam31-v4)
+- Sanity 5 frame 'car': 33 box. Tổng 4934 s. Kết quả: results/de7_v4_results.json, thêm hàng v4 vào results/aic21_table.csv.
+- SAM 3.1 fp16: 0.48 FPS e2e (0.52 model), VRAM 7.86 GB, 0 alert → F1 0 (DINOv3: 7.99 GB, F1 0). YOLO26s+ByteTrack cùng cửa sổ: P1.0 R0.75 F1 0.857, 13.3 FPS; +DINOv3: P0.8 R1.0 F1 0.889.
+- Việc tiếp: lưu track từng frame của SAM để tìm vì sao không có xe đứng yên đủ 20 s.
