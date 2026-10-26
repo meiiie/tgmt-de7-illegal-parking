@@ -1,0 +1,15 @@
+{
+ "id": "holilihu/de7-sam31-v4",
+ "title": "de7-sam31-v4",
+ "code_file": "de7_sam31_v4.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_internet": true,
+ "dataset_sources": [
+  "holilihu/de7-weights"
+ ],
+ "competition_sources": [],
+ "kernel_sources": []
+}

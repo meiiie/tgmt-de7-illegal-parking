@@ -3,18 +3,23 @@ Backend: 'yolo' (baseline: YOLO26 + ByteTrack/BoT-SORT) | 'sam3' (loi: SAM 3.1 m
 Re-ID: DINOv3 (tuy chon) noi lai timer dwell khi track mat/doi ID (che khuat, ranh gioi chunk).
 Logic: ROI polygon -> dung yen -> dwell timer -> phan biet ket xe -> alert CSV/JSON + snapshot + clip.
 """
-import argparse, collections, csv, json, os, shutil, tempfile, time
+import argparse, collections, csv, json, os, shutil, sys, tempfile, time
 import cv2, numpy as np
 
 VEH = {2: "car", 3: "motorcycle", 5: "bus", 7: "truck"}  # COCO ids
 
 # ---------------- backends: yield (frame_idx, frame_bgr, dets[{id,box,cls,mask}]) ----------------
+MAX_SIDE = 0  # >0: thu nho frame (canh dai) truoc moi xu ly -> giam VRAM/IO cho SAM 3.1
+
 def frames(video, stride, max_frames):
     cap = cv2.VideoCapture(video); fi = -1
     while True:
         ok, f = cap.read(); fi += 1
         if not ok or (max_frames and fi >= max_frames): break
-        if fi % stride == 0: yield fi, f
+        if fi % stride == 0:
+            if MAX_SIDE and max(f.shape[:2]) > MAX_SIDE:
+                r = MAX_SIDE / max(f.shape[:2]); f = cv2.resize(f, (round(f.shape[1] * r), round(f.shape[0] * r)), interpolation=cv2.INTER_AREA)
+            yield fi, f
 
 def yolo_backend(a, timers):
     from ultralytics import YOLO
@@ -158,14 +163,27 @@ def main():
     ap.add_argument("--reid", default="none", help="none | HF id, vd facebook/dinov3-vits16-pretrain-lvd1689m")
     ap.add_argument("--reid_thr", type=float, default=0.75); ap.add_argument("--dedup_iou", type=float, default=0.3); ap.add_argument("--min_area", type=float, default=200)
     ap.add_argument("--stride", type=int, default=1); ap.add_argument("--max_frames", type=int, default=0)
+    ap.add_argument("--max_side", type=int, default=0, help="thu nho canh dai frame (px), 0 = giu nguyen")
+    ap.add_argument("--sanity", type=int, default=0, help="chi chay N frame dau, in SANITY so box; exit 3 neu 0 box")
     ap.add_argument("--out", default="outputs/run"); ap.add_argument("--save_video", action="store_true")
     a = ap.parse_args()
+    global MAX_SIDE; MAX_SIDE = a.max_side
     import torch; torch.set_num_threads(int(os.environ.get("TORCH_THREADS", "4")))
     cuda = torch.cuda.is_available() and a.device != "cpu"
     a.amp_dtype = None if (a.amp == "none" or not cuda) else (torch.float16 if a.amp == "fp16" else torch.bfloat16)
     if cuda: torch.cuda.reset_peak_memory_stats()
     os.makedirs(a.out + "/evidence", exist_ok=True)
     cap = cv2.VideoCapture(a.video); fps = cap.get(cv2.CAP_PROP_FPS) or 25; W, H = int(cap.get(3)), int(cap.get(4)); cap.release()
+    if a.max_side and max(W, H) > a.max_side: r = a.max_side / max(W, H); W, H = round(W * r), round(H * r)
+    backend = yolo_backend if a.backend == "yolo" else sam3_backend
+    if a.sanity:  # kiem tra nhanh truoc khi chay full (vd prompt sai -> 0 box)
+        a.chunk_frames = a.sanity; nb, nf = 0, 0
+        for fi, _, dets in backend(a, {"model": 0.0, "reid": 0.0}):
+            nb += len(dets); nf += 1
+            if nf >= a.sanity: break
+        vram = round(torch.cuda.max_memory_allocated() / 2**20, 1) if cuda else None
+        print("SANITY", json.dumps({"video": a.video, "prompt": a.prompt, "frames": nf, "boxes": nb, "vram_peak_mb": vram}), flush=True)
+        sys.exit(0 if nb > 0 else 3)
     cfg, zones = load_zones(a.zones, W, H)
     win_s, tol, grace_s = cfg.get("still_window_s", 2.0), cfg.get("still_tol", 0.15), cfg.get("lost_grace_s", 3.0)
     reid_keep_s = cfg.get("reid_keep_s", 30.0)
