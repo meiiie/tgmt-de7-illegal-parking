@@ -1,0 +1,15 @@
+{
+ "id": "holilihu/de7-v5-diag-aic9",
+ "title": "de7-v5-diag-aic9",
+ "code_file": "de7_v5_diag_aic9.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_internet": true,
+ "dataset_sources": [
+  "holilihu/de7-weights"
+ ],
+ "competition_sources": [],
+ "kernel_sources": []
+}

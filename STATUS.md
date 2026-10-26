@@ -72,3 +72,8 @@ Lưu ý: ngưỡng min_area chọn trên chính tập test (7 sự kiện) → c
 - Sanity 5 frame 'car': 33 box. Tổng 4934 s. Kết quả: results/de7_v4_results.json, thêm hàng v4 vào results/aic21_table.csv.
 - SAM 3.1 fp16: 0.48 FPS e2e (0.52 model), VRAM 7.86 GB, 0 alert → F1 0 (DINOv3: 7.99 GB, F1 0). YOLO26s+ByteTrack cùng cửa sổ: P1.0 R0.75 F1 0.857, 13.3 FPS; +DINOv3: P0.8 R1.0 F1 0.889.
 - Việc tiếp: lưu track từng frame của SAM để tìm vì sao không có xe đứng yên đủ 20 s.
+
+## 27/10 ~04:00 (UTC+7) — chuẩn bị v5 (chưa push)
+- pipeline: `--dump_tracks` (tracks.csv: frame,t,raw_id,id,box,score,still,dwell), `--stitch` (nối ID qua chunk bằng IoU≥0.3 + DINOv3 cos≥0.5, gap ≤20 s), `--yolo_reset N` (giả lập chunk).
+- Test CPU (Gaithersburg, YOLO26n, stride 3, reset mỗi 10 frame): ref 172 ID/902 dòng đứng yên; reset 806 ID/0 dòng đứng yên (tái hiện triệu chứng SAM v4); stitch IoU 128 ID/843; stitch IoU+DINOv3 174 ID/821.
+- kernel v5: kaggle/kernel_v5 (holilihu/de7-v5-diag-aic9). aic21_table.csv: bổ sung 2 cột thiếu cho hàng v4.

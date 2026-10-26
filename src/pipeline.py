@@ -24,15 +24,18 @@ def frames(video, stride, max_frames):
 def yolo_backend(a, timers):
     from ultralytics import YOLO
     model = YOLO(a.model)
+    n = 0
     for fi, f in frames(a.video, a.stride, a.max_frames):
         t0 = time.perf_counter()
-        r = model.track(f, persist=True, tracker=a.tracker, imgsz=a.imgsz, conf=a.conf,
+        ck = n // a.yolo_reset if a.yolo_reset else 0  # gia lap ranh gioi chunk: reset tracker -> ID moi
+        r = model.track(f, persist=not (a.yolo_reset and n % a.yolo_reset == 0 and n > 0),  tracker=a.tracker, imgsz=a.imgsz, conf=a.conf,
                         classes=list(VEH), device=a.device, verbose=False, half=a.half)[0]
         timers["model"] += time.perf_counter() - t0
         dets = []
         if r.boxes.id is not None:
-            for b, tid, c in zip(r.boxes.xyxy.cpu().numpy(), r.boxes.id.int().cpu().tolist(), r.boxes.cls.int().cpu().tolist()):
-                dets.append({"id": tid, "box": b, "cls": VEH.get(c, str(c)), "mask": None})
+            for b, tid, c, sc in zip(r.boxes.xyxy.cpu().numpy(), r.boxes.id.int().cpu().tolist(), r.boxes.cls.int().cpu().tolist(), r.boxes.conf.cpu().tolist()):
+                dets.append({"id": ck * 100000 + tid, "box": b, "cls": VEH.get(c, str(c)), "mask": None, "score": float(sc)})
+        n += 1
         yield fi, f, dets
 
 def sam3_backend(a, timers):
@@ -88,12 +91,13 @@ def sam3_backend(a, timers):
         for i, (fi, f) in enumerate(buf):
             o = outs.get(i, {}); dets = []
             ids = o.get("out_obj_ids", np.zeros(0)); bx = o.get("out_boxes_xywh", np.zeros((0, 4))); ms = o.get("out_binary_masks")
+            pr = o.get("out_probs", None)
             for k, oid in enumerate(np.asarray(ids).tolist()):
                 x, y, w, h = [float(v) for v in bx[k]]
                 if max(x, y, w, h) <= 1.5: x, y, w, h = x * W, y * H, w * W, h * H
                 if w < 2 or h < 2: continue
                 dets.append({"id": chunk_id * 100000 + int(oid), "box": np.array([x, y, x + w, y + h]), "cls": a.prompt,
-                             "mask": ms[k] if ms is not None else None})
+                             "mask": ms[k] if ms is not None else None, "score": float(np.asarray(pr)[k]) if pr is not None and len(pr) > k else None})
             yield fi, f, dets
     for fi, f in frames(a.video, a.stride, a.max_frames):
         buf.append((fi, f))
@@ -120,6 +124,39 @@ class Reid:
         with s.torch.no_grad():
             e = s.m(**inp).pooler_output[0]
         e = e / e.norm(); return e.float().cpu().numpy()
+
+class Stitcher:
+    """Noi ID qua ranh gioi chunk (SAM 3.1 moi chunk 1 session; YOLO reset tracker): ID cuc bo moi xuat hien
+    -> ghep voi track toan cuc vua mat (khong co mat o frame nay, mat <= gap_s) neu IoU >= iou_thr
+    va (neu co DINOv3) cosine >= sim_thr. Khong khop -> ID toan cuc moi."""
+    def __init__(s, reid, iou_thr=0.3, sim_thr=0.5, gap_s=20.0, emb_every=10):
+        s.reid, s.iou_thr, s.sim_thr, s.gap_s, s.emb_every = reid, iou_thr, sim_thr, gap_s, emb_every
+        s.map, s.g, s.next, s.n_stitch, s.time = {}, {}, 1, 0, 0.0
+    def _emb(s, frame, d):
+        if s.reid is None: return None
+        t0 = time.perf_counter(); e = s.reid.embed(frame, d["box"], d.get("mask")); s.time += time.perf_counter() - t0; return e
+    def __call__(s, frame, t, dets):
+        used = {s.map[d["id"]] for d in dets if d["id"] in s.map}
+        for d in dets:
+            lid = d["id"]; d["raw_id"] = lid
+            if lid not in s.map:
+                cand = [(iou(g["box"], d["box"]), gid) for gid, g in s.g.items() if gid not in used and 0 < t - g["t"] <= s.gap_s]
+                cand = sorted([c for c in cand if c[0] >= s.iou_thr], reverse=True)
+                e = self_e = s._emb(frame, d) if cand else None
+                gid = None
+                for _, cg in cand:
+                    ge = s.g[cg]["emb"]
+                    if e is None or ge is None or float(np.dot(e, ge)) >= s.sim_thr: gid = cg; break
+                if gid is None: gid = s.next; s.next += 1
+                else: s.n_stitch += 1
+                s.map[lid] = gid; used.add(gid)
+                s.g.setdefault(gid, {"emb": None, "n": 0})
+                if self_e is not None: s.g[gid]["emb"] = self_e
+            gid = s.map[lid]; g = s.g[gid]; g["box"], g["t"] = d["box"], t; g["n"] += 1
+            if s.reid is not None and (g["emb"] is None or g["n"] % s.emb_every == 0): g["emb"] = s._emb(frame, d)
+            d["id"] = gid
+        for gid in [k for k, v in s.g.items() if t - v.get("t", t) > s.gap_s * 3]: del s.g[gid]
+        return dets
 
 def iou(a, b):
     ix = max(0, min(a[2], b[2]) - max(a[0], b[0])); iy = max(0, min(a[3], b[3]) - max(a[1], b[1]))
@@ -164,6 +201,10 @@ def main():
     ap.add_argument("--reid_thr", type=float, default=0.75); ap.add_argument("--dedup_iou", type=float, default=0.3); ap.add_argument("--min_area", type=float, default=200)
     ap.add_argument("--stride", type=int, default=1); ap.add_argument("--max_frames", type=int, default=0)
     ap.add_argument("--max_side", type=int, default=0, help="thu nho canh dai frame (px), 0 = giu nguyen")
+    ap.add_argument("--dump_tracks", action="store_true", help="ghi out/tracks.csv: frame,t,raw_id,id,x1,y1,x2,y2,score,still,dwell")
+    ap.add_argument("--stitch", action="store_true", help="noi ID qua ranh gioi chunk (IoU + DINOv3 neu co --reid)")
+    ap.add_argument("--stitch_iou", type=float, default=0.3); ap.add_argument("--stitch_sim", type=float, default=0.5); ap.add_argument("--stitch_gap_s", type=float, default=20.0)
+    ap.add_argument("--yolo_reset", type=int, default=0, help="YOLO: reset tracker moi N frame mau (gia lap chunk de test stitch)")
     ap.add_argument("--sanity", type=int, default=0, help="chi chay N frame dau, in SANITY so box; exit 3 neu 0 box")
     ap.add_argument("--out", default="outputs/run"); ap.add_argument("--save_video", action="store_true")
     a = ap.parse_args()
@@ -194,9 +235,15 @@ def main():
     timers = {"model": 0.0, "reid": 0.0}
     tracks, lost, alerts, n_proc, jam_frames, n_reid = {}, {}, [], 0, 0, 0
     backend = yolo_backend if a.backend == "yolo" else sam3_backend
+    stitcher = Stitcher(reid, a.stitch_iou, a.stitch_sim, a.stitch_gap_s) if a.stitch else None
+    dump = None
+    if a.dump_tracks:
+        dump_f = open(a.out + "/tracks.csv", "w", newline=""); dump = csv.writer(dump_f)
+        dump.writerow(["frame", "t", "raw_id", "id", "x1", "y1", "x2", "y2", "score", "still", "dwell"])
     t_start = time.perf_counter()
     for fi, frame, dets in backend(a, timers):
         t = fi / fps; n_proc += 1; seen = []
+        if stitcher: dets = stitcher(frame, t, dets)
         for d in dets:
             tr = tracks.get(d["id"])
             if tr is None:
@@ -227,6 +274,11 @@ def main():
                     t0 = time.perf_counter(); tr.emb = reid.embed(frame, tr.box, tr.mask); timers["reid"] += time.perf_counter() - t0
             elif not st:
                 tr.still_since, tr.zone, tr.alerted = None, None, False
+        if dump:
+            for tr in seen:
+                d0 = next((d for d in dets if d["id"] == tr.id), {})
+                dump.writerow([fi, round(t, 2), d0.get("raw_id", tr.id), tr.id, *tr.box, None if d0.get("score") is None else round(d0["score"], 3),
+                               int(tr.is_still), round(t - tr.still_since, 1) if tr.still_since is not None else 0])
         n_still = sum(tr.is_still for tr in seen)
         jam = bool(len(seen) >= jam_min and n_still / max(len(seen), 1) >= jam_ratio); jam_frames += jam
         for tid in [k for k, v in tracks.items() if t - v.last_seen > 0 and v not in seen]:
@@ -262,11 +314,13 @@ def main():
         ring.append(vis)
         if vw: vw.write(vis)
     wall = time.perf_counter() - t_start
+    if dump: dump_f.close()
+    if stitcher: timers["reid"] += stitcher.time
     if vw: vw.release()
     metrics = {"video": a.video, "backend": a.backend, "model": a.model if a.backend == "yolo" else "sam3.1_multiplex", "tracker": a.tracker if a.backend == "yolo" else "sam3.1",
                "reid": a.reid, "device": torch.cuda.get_device_name(0) if cuda else "cpu", "amp": a.amp if cuda else "none", "stride": a.stride,
                "frames_processed": n_proc, "fps_model": round(n_proc / max(timers["model"], 1e-9), 2), "reid_time_s": round(timers["reid"], 2),
-               "fps_end2end": round(n_proc / max(wall, 1e-9), 2), "wall_s": round(wall, 1), "n_alerts": len(alerts), "jam_frames": int(jam_frames), "reid_merges": n_reid,
+               "fps_end2end": round(n_proc / max(wall, 1e-9), 2), "wall_s": round(wall, 1), "n_alerts": len(alerts), "jam_frames": int(jam_frames), "reid_merges": n_reid, "stitches": stitcher.n_stitch if stitcher else 0, "n_ids_stitched": (stitcher.next - 1) if stitcher else None,
                "vram_peak_mb": round(torch.cuda.max_memory_allocated() / 2**20, 1) if cuda else None}
     json.dump(alerts, open(a.out + "/alerts.json", "w"), indent=2, ensure_ascii=False)
     with open(a.out + "/alerts.csv", "w", newline="") as f:
