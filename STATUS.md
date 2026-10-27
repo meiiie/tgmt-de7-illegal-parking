@@ -81,3 +81,7 @@ Lưu ý: ngưỡng min_area chọn trên chính tập test (7 sự kiện) → c
 ## 27/10 ~08:30 (UTC+7) — v5 COMPLETE (holilihu/de7-v5-diag-aic9, 2530 s)
 - Baseline 9 video: YOLO26s+ByteTrack P0.444 R0.571 F1 0.500, 34.3 FPS, 100 MB; +DINOv3 P0.333 R0.571 F1 0.421, 33.1 FPS, 175 MB.
 - SAM 3.1 v35: 0.55 FPS, 7.86 GB, 32 ID, chỉ 3 dòng đứng yên, 0 alert; stitch chỉ nối 1 ID → không phải lỗi ranh giới chunk; nghi do xe nhỏ/640 px/max_objects 8.
+
+## 27/10 ~10:15 (UTC+7) — v6 COMPLETE (holilihu/de7-v6-sam-boxprompt, 5665 s)
+- SAM 3.1 800 px/32 obj: text 0.49 FPS 7.86 GB, text+box 0.45 FPS 7.92 GB; 0 alert; không bám xe dừng ở mép trái video 35 (0 / 3 dòng trùng, không đứng yên).
+- 9 video × 240 s: YOLO26s+ByteTrack P1.0 R0.6 F1 0.75 (23.1 FPS); SAM text+box 8 video F1 0.

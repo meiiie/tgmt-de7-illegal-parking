@@ -1,0 +1,250 @@
+{
+ "settings": {
+  "gpu": "Tesla T4",
+  "videos": [
+   2,
+   9,
+   11,
+   14,
+   33,
+   35,
+   58,
+   62,
+   7
+  ],
+  "gt": [
+   {
+    "video": "2.mp4",
+    "zone": "all",
+    "stop_start_s": 587.0,
+    "stop_end_s": 894.0
+   },
+   {
+    "video": "9.mp4",
+    "zone": "all",
+    "stop_start_s": 0.0,
+    "stop_end_s": 287.0
+   },
+   {
+    "video": "11.mp4",
+    "zone": "all",
+    "stop_start_s": 0.0,
+    "stop_end_s": 888.0
+   },
+   {
+    "video": "14.mp4",
+    "zone": "all",
+    "stop_start_s": 475.0,
+    "stop_end_s": 600.0
+   },
+   {
+    "video": "33.mp4",
+    "zone": "all",
+    "stop_start_s": 0.0,
+    "stop_end_s": 90.0
+   },
+   {
+    "video": "33.mp4",
+    "zone": "all",
+    "stop_start_s": 165.0,
+    "stop_end_s": 894.0
+   },
+   {
+    "video": "35.mp4",
+    "zone": "all",
+    "stop_start_s": 106.0,
+    "stop_end_s": 185.0
+   }
+  ],
+  "sam": "--backend sam3 --sam3_ckpt weights/sam3.1_multiplex.pt --amp fp16 --prompt car --offload_video --chunk_frames 60 --max_objects 32 --det_batch 1 --dump_tracks",
+  "sambox": "--backend sam3 --sam3_ckpt weights/sam3.1_multiplex.pt --amp fp16 --prompt car --offload_video --chunk_frames 60 --max_objects 32 --det_batch 1 --dump_tracks --box_prompt yolo26s.pt",
+  "window_s": 240,
+  "sample_fps": 1
+ },
+ "sam_diag": {
+  "sam31_text_800_32": {
+   "metrics": {
+    "video": "aic/35.mp4",
+    "backend": "sam3",
+    "model": "sam3.1_multiplex",
+    "tracker": "sam3.1",
+    "reid": "none",
+    "device": "Tesla T4",
+    "amp": "fp16",
+    "stride": 30,
+    "frames_processed": 240,
+    "fps_model": 0.53,
+    "reid_time_s": 0.0,
+    "fps_end2end": 0.49,
+    "wall_s": 492.8,
+    "n_alerts": 0,
+    "jam_frames": 0,
+    "reid_merges": 1,
+    "box_prompts_per_chunk": null,
+    "stitches": 0,
+    "n_ids_stitched": null,
+    "vram_peak_mb": 7862.3
+   },
+   "eval_dedup0.3": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "start_mae_s": null,
+    "mean_alert_latency_s": null
+   },
+   "tracks": {
+    "rows": 5340,
+    "frames_with_dets": 236,
+    "raw_ids": 128,
+    "ids": 128,
+    "still_rows": 54,
+    "max_dwell_s": 4.0,
+    "mean_dets_per_frame": 22.63
+   },
+   "stopped_car": [
+    {
+     "still_rows_in_event": 20,
+     "max_dwell_in_event_s": 4.0,
+     "ids": [
+      "100017",
+      "100019",
+      "100020",
+      "100024",
+      "100028",
+      "100031",
+      "200000",
+      "200005",
+      "200017",
+      "200024"
+     ]
+    }
+   ]
+  },
+  "sam31_textbox_800_32": {
+   "metrics": {
+    "video": "aic/35.mp4",
+    "backend": "sam3",
+    "model": "sam3.1_multiplex",
+    "tracker": "sam3.1",
+    "reid": "none",
+    "device": "Tesla T4",
+    "amp": "fp16",
+    "stride": 30,
+    "frames_processed": 240,
+    "fps_model": 0.49,
+    "reid_time_s": 0.0,
+    "fps_end2end": 0.45,
+    "wall_s": 531.0,
+    "n_alerts": 0,
+    "jam_frames": 0,
+    "reid_merges": 1,
+    "box_prompts_per_chunk": [
+     13,
+     26,
+     14,
+     18
+    ],
+    "stitches": 0,
+    "n_ids_stitched": null,
+    "vram_peak_mb": 7922.4
+   },
+   "eval_dedup0.3": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "start_mae_s": null,
+    "mean_alert_latency_s": null
+   },
+   "tracks": {
+    "rows": 4529,
+    "frames_with_dets": 220,
+    "raw_ids": 131,
+    "ids": 131,
+    "still_rows": 43,
+    "max_dwell_s": 4.0,
+    "mean_dets_per_frame": 20.59
+   },
+   "stopped_car": [
+    {
+     "still_rows_in_event": 9,
+     "max_dwell_in_event_s": 3.0,
+     "ids": [
+      "100021",
+      "200011",
+      "200012",
+      "200013",
+      "200014",
+      "200019"
+     ]
+    }
+   ]
+  }
+ },
+ "win9": {
+  "yolo26s_bytetrack": {
+   "videos_done": [
+    "9.mp4",
+    "11.mp4",
+    "33.mp4",
+    "35.mp4",
+    "2.mp4",
+    "14.mp4",
+    "58.mp4",
+    "62.mp4",
+    "7.mp4"
+   ],
+   "n_events": 5,
+   "frames": 2165,
+   "fps_model": 41.803,
+   "fps_e2e": 23.13,
+   "vram_peak_mb": 100.0,
+   "eval_dedup0.3": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 2,
+    "precision": 1.0,
+    "recall": 0.6,
+    "f1": 0.75,
+    "start_mae_s": 15.0,
+    "mean_alert_latency_s": 35.0
+   }
+  },
+  "sam31_textbox_800_32": {
+   "videos_done": [
+    "9.mp4",
+    "11.mp4",
+    "33.mp4",
+    "35.mp4",
+    "2.mp4",
+    "14.mp4",
+    "58.mp4",
+    "7.mp4"
+   ],
+   "n_events": 5,
+   "frames": 1925,
+   "fps_model": 0.498,
+   "fps_e2e": 0.463,
+   "vram_peak_mb": 7922.4,
+   "eval_dedup0.3": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 5,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "start_mae_s": null,
+    "mean_alert_latency_s": null
+   }
+  }
+ },
+ "sanity": [
+  "SANITY {\"video\": \"aic/35.mp4\", \"prompt\": \"car\", \"frames\": 5, \"boxes\": 137, \"vram_peak_mb\": 7922.3}"
+ ],
+ "total_wall_s": 5665
+}

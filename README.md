@@ -73,6 +73,26 @@ SAM 3.1 fp16, video 35, 240 s đầu, 1 fps, 640 px, chunk 60, max_objects 8 (sa
 
 Kết luận: giả thuyết "ID đổi ở ranh giới chunk" **bị bác bỏ**. Các track dài nhất là xe đang chạy (tâm box dịch 100–230 px) và rất nhỏ (cao 8–22 px); chỉ 165/240 frame có box, trung bình 4.5 box/frame. Xe dừng của sự kiện có vẻ không được SAM 3.1 bám ở 640 px với giới hạn 8 đối tượng (suy luận từ dump, chưa kiểm chứng trực quan). Hướng tiếp: giữ độ phân giải gốc, tăng `max_objects`, hoặc dùng YOLO đề xuất box làm prompt cho SAM 3.1. Dump: `results/v5_tracks/`.
 
+### Kernel v6 (T4): SAM 3.1 với prompt box YOLO26s + text, 800 px, 32 đối tượng
+
+Sanity 5 frame (text + box): 137 box, 7.92 GB. Tổng 5665 s.
+
+Video 35, 240 s đầu, 1 fps (sự kiện 106–185 s; YOLO báo xe dừng ở mép trái, bbox [0,223,46,285]):
+
+| Biến thể | FPS e2e | VRAM | Box/frame | ID | Dòng đứng yên | Dwell max | Dòng SAM trùng xe dừng (IoU>0.3) | Cảnh báo |
+|---|---|---|---|---|---|---|---|---|
+| Text `car` | 0.49 | 7.86 GB | 22.6 | 128 | 54 / 5340 | 4 s | 0 | 0 |
+| Text + box YOLO (13–26 box/chunk) | 0.45 | 7.92 GB | 20.6 | 131 | 43 / 4529 | 4 s | 3 (không đứng yên) | 0 |
+
+9 video, 240 s đầu, 1 fps (5 sự kiện trong cửa sổ):
+
+| Cấu hình | Video | P | R | F1 | FPS e2e | VRAM |
+|---|---|---|---|---|---|---|
+| YOLO26s + ByteTrack | 9 | 1.00 | 0.60 | 0.750 | 23.1 | 100 MB |
+| SAM 3.1 text + box | 8 (hết ngân sách, bỏ 62) | 0 | 0 | 0 | 0.46 | 7.92 GB |
+
+Kết luận: 800 px + 32 đối tượng giúp SAM 3.1 thấy nhiều xe hơn (4.5 → 22 box/frame) nhưng **vẫn không bám được xe dừng** (xe bị cắt ở mép trái khung hình); prompt box YOLO không khắc phục được. ID ổn định trong chunk (nhiều track dài đủ 60 frame). Giữ YOLO26s + ByteTrack làm pipeline chính.
+
 ## Công nghệ và license
 
 | Thành phần | Phiên bản | License | Nguồn |
