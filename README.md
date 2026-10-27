@@ -1,5 +1,7 @@
 # Đề 7 - Phát hiện và cảnh báo ô tô dừng đỗ trái phép (SAM 3.1 + DINOv3)
 
+**Pipeline chính (chốt 27/10/2026): YOLO26s + ByteTrack** — AIC21 Track 4, 9 video / 7 sự kiện, 2 fps, dwell 20 s: **P 0.444, R 0.571, F1 0.500, 34.3 FPS e2e, 100 MB VRAM** (Kaggle T4, kernel v5). SAM 3.1 (+ DINOv3) là nhánh nghiên cứu: trên T4 chạy 0.5 FPS, ~7.9 GB, và hiện chưa bám được xe dừng (xem chẩn đoán v5, thử nghiệm v6 với prompt box).
+
 Học phần Thị giác máy tính nâng cao.
 
 ## Demo Gradio (`app.py`)

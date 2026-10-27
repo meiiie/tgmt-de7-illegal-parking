@@ -1,0 +1,15 @@
+{
+ "id": "holilihu/de7-v6-sam-boxprompt",
+ "title": "de7-v6-sam-boxprompt",
+ "code_file": "de7_v6_sam_boxprompt.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_internet": true,
+ "dataset_sources": [
+  "holilihu/de7-weights"
+ ],
+ "competition_sources": [],
+ "kernel_sources": []
+}

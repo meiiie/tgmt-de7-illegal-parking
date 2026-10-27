@@ -38,6 +38,18 @@ def yolo_backend(a, timers):
         n += 1
         yield fi, f, dets
 
+def yolo_box_prompts(model, frame, conf=0.25, max_boxes=32, min_wh=4):
+    """Box YOLO26 (xe) tren frame dau chunk -> prompt hinh hoc cho SAM 3.1: [x,y,w,h] chuan hoa 0..1, nhan 1 (positive)."""
+    H, W = frame.shape[:2]
+    r = model.predict(frame, conf=conf, classes=list(VEH), verbose=False)[0]
+    b = r.boxes.xyxy.cpu().numpy() if r.boxes is not None else np.zeros((0, 4))
+    order = np.argsort(-r.boxes.conf.cpu().numpy()) if len(b) else []
+    out = []
+    for k in order[:max_boxes]:
+        x1, y1, x2, y2 = np.clip(b[k], 0, [W, H, W, H])
+        if x2 - x1 >= min_wh and y2 - y1 >= min_wh: out.append([float(x1 / W), float(y1 / H), float((x2 - x1) / W), float((y2 - y1) / H)])
+    return out, [1] * len(out)
+
 def sam3_backend(a, timers):
     """SAM 3.1: chia video thanh chunk (frame da lay mau -> thu muc JPEG), moi chunk 1 session + text prompt.
     ID giua cac chunk duoc noi bang IoU + DINOv3 trong DwellEngine (offset ID theo chunk)."""
@@ -74,6 +86,10 @@ def sam3_backend(a, timers):
     # T4 16GB: detector mac dinh batch 16 frame 1008x1008 -> OOM; giam batch grounding/postprocess
     for attr in ("batched_grounding_batch_size", "postprocess_batch_size"):
         if hasattr(pred.model, attr): setattr(pred.model, attr, a.det_batch)
+    ymodel = None
+    if a.box_prompt:
+        from ultralytics import YOLO
+        ymodel = YOLO(a.box_prompt)
     print("SAM3 loaded, VRAM MB", round(torch.cuda.memory_allocated() / 2**20), flush=True)
     buf, chunk_id = [], 0
     def run_chunk(buf, chunk_id):
@@ -83,7 +99,12 @@ def sam3_backend(a, timers):
         t0 = time.perf_counter()
         with torch.autocast("cuda", dtype=a.amp_dtype, enabled=a.amp_dtype is not None):
             sid = pred.handle_request(dict(type="start_session", resource_path=tmp, offload_video_to_cpu=a.offload_video))["session_id"]
-            pred.handle_request(dict(type="add_prompt", session_id=sid, frame_index=0, text=a.prompt))
+            req = dict(type="add_prompt", session_id=sid, frame_index=0, text=a.prompt)
+            if ymodel is not None:
+                bx, bl = yolo_box_prompts(ymodel, buf[0][1], max_boxes=a.max_objects)
+                if bx: req.update(bounding_boxes=bx, bounding_box_labels=bl)
+                timers.setdefault("box_prompts", []).append(len(bx))
+            pred.handle_request(req)
             outs = {r["frame_index"]: r["outputs"] for r in pred.handle_stream_request(dict(type="propagate_in_video", session_id=sid))}
             pred.handle_request(dict(type="close_session", session_id=sid))
         timers["model"] += time.perf_counter() - t0
@@ -205,6 +226,7 @@ def main():
     ap.add_argument("--stitch", action="store_true", help="noi ID qua ranh gioi chunk (IoU + DINOv3 neu co --reid)")
     ap.add_argument("--stitch_iou", type=float, default=0.3); ap.add_argument("--stitch_sim", type=float, default=0.5); ap.add_argument("--stitch_gap_s", type=float, default=20.0)
     ap.add_argument("--yolo_reset", type=int, default=0, help="YOLO: reset tracker moi N frame mau (gia lap chunk de test stitch)")
+    ap.add_argument("--box_prompt", default=None, help="YOLO weights (vd yolo26s.pt): box xe o frame dau moi chunk lam prompt hinh hoc cho SAM 3.1 (cung text)")
     ap.add_argument("--sanity", type=int, default=0, help="chi chay N frame dau, in SANITY so box; exit 3 neu 0 box")
     ap.add_argument("--out", default="outputs/run"); ap.add_argument("--save_video", action="store_true")
     a = ap.parse_args()
@@ -320,7 +342,7 @@ def main():
     metrics = {"video": a.video, "backend": a.backend, "model": a.model if a.backend == "yolo" else "sam3.1_multiplex", "tracker": a.tracker if a.backend == "yolo" else "sam3.1",
                "reid": a.reid, "device": torch.cuda.get_device_name(0) if cuda else "cpu", "amp": a.amp if cuda else "none", "stride": a.stride,
                "frames_processed": n_proc, "fps_model": round(n_proc / max(timers["model"], 1e-9), 2), "reid_time_s": round(timers["reid"], 2),
-               "fps_end2end": round(n_proc / max(wall, 1e-9), 2), "wall_s": round(wall, 1), "n_alerts": len(alerts), "jam_frames": int(jam_frames), "reid_merges": n_reid, "stitches": stitcher.n_stitch if stitcher else 0, "n_ids_stitched": (stitcher.next - 1) if stitcher else None,
+               "fps_end2end": round(n_proc / max(wall, 1e-9), 2), "wall_s": round(wall, 1), "n_alerts": len(alerts), "jam_frames": int(jam_frames), "reid_merges": n_reid, "box_prompts_per_chunk": timers.get("box_prompts"), "stitches": stitcher.n_stitch if stitcher else 0, "n_ids_stitched": (stitcher.next - 1) if stitcher else None,
                "vram_peak_mb": round(torch.cuda.max_memory_allocated() / 2**20, 1) if cuda else None}
     json.dump(alerts, open(a.out + "/alerts.json", "w"), indent=2, ensure_ascii=False)
     with open(a.out + "/alerts.csv", "w", newline="") as f:
