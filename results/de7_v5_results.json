@@ -1,0 +1,231 @@
+{
+ "settings": {
+  "gpu": "Tesla T4",
+  "videos": [
+   2,
+   9,
+   11,
+   14,
+   33,
+   35,
+   58,
+   62,
+   7
+  ],
+  "gt": [
+   {
+    "video": "2.mp4",
+    "zone": "all",
+    "stop_start_s": 587.0,
+    "stop_end_s": 894.0
+   },
+   {
+    "video": "9.mp4",
+    "zone": "all",
+    "stop_start_s": 0.0,
+    "stop_end_s": 287.0
+   },
+   {
+    "video": "11.mp4",
+    "zone": "all",
+    "stop_start_s": 0.0,
+    "stop_end_s": 888.0
+   },
+   {
+    "video": "14.mp4",
+    "zone": "all",
+    "stop_start_s": 475.0,
+    "stop_end_s": 600.0
+   },
+   {
+    "video": "33.mp4",
+    "zone": "all",
+    "stop_start_s": 0.0,
+    "stop_end_s": 90.0
+   },
+   {
+    "video": "33.mp4",
+    "zone": "all",
+    "stop_start_s": 165.0,
+    "stop_end_s": 894.0
+   },
+   {
+    "video": "35.mp4",
+    "zone": "all",
+    "stop_start_s": 106.0,
+    "stop_end_s": 185.0
+   }
+  ],
+  "sam": "--video aic/35.mp4 --stride 30 --max_frames 7200 --max_side 640 --zones configs/zones_aic_full.json --backend sam3 --sam3_ckpt weights/sam3.1_multiplex.pt --amp fp16 --prompt car --offload_video --chunk_frames 60 --max_objects 8 --det_batch 1 --dump_tracks"
+ },
+ "sam_diag": {
+  "sam31_nostitch": {
+   "metrics": {
+    "video": "aic/35.mp4",
+    "backend": "sam3",
+    "model": "sam3.1_multiplex",
+    "tracker": "sam3.1",
+    "reid": "none",
+    "device": "Tesla T4",
+    "amp": "fp16",
+    "stride": 30,
+    "frames_processed": 240,
+    "fps_model": 0.6,
+    "reid_time_s": 0.0,
+    "fps_end2end": 0.55,
+    "wall_s": 435.9,
+    "n_alerts": 0,
+    "jam_frames": 0,
+    "reid_merges": 0,
+    "stitches": 0,
+    "n_ids_stitched": null,
+    "vram_peak_mb": 7862.3
+   },
+   "eval_dedup0.3": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "start_mae_s": null,
+    "mean_alert_latency_s": null
+   },
+   "tracks": {
+    "rows": 738,
+    "frames_with_dets": 165,
+    "raw_ids": 32,
+    "ids": 32,
+    "still_rows": 3,
+    "max_dwell_s": 3.0,
+    "mean_dets_per_frame": 4.47
+   }
+  },
+  "sam31_stitch_dino": {
+   "metrics": {
+    "video": "aic/35.mp4",
+    "backend": "sam3",
+    "model": "sam3.1_multiplex",
+    "tracker": "sam3.1",
+    "reid": "weights/dinov3-vits16-pretrain-lvd1689m",
+    "device": "Tesla T4",
+    "amp": "fp16",
+    "stride": 30,
+    "frames_processed": 240,
+    "fps_model": 0.59,
+    "reid_time_s": 1.96,
+    "fps_end2end": 0.54,
+    "wall_s": 442.3,
+    "n_alerts": 0,
+    "jam_frames": 0,
+    "reid_merges": 0,
+    "stitches": 1,
+    "n_ids_stitched": 31,
+    "vram_peak_mb": 7985.8
+   },
+   "eval_dedup0.3": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "start_mae_s": null,
+    "mean_alert_latency_s": null
+   },
+   "tracks": {
+    "rows": 738,
+    "frames_with_dets": 165,
+    "raw_ids": 32,
+    "ids": 31,
+    "still_rows": 3,
+    "max_dwell_s": 3.0,
+    "mean_dets_per_frame": 4.47
+   }
+  }
+ },
+ "aic9": {
+  "yolo26s_bytetrack": {
+   "videos_done": [
+    "2.mp4",
+    "9.mp4",
+    "11.mp4",
+    "14.mp4",
+    "33.mp4",
+    "35.mp4",
+    "58.mp4",
+    "62.mp4",
+    "7.mp4"
+   ],
+   "frames": 15079,
+   "fps_model": 55.17,
+   "fps_e2e": 34.3,
+   "vram_peak_mb": 100.0,
+   "eval": {
+    "raw": {
+     "tp": 4,
+     "fp": 5,
+     "fn": 3,
+     "precision": 0.444,
+     "recall": 0.571,
+     "f1": 0.5,
+     "start_mae_s": 19.38,
+     "mean_alert_latency_s": 36.88
+    },
+    "dedup0.3": {
+     "tp": 4,
+     "fp": 5,
+     "fn": 3,
+     "precision": 0.444,
+     "recall": 0.571,
+     "f1": 0.5,
+     "start_mae_s": 19.38,
+     "mean_alert_latency_s": 36.88
+    }
+   }
+  },
+  "yolo26s_bytetrack_dino": {
+   "videos_done": [
+    "2.mp4",
+    "9.mp4",
+    "11.mp4",
+    "14.mp4",
+    "33.mp4",
+    "35.mp4",
+    "58.mp4",
+    "62.mp4",
+    "7.mp4"
+   ],
+   "frames": 15079,
+   "fps_model": 56.23,
+   "fps_e2e": 33.08,
+   "vram_peak_mb": 174.9,
+   "eval": {
+    "raw": {
+     "tp": 4,
+     "fp": 8,
+     "fn": 3,
+     "precision": 0.333,
+     "recall": 0.571,
+     "f1": 0.421,
+     "start_mae_s": 19.38,
+     "mean_alert_latency_s": 36.88
+    },
+    "dedup0.3": {
+     "tp": 4,
+     "fp": 8,
+     "fn": 3,
+     "precision": 0.333,
+     "recall": 0.571,
+     "f1": 0.421,
+     "start_mae_s": 19.38,
+     "mean_alert_latency_s": 36.88
+    }
+   }
+  }
+ },
+ "sanity": [
+  "SANITY {\"video\": \"aic/35.mp4\", \"prompt\": \"car\", \"frames\": 5, \"boxes\": 40, \"vram_peak_mb\": 7862.1}"
+ ],
+ "total_wall_s": 2530
+}

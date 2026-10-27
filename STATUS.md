@@ -77,3 +77,7 @@ Lưu ý: ngưỡng min_area chọn trên chính tập test (7 sự kiện) → c
 - pipeline: `--dump_tracks` (tracks.csv: frame,t,raw_id,id,box,score,still,dwell), `--stitch` (nối ID qua chunk bằng IoU≥0.3 + DINOv3 cos≥0.5, gap ≤20 s), `--yolo_reset N` (giả lập chunk).
 - Test CPU (Gaithersburg, YOLO26n, stride 3, reset mỗi 10 frame): ref 172 ID/902 dòng đứng yên; reset 806 ID/0 dòng đứng yên (tái hiện triệu chứng SAM v4); stitch IoU 128 ID/843; stitch IoU+DINOv3 174 ID/821.
 - kernel v5: kaggle/kernel_v5 (holilihu/de7-v5-diag-aic9). aic21_table.csv: bổ sung 2 cột thiếu cho hàng v4.
+
+## 27/10 ~08:30 (UTC+7) — v5 COMPLETE (holilihu/de7-v5-diag-aic9, 2530 s)
+- Baseline 9 video: YOLO26s+ByteTrack P0.444 R0.571 F1 0.500, 34.3 FPS, 100 MB; +DINOv3 P0.333 R0.571 F1 0.421, 33.1 FPS, 175 MB.
+- SAM 3.1 v35: 0.55 FPS, 7.86 GB, 32 ID, chỉ 3 dòng đứng yên, 0 alert; stitch chỉ nối 1 ID → không phải lỗi ranh giới chunk; nghi do xe nhỏ/640 px/max_objects 8.

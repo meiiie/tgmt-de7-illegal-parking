@@ -53,6 +53,24 @@ Sanity 5 frame prompt `car`: 33 box, VRAM 7.9 GB → đạt. Tổng 4934 s.
 
 SAM 3.1: 0 cảnh báo trên cả 4 video (0 jam frame, 0 re-ID merge) dù detector ra box → lỗi nằm ở khâu track/dwell với output SAM (nghi: ID đổi giữa các chunk 60 frame hoặc box dao động vượt `still_tol`), chưa kiểm chứng. Cửa sổ ngắn, 4 sự kiện → số baseline v4 không so trực tiếp với bảng 9 video.
 
+### Kernel v5 (T4): baseline 9 video chạy lại + chẩn đoán SAM 3.1
+
+9 video AIC21 (7 sự kiện), 2 fps, dwell 20 s, pipeline hiện tại (gộp trùng IoU 0.3 và bỏ box < 200 px² ngay trong pipeline):
+
+| Cấu hình | P | R | F1 | FPS e2e | VRAM đỉnh |
+|---|---|---|---|---|---|
+| YOLO26s + ByteTrack | 0.444 | 0.571 | 0.500 | 34.3 | 100 MB |
+| YOLO26s + ByteTrack + DINOv3 | 0.333 | 0.571 | 0.421 | 33.1 | 175 MB |
+
+SAM 3.1 fp16, video 35, 240 s đầu, 1 fps, 640 px, chunk 60, max_objects 8 (sanity: 40 box / 5 frame, 7.86 GB):
+
+| Biến thể | FPS e2e | VRAM | ID gốc → ID cuối | Dòng đứng yên | Dwell max | Cảnh báo |
+|---|---|---|---|---|---|---|
+| Không nối ID | 0.55 | 7.86 GB | 32 → 32 | 3 / 738 | 3 s | 0 (F1 0) |
+| Nối ID IoU + DINOv3 | 0.54 | 7.99 GB | 32 → 31 (1 lần nối) | 3 / 738 | 3 s | 0 (F1 0) |
+
+Kết luận: giả thuyết "ID đổi ở ranh giới chunk" **bị bác bỏ**. Các track dài nhất là xe đang chạy (tâm box dịch 100–230 px) và rất nhỏ (cao 8–22 px); chỉ 165/240 frame có box, trung bình 4.5 box/frame. Xe dừng của sự kiện có vẻ không được SAM 3.1 bám ở 640 px với giới hạn 8 đối tượng (suy luận từ dump, chưa kiểm chứng trực quan). Hướng tiếp: giữ độ phân giải gốc, tăng `max_objects`, hoặc dùng YOLO đề xuất box làm prompt cho SAM 3.1. Dump: `results/v5_tracks/`.
+
 ## Công nghệ và license
 
 | Thành phần | Phiên bản | License | Nguồn |
