@@ -12,7 +12,7 @@ Cảnh báo cần được người vận hành xem xét. Curb không tự kết
 
 Mở `Curb-Setup-1.1.0-x64.exe` và chờ màn hình tiến độ. Curb tự mở khi cài xong; lần sau mở từ Desktop hoặc Start menu. Không phải chọn thư mục hay bấm Next qua nhiều trang. Bộ cài kèm Python 3.12.10, PyTorch CPU, hai mô hình YOLO26, video mẫu, FFmpeg và giao diện đã build. Không cần terminal, Python hay Node riêng để sử dụng.
 
-- Windows 10 x64 (1809+) / Windows 11; .NET Framework 4.8; Microsoft WebView2. Bộ cài tải WebView2 từ Microsoft nếu máy chưa có, nên trường hợp đó cần Internet.
+- Windows 10 x64 (1809+) / Windows 11; .NET Framework 4.8; Microsoft WebView2 và Visual C++ x64. Bộ cài tải các runtime còn thiếu từ Microsoft, nên trường hợp đó cần Internet; cài Visual C++ có thể hiện yêu cầu quyền quản trị của Windows.
 - Dữ liệu desktop nằm tại `%USERPROFILE%/Curb/data`; tách khỏi thư mục cài. Gỡ ứng dụng giữ lại dữ liệu này.
 - Vỏ WinForms/WebView2 tự bật dịch vụ trên một cổng loopback trống. Đóng cửa sổ dừng worker và dịch vụ. Windows Job Object thu hồi các tiến trình con khi host kết thúc.
 - Bản desktop đi kèm **CPU**, chạy được khi không có NVIDIA. Bản phát triển dưới đây tiếp tục hỗ trợ CUDA. Các phép đo GPU trước đó không phải tốc độ của bộ cài CPU.
@@ -57,7 +57,7 @@ Sau khi chuẩn bị môi trường phát triển, mở `Start-Curb.cmd`, hoặc
 | Theo giờ | Ngày trong tuần, khung giờ thường hoặc qua nửa đêm; video cần mốc ghi hình gốc, camera dùng giờ máy |
 | Phân tích | YOLO26s hoặc YOLO26n + ByteTrack; GPU/CPU; hàng đợi bền vững; tiến độ và khung hình cập nhật; hủy; giới hạn thời lượng; khôi phục trạng thái sau gián đoạn |
 | Bằng chứng | Ảnh toàn cảnh, ảnh phương tiện, clip trước/sau; H.264 có byte range; video toàn lượt cho tệp nhập; clip camera bám thời gian nguồn dù lấy mẫu không đều |
-| Duyệt | Chờ xem xét / xác nhận / bỏ qua / đã xử lý; lý do, tên người vận hành, lịch sử và chống ghi đè quyết định cũ |
+| Duyệt | Chờ duyệt / xác nhận / bỏ qua / đã xử lý; lưu và duyệt tiếp trong bộ lọc đang xem; lý do, tên người vận hành, lịch sử và chống ghi đè quyết định cũ |
 | Báo cáo | Tìm kiếm, lọc nguồn/loại xe/trạng thái/ngày; phân trang; thống kê thực từ SQLite; xuất CSV/JSON và ZIP hồ sơ của từng lượt |
 | Vận hành | Cài đặt, GPU/FFmpeg/model/dung lượng; nhật ký hệ thống; sao lưu SQLite và media; khôi phục sang thư mục mới; dọn thủ công dữ liệu hết hạn |
 
@@ -67,7 +67,7 @@ Tên người vận hành là nhãn lịch sử, **không phải tài khoản x�
 
 1. Chọn **Thêm nguồn → Dùng video mẫu**. Nếu thiếu mẫu, chạy `scripts/download-demo.ps1` trước.
 2. Mẫu Street Scene dài 30 giây có camera cố định, ba ô tô đỗ sát lề và phương tiện khác đi qua. Vùng theo dõi mép lề dùng ngưỡng 20 giây. Bấm **Chạy phân tích**.
-3. Mở sự kiện, xem ảnh và clip để đối chiếu xe dừng lâu. Quy định cấm đỗ của địa điểm chưa được xác minh; không dùng cảnh báo mẫu như bằng chứng xe vi phạm.
+3. Mở cảnh báo, xem ảnh và clip để đối chiếu xe dừng lâu. Quy định cấm đỗ của địa điểm chưa được xác minh; không dùng cảnh báo mẫu như bằng chứng xe vi phạm.
 4. Với dữ liệu của bạn, chọn vùng phù hợp mặt đường và quy định của địa điểm, hiệu chỉnh ngưỡng bằng video phát triển rồi kiểm tra trên camera/video độc lập.
 
 Nguồn mẫu: [MERL Street Scene — CC BY-SA 4.0](https://zenodo.org/records/10870472). Xem [ghi nguồn và biến đổi video](docs/demo-video-source.md). Mẫu Gaithersburg cũ vẫn được giữ để kiểm tra hồi quy; tải lại bằng `scripts/download-legacy-demo.ps1` khi cần.

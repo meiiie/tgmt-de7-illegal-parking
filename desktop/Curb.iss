@@ -67,7 +67,7 @@ end;
 procedure InitializeWizard;
 begin
   WizardForm.Caption := 'Curb {#AppVersion}';
-  WizardForm.Color := $F0F3F3;
+  WizardForm.Color := $E4E4E4;
   WizardForm.MainPanel.Color := clWhite;
   WizardForm.BackButton.Visible := False;
   WizardForm.NextButton.Visible := False;
@@ -94,13 +94,13 @@ begin
   Track.SetBounds(0, ScaleY(145), WizardForm.ProgressGauge.Width, ScaleY(7));
   Track.BevelOuter := bvNone;
   Track.ParentBackground := False;
-  Track.Color := $E3E9E8;
+  Track.Color := $D4D4D4;
   Fill := TPanel.Create(WizardForm);
   Fill.Parent := Track;
   Fill.SetBounds(0, 0, 0, Track.Height);
   Fill.BevelOuter := bvNone;
   Fill.ParentBackground := False;
-  Fill.Color := $2E59ED;
+  Fill.Color := $793B2B;
   ProgressText := TNewStaticText.Create(WizardForm);
   ProgressText.Parent := WizardForm.InstallingPage;
   ProgressText.AutoSize := False;
@@ -114,7 +114,7 @@ begin
   if CurPageID = wpInstalling then begin
     WizardForm.CancelButton.Caption := 'Hủy';
     WizardForm.PageNameLabel.Caption := 'Curb';
-    WizardForm.PageDescriptionLabel.Caption := 'Quan sát rõ. Xử lý có căn cứ.';
+    WizardForm.PageDescriptionLabel.Caption := 'Phiên bản {#AppVersion}';
   end;
 end;
 
@@ -125,7 +125,7 @@ begin
     Percent := Round(CurProgress * 100.0 / MaxProgress);
     Fill.Width := Round(Track.Width * Percent / 100.0);
     Fill.Visible := True;
-    ProgressText.Caption := IntToStr(Percent) + '% · Đang thiết lập trên máy của bạn';
+    ProgressText.Caption := IntToStr(Percent) + '%';
   end;
 end;
 
@@ -136,19 +136,44 @@ begin
     RegQueryStringValue(HKCU, 'Software\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}', 'pv', V)) and (V <> '') and (V <> '0.0.0.0');
 end;
 
+function HasVCRuntime: Boolean;
+var Installed, Major, Minor: Cardinal;
+begin
+  Result := RegQueryDWordValue(HKLM64, 'SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64', 'Installed', Installed) and
+    RegQueryDWordValue(HKLM64, 'SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64', 'Major', Major) and
+    RegQueryDWordValue(HKLM64, 'SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64', 'Minor', Minor) and
+    (Installed = 1) and ((Major > 14) or ((Major = 14) and (Minor >= 44))) and
+    FileExists(ExpandConstant('{sys}\msvcp140.dll'));
+end;
+
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 var Code: Integer;
 begin
   Result := '';
   if not IsDotNetInstalled(net48, 0) then begin
-    Result := 'Curb requires Microsoft .NET Framework 4.8. Install it from Microsoft and run this installer again.';
+    Result := 'Curb cần Microsoft .NET Framework 4.8. Cài thành phần này từ Microsoft rồi mở lại bộ cài Curb.';
     Exit;
+  end;
+  if not HasVCRuntime then begin
+    try
+      DownloadTemporaryFile('https://download.visualstudio.microsoft.com/download/pr/ebdab8e5-1d7b-4d9f-a11b-cbb1720c3b12/843068991DAAA1F73AD9F6239BCE4D0F6A07A51F18C37EA2A867E9BECA71295C/VC_redist.x64.exe',
+        'vc_redist.x64.exe', '843068991daaa1f73ad9f6239bce4d0f6a07a51f18c37ea2a867e9beca71295c', nil);
+      if not ShellExec('runas', ExpandConstant('{tmp}\vc_redist.x64.exe'), '/install /quiet /norestart', '', SW_HIDE, ewWaitUntilTerminated, Code) then
+        Result := 'Cần Microsoft Visual C++ x64 để phân tích video. Cho phép Windows cài thành phần Microsoft rồi chạy lại Curb Setup.'
+      else if Code = 3010 then
+        Result := 'Microsoft Visual C++ đã cài và yêu cầu khởi động lại Windows. Lưu công việc, khởi động lại máy rồi mở bộ cài Curb.'
+      else if not HasVCRuntime then
+        Result := 'Chưa cài được Microsoft Visual C++ x64. Cài runtime từ Microsoft rồi chạy lại bộ cài Curb.';
+    except
+      Result := 'Không tải được Microsoft Visual C++ x64. Kiểm tra Internet và chạy lại. ' + GetExceptionMessage;
+    end;
+    if Result <> '' then Exit;
   end;
   if not HasWebView then begin
     ExtractTemporaryFile('MicrosoftEdgeWebview2Setup.exe');
     if not Exec(ExpandConstant('{tmp}\MicrosoftEdgeWebview2Setup.exe'), '/silent /install', '', SW_HIDE, ewWaitUntilTerminated, Code) then
-      Result := 'Could not install Microsoft WebView2. Check your Internet connection and try again.'
+      Result := 'Không cài được Microsoft WebView2. Kiểm tra kết nối Internet rồi thử lại.'
     else if not HasWebView then
-      Result := 'Microsoft WebView2 is required. Install it from Microsoft and run this installer again.';
+      Result := 'Curb cần Microsoft WebView2. Cài thành phần này từ Microsoft rồi mở lại bộ cài Curb.';
   end;
 end;

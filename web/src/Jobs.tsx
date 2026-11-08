@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import {
   active,
+  api,
   Badge,
   Button,
   clockTime,
@@ -43,7 +44,7 @@ export function JobTable({
       <table>
         <thead>
           <tr>
-            <th>Nguồn / lượt xử lý</th>
+            <th>Nguồn / lượt phân tích</th>
             <th>Tiến độ</th>
             <th>Cảnh báo</th>
             <th>Trạng thái</th>
@@ -61,7 +62,7 @@ export function JobTable({
                   {job.source_name}
                 </a>
                 <small>
-                  {job.id.slice(0, 8)} · {duration(job.source_seconds)}
+                  {duration(job.source_seconds)}
                 </small>
               </td>
               <td>
@@ -87,7 +88,7 @@ export function JobTable({
                 <a
                   className="icon-button"
                   href={`#/jobs/${job.id}`}
-                  aria-label={`Mở lượt xử lý ${job.id.slice(0, 8)}`}
+                  aria-label={`Mở lượt phân tích ${job.id.slice(0, 8)}`}
                 >
                   <ArrowRight size={17} />
                 </a>
@@ -114,11 +115,7 @@ export function JobsPage() {
     <>
       <div className="page-heading">
         <div>
-          <h1>Tiến trình xử lý</h1>
-          <p>
-            Một công việc trên GPU tại một thời điểm. Các nguồn còn lại chờ theo
-            thứ tự.
-          </p>
+          <h1>Phân tích</h1>
         </div>
         <Button onClick={jobs.refresh}>
           <RefreshCw size={16} />
@@ -138,7 +135,7 @@ export function JobsPage() {
               className={filter === "active" ? "selected" : ""}
               onClick={() => setFilter("active")}
             >
-              Đang chạy & chờ
+              Đang chạy và chờ
             </button>
             <button
               className={filter === "error" ? "selected" : ""}
@@ -157,7 +154,7 @@ export function JobsPage() {
         ) : (
           <Empty
             icon={<ListVideo size={30} />}
-            title="Chưa có lượt xử lý trong mục này"
+            title="Chưa có lượt phân tích trong mục này"
             action={
               <Button onClick={() => go("/sources")}>
                 Mở nguồn giám sát <ArrowRight size={15} />
@@ -177,7 +174,7 @@ export function JobPage({
   onOpen,
 }: {
   id: string;
-  onOpen: (id: string) => void;
+  onOpen: (id: string, scope?: string) => void;
 }) {
   const resource = useResource<Job>(`/jobs/${id}`, 1500);
   const [eventPage, setEventPage] = useState(1);
@@ -203,11 +200,24 @@ export function JobPage({
     job.config.source.kind === "video" &&
     ["completed", "cancelled"].includes(job.status);
   const events = allEvents.data?.items ?? [];
+  const review = async () => {
+    setBusy(true);
+    try {
+      const pending = await api<EventList>(`/events?job_id=${id}&status=pending&page_size=1`);
+      const first = pending.items[0] ?? events[0];
+      if (first) onOpen(first.id, `job_id=${id}`);
+      else notice("Lượt này chưa có cảnh báo");
+    } catch (error) {
+      notice((error as Error).message, true);
+    } finally {
+      setBusy(false);
+    }
+  };
   const cancel = async () => {
     if (
       !(await confirm(
-        "Dừng lượt xử lý?",
-        "Hệ thống sẽ hoàn tất bằng chứng đã ghi rồi dừng. Các sự kiện đã tạo vẫn được giữ lại.",
+        "Dừng lượt phân tích?",
+        "Hệ thống sẽ hoàn tất bằng chứng đã ghi rồi dừng. Các cảnh báo đã tạo vẫn được giữ lại.",
         "Dừng xử lý",
       ))
     )
@@ -227,7 +237,7 @@ export function JobPage({
     <>
       <a className="back-link" href="#/jobs">
         <ArrowLeft size={15} />
-        Tất cả lượt xử lý
+        Tất cả lượt phân tích
       </a>
       <div className="page-heading">
         <div>
@@ -257,10 +267,11 @@ export function JobPage({
               </Download>
               <Button
                 variant="primary"
-                onClick={() => go(`/sources/${job.source_id}`)}
+                busy={busy}
+                onClick={job.event_count ? review : () => go(`/sources/${job.source_id}`)}
               >
-                <Play size={16} />
-                Chuẩn bị chạy lại
+                {job.event_count ? <FileText size={16} /> : <Play size={16} />}
+                {job.event_count ? "Duyệt cảnh báo" : "Phân tích lại"}
               </Button>
             </>
           )}
@@ -328,8 +339,24 @@ export function JobPage({
         <aside className="panel job-config">
           <h2>
             <Cpu size={18} />
-            Cấu hình lượt này
+            Quy tắc áp dụng
           </h2>
+          <dl className="detail-list">
+            {job.config.zones.filter((zone) => zone.enabled).map((zone) => (
+              <div key={zone.id}>
+                <dt>{zone.name}</dt>
+                <dd>Dừng từ {duration(zone.dwell_seconds)}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="field-note">
+            Thay đổi vùng hoặc cài đặt chỉ áp dụng cho lượt phân tích mới.
+          </p>
+          <Button onClick={() => go(`/sources/${job.source_id}`)}>
+            Sửa vùng giám sát <ArrowRight size={15} />
+          </Button>
+          <details className="technical-details">
+          <summary>Thông số phân tích</summary>
           <dl className="detail-list">
             <div>
               <dt>Mô hình</dt>
@@ -344,12 +371,8 @@ export function JobPage({
               <dd>{job.config.settings.sample_fps} FPS</dd>
             </div>
             <div>
-              <dt>Ngưỡng detector</dt>
-              <dd>{job.config.settings.confidence}</dd>
-            </div>
-            <div>
-              <dt>Vùng đang bật</dt>
-              <dd>{job.config.zones.filter((z) => z.enabled).length}</dd>
+              <dt>Ngưỡng nhận diện</dt>
+              <dd>{number(job.config.settings.confidence)}</dd>
             </div>
             <div>
               <dt>Thiết bị</dt>
@@ -365,25 +388,17 @@ export function JobPage({
                   : "Đang đo"}
               </dd>
             </div>
-            <div>
-              <dt>VRAM tensor đỉnh</dt>
+            {!!job.metrics.peak_vram_mb && <div>
+              <dt>Bộ nhớ GPU cao nhất</dt>
               <dd>
-                {job.metrics.peak_vram_mb
-                  ? `${job.metrics.peak_vram_mb} MB`
-                  : "—"}
+                {number(Number(job.metrics.peak_vram_mb))} MB
               </dd>
-            </div>
+            </div>}
           </dl>
-          <p className="field-note">
-            Cấu hình được chụp tại lúc tạo lượt. Đổi vùng hoặc cài đặt chỉ áp
-            dụng cho lượt mới.
-          </p>
-          <Button onClick={() => go(`/sources/${job.source_id}`)}>
-            Mở cấu hình nguồn <ArrowRight size={15} />
-          </Button>
+          </details>
           {job.config.source.kind === "camera" && (
             <p className="field-note">
-              Camera lưu ảnh và clip sự kiện; không ghi toàn bộ luồng để tránh
+              Camera lưu ảnh và clip cảnh báo; không ghi toàn bộ luồng để tránh
               đầy ổ đĩa.
             </p>
           )}
@@ -392,10 +407,10 @@ export function JobPage({
       <section className="panel">
         <div className="section-heading">
           <h2>Cảnh báo trong lượt</h2>
-          <span className="muted">{job.event_count} sự kiện</span>
+          <span className="muted">{job.event_count} cảnh báo</span>
         </div>
         {events.length ? (
-          <EventTable events={events} onOpen={onOpen} />
+          <EventTable events={events} onOpen={(id) => onOpen(id, `job_id=${job.id}`)} />
         ) : (
           <Empty
             icon={<FileText size={27} />}

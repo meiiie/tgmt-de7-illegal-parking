@@ -1,14 +1,15 @@
 # Changelog
 
-## 1.1.0 — 2026-11-08
+## 1.1.0 — 2026-11-09
 
 First public Curb desktop release for Windows x64.
 
 - Quick Install: one progress window, per-user installation, desktop/Start shortcuts, automatic launch, upgrade and uninstall support. Existing operational data remains separate from the application.
 - Consistent Curb identity, Vietnamese interface, local fonts and icons, version and publisher metadata, About, support links and privacy-preserving diagnostics.
+- Abyss Blue, Void Eclipse and Silver Mist palette. One navigation bar, action-led Vietnamese labels, contextual start conditions, and save-and-review-next within the current filters. Technical analysis details are expandable.
 - Native backup restore into a new directory, with existing data preserved. Video/camera inputs, polygon rules, schedules, queued analysis, evidence review, reports and exports.
 - Movement confirmation for already alerted stop episodes. MERL Test006 60-second development regression changes from six duplicate alerts to three distinct stop episodes using the same detections. Independent field accuracy is not established by this test.
-- Self-contained CPU runtime, YOLO26s/n, FFmpeg and attributed 30-second MERL Street Scene sample. WebView2 is installed from Microsoft if missing.
+- Self-contained CPU runtime, YOLO26s/n, FFmpeg and attributed 30-second MERL Street Scene sample. WebView2 and Visual C++ x64 are installed from Microsoft if missing; shared-runtime installation may require Windows elevation.
 - Source, dependency notices, checksums and reproducible build instructions accompany distribution.
 
 ### Known limits

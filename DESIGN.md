@@ -2,7 +2,9 @@
 
 Mode: Operate. Bản dựng bằng code, dùng ảnh người dùng và `docs/design/curb-concept.png` làm tham khảo, không yêu cầu khớp từng pixel.
 
-Màu nền #f3f3f0, panel #ffffff, chữ #22241f, chữ phụ #66695f, cam #ed592e; màu trạng thái luôn đi cùng chữ. Be Vietnam Pro tự lưu trong bundle, icon Lucide. Panel 16 px; nút chính tối; cam dành cho chú ý và vùng giám sát. Điều hướng chính dạng pill, rail bên trái cho công việc/cài đặt/trợ giúp.
+Theo bộ màu người dùng gửi ngày 08/11/2026: nền Silver Mist #E4E4E4, bề mặt trắng, chữ Void Eclipse #0B0B0B, hành động chính và lựa chọn Abyss Blue #2B3B79. Chữ phụ #5C5C5C; màu trạng thái luôn đi cùng nhãn. Be Vietnam Pro đóng gói cục bộ, Lucide. Panel 16 px, chữ nội dung 14 px, tiêu đề trang 24 px. Một thanh điều hướng; bỏ rail lặp lại và hồ sơ người dùng giả. Ảnh concept cũ chỉ còn là tham khảo bố cục.
+
+Chữ phục vụ quyết định hoặc thao tác: tiêu đề gọi đúng nội dung, nút bắt đầu bằng động từ, hướng dẫn xuất hiện khi có điều kiện cần giải thích. Không dùng khẩu hiệu, lời chào, mô tả hiển nhiên của thống kê hoặc tuyên bố hệ thống ở trang vận hành. Xem [quy tắc nội dung](docs/ux-writing.md).
 
 Trang đầu cho thấy video thực và hàng đợi duyệt, thống kê chỉ đọc từ SQLite. Luồng chính: thêm nguồn → xem khung hình → vẽ vùng → chạy → mở bằng chứng → xác nhận/bỏ qua/giải quyết. Khi chưa có dữ liệu, hướng dẫn người dùng thêm video hoặc nạp mẫu có ghi nguồn; không chèn số giả.
 

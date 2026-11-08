@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
-  Bell,
   Camera,
   ChartNoAxesCombined,
   CheckCheck,
@@ -10,7 +9,6 @@ import {
   Clock3,
   HardDrive,
   Info,
-  LayoutGrid,
   ListVideo,
   MapPin,
   Plus,
@@ -32,7 +30,7 @@ import {
   useResource,
   vehicleLabels,
 } from "./lib";
-import type { Health, Job, Overview, Settings, Source } from "./types";
+import type { Health, Job, Overview, Source } from "./types";
 import { AddSource, SourcePage, SourcesPage } from "./Sources";
 import { EventDrawer, EventsPage } from "./Events";
 import { JobPage, JobsPage, JobTable } from "./Jobs";
@@ -61,11 +59,7 @@ function OverviewPage({
     <>
       <div className="page-heading overview-heading">
         <div>
-          <h1>
-            Quan sát đường phố.
-            <br className="mobile-break" /> Xử lý có căn cứ.
-          </h1>
-          <p>Mọi góc nhìn, cảnh báo và quyết định — trong một không gian.</p>
+          <h1>Tổng quan</h1>
         </div>
         <Button variant="primary" onClick={onAdd}>
           <Plus size={17} />
@@ -81,17 +75,16 @@ function OverviewPage({
             <article className="stat-card accent">
               <span>
                 <ClipboardCheck size={18} />
-                Cần xem xét
+                Chờ duyệt
                 <ArrowRight size={17} className="stat-arrow" />
               </span>
               <a
-                href="#/events"
+                href="#/events/pending"
                 className="stat-value"
-                aria-label={`${data.pending} cảnh báo cần xem xét`}
+                aria-label={`${data.pending} cảnh báo chờ duyệt`}
               >
                 {number(data.pending)}
               </a>
-              <small>Cảnh báo chờ bạn kiểm tra bằng chứng</small>
             </article>
             <article className="stat-card">
               <span>
@@ -129,7 +122,6 @@ function OverviewPage({
                 {number(data.processed_hours * 60)}
                 <em>phút</em>
               </strong>
-              <small>Tổng thời lượng nguồn qua các lượt</small>
             </article>
           </div>
           <div className="overview-grid">
@@ -137,11 +129,11 @@ function OverviewPage({
               <div className="section-heading">
                 <div className="monitor-title">
                   <span className={running ? "health-dot" : "idle-dot"} />
-                  <h2>{running ? "Đang phân tích" : "Góc nhìn gần nhất"}</h2>
+                  <h2>{running ? "Đang phân tích" : "Hình ảnh gần nhất"}</h2>
                 </div>
                 {sources.data?.length ? (
                   <select
-                    aria-label="Chọn góc nhìn"
+                    aria-label="Chọn video hoặc camera"
                     value={source?.id ?? ""}
                     onChange={(event) => setSelected(event.target.value)}
                   >
@@ -185,7 +177,7 @@ function OverviewPage({
                     </span>
                     <span className="monitor-open">
                       <ScanLine size={18} />
-                      Mở góc nhìn
+                      {job ? "Xem kết quả" : "Thiết lập vùng"}
                     </span>
                   </a>
                   <div className="monitor-footer">
@@ -198,36 +190,36 @@ function OverviewPage({
                     </div>
                     <a href={`#/sources/${source.id}`} className="button">
                       <SlidersHorizontal size={15} />
-                      Vùng & quy tắc
+                      Sửa vùng
                     </a>
                   </div>
                 </>
               ) : (
                 <Empty
                   icon={<Camera size={36} />}
-                  title="Một góc đường để bắt đầu"
+                  title="Thêm video hoặc camera"
                   action={
                     <Button variant="primary" onClick={onAdd}>
                       <Plus size={16} />
-                      Thêm video hoặc camera
+                      Thêm nguồn
                     </Button>
                   }
                 >
-                  Nhập nguồn, vẽ vùng và theo dõi những tình huống cần bạn xem
-                  xét.
+                  Chọn video trên máy, kết nối camera hoặc dùng video mẫu.
                 </Empty>
               )}
             </section>
             <section className="panel queue-panel">
               <div className="section-heading">
                 <h2>
-                  Hàng đợi xem xét{" "}
+                  Chờ duyệt{" "}
                   <span className="count-pill">{data.pending}</span>
                 </h2>
                 <a
                   className="icon-button"
-                  href="#/events"
-                  aria-label="Xem tất cả sự kiện"
+                  href="#/events/pending"
+                  aria-label="Xem danh sách chờ duyệt"
+                  title="Xem danh sách chờ duyệt"
                 >
                   <ArrowRight size={18} />
                 </a>
@@ -269,21 +261,14 @@ function OverviewPage({
               ) : (
                 <Empty
                   icon={<ShieldCheck size={31} />}
-                  title="Không còn hồ sơ chờ duyệt"
+                  title="Không có cảnh báo chờ duyệt"
                 >
-                  Cảnh báo mới sẽ xuất hiện ở đây trong lúc nguồn được xử lý.
                 </Empty>
               )}
-              <div className="queue-note">
-                <ShieldCheck size={16} />
-                <span>
-                  Cảnh báo là bước đầu. Quyết định thuộc về người vận hành.
-                </span>
-              </div>
             </section>
             <section className="panel recent-panel">
               <div className="section-heading">
-                <h2>Lượt xử lý gần đây</h2>
+                <h2>Phân tích gần đây</h2>
                 <a href="#/jobs" className="text-link">
                   Tất cả <ArrowRight size={15} />
                 </a>
@@ -295,13 +280,13 @@ function OverviewPage({
                   icon={<ListVideo size={28} />}
                   title="Chưa chạy phân tích"
                 >
-                  Nguồn sau khi lưu vùng đã sẵn sàng để tạo lượt đầu tiên.
+                  Chọn video hoặc camera để bắt đầu.
                 </Empty>
               )}
             </section>
             <section className="panel station-panel">
               <div className="section-heading">
-                <h2>Trạm của bạn</h2>
+                <h2>Lưu trữ</h2>
                 <a
                   href="#/settings"
                   className="icon-button"
@@ -337,7 +322,7 @@ function OverviewPage({
                     ? "Mất kết nối dịch vụ"
                     : "Dịch vụ đang hoạt động"}
                 </span>
-                <small>{data.active_jobs}/1 lượt xử lý</small>
+                <small>{data.active_jobs}/1 lượt phân tích</small>
               </div>
               <a href="#/reports" className="report-shortcut">
                 <ChartNoAxesCombined size={18} />
@@ -356,7 +341,8 @@ export function App() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || "/");
   const [adding, setAdding] = useState(false);
   const [eventId, setEventId] = useState<string>();
-  const settings = useResource<Settings>("/settings", 10000);
+  const [reviewScope, setReviewScope] = useState("");
+  const openEvent = (id: string, scope = "") => { setReviewScope(scope); setEventId(id); };
   useEffect(() => {
     const changed = () => {
       setRoute(window.location.hash.slice(1) || "/");
@@ -367,18 +353,13 @@ export function App() {
   }, []);
   const [section = "", id] = route.split("/").filter(Boolean);
   useEffect(() => {
-    document.title = `${({ sources: "Nguồn giám sát", events: "Sự kiện", reports: "Báo cáo", jobs: "Tiến trình", settings: "Cài đặt", help: "Hướng dẫn", about: "Về Curb" } as Record<string, string>)[section] ?? "Tổng quan"} · Curb`;
+    document.title = `${({ sources: "Video và camera", events: "Cảnh báo", reports: "Báo cáo", jobs: "Phân tích", settings: "Cài đặt", help: "Hướng dẫn", about: "Về Curb" } as Record<string, string>)[section] ?? "Tổng quan"} · Curb`;
   }, [section]);
-  const initials = (settings.data?.operator_name ?? "Người vận hành")
-    .split(" ")
-    .slice(-2)
-    .map((word) => word[0])
-    .join("")
-    .toUpperCase();
   const nav = [
     { path: "/", label: "Tổng quan", section: "" },
-    { path: "/sources", label: "Nguồn giám sát", section: "sources" },
-    { path: "/events", label: "Sự kiện", section: "events" },
+    { path: "/sources", label: "Video và camera", section: "sources" },
+    { path: "/jobs", label: "Phân tích", section: "jobs" },
+    { path: "/events", label: "Cảnh báo", section: "events" },
     { path: "/reports", label: "Báo cáo", section: "reports" },
   ];
   return (
@@ -396,9 +377,7 @@ export function App() {
       <header className="topbar">
         <a className="brand" href="#/" aria-label="Curb — Tổng quan">
           <img className="brand-mark" src="/curb.svg" width="38" height="38" alt="" />
-          <strong>
-            Curb<span>giám sát đường phố</span>
-          </strong>
+          <strong>Curb</strong>
         </a>
         <nav className="top-nav" aria-label="Điều hướng chính">
           {nav.map((item) => (
@@ -413,97 +392,18 @@ export function App() {
           ))}
         </nav>
         <div className="topbar-right">
-          <span className="local-indicator">
-            <i className="health-dot" />
-            Cục bộ
-          </span>
-          <button
-            className="icon-button notification-button"
-            title="Mở hàng đợi sự kiện"
-            aria-label="Mở hàng đợi sự kiện"
-            onClick={() => go("/events")}
-          >
-            <Bell size={19} />
-          </button>
-          <a className="profile" href="#/settings">
-            <span className="avatar">{initials}</span>
-            <span>
-              <strong>
-                {settings.data?.operator_name ?? "Người vận hành"}
-              </strong>
-              <small>
-                {settings.data?.site_name ?? "Trạm giám sát cục bộ"}
-              </small>
-            </span>
-          </a>
-        </div>
-      </header>
-      <aside className="side-rail" aria-label="Công cụ">
-        <div>
-          {[
-            {
-              path: "/",
-              icon: LayoutGrid,
-              label: "Tổng quan",
-              selected: !section,
-            },
-            {
-              path: "/sources",
-              icon: Camera,
-              label: "Nguồn giám sát",
-              selected: section === "sources",
-            },
-            {
-              path: "/events",
-              icon: ClipboardCheck,
-              label: "Sự kiện",
-              selected: section === "events",
-            },
-            {
-              path: "/jobs",
-              icon: ListVideo,
-              label: "Tiến trình xử lý",
-              selected: section === "jobs",
-            },
-            {
-              path: "/reports",
-              icon: ChartNoAxesCombined,
-              label: "Báo cáo",
-              selected: section === "reports",
-            },
-          ].map((item) => (
-            <a
-              href={`#${item.path}`}
-              key={item.path}
-              title={item.label}
-              aria-label={item.label}
-              className={item.selected ? "selected" : ""}
-              aria-current={item.selected ? "page" : undefined}
-            >
-              <item.icon size={20} />
-            </a>
-          ))}
-        </div>
-        <div>
+          <a className="button quiet" href="#/settings"><Settings2 size={18} />Cài đặt</a>
           <a
-            href="#/settings"
-            title="Cài đặt"
-            aria-label="Cài đặt"
-            className={section === "settings" ? "selected" : ""}
-          >
-            <Settings2 size={20} />
-          </a>
-          <a
+            className="icon-button"
             href="#/help"
             title="Hướng dẫn"
             aria-label="Hướng dẫn"
-            className={section === "help" ? "selected" : ""}
           >
             <CircleHelp size={20} />
           </a>
-          <a href="#/about" title="Về Curb" aria-label="Về Curb" className={section === "about" ? "selected" : ""}><Info size={20} /></a>
+          <a href="#/about" title="Về Curb" aria-label="Về Curb" className="icon-button"><Info size={20} /></a>
         </div>
-      </aside>
+      </header>
       <main
         id="main-content"
         tabIndex={-1}
@@ -511,7 +411,7 @@ export function App() {
         key={route}
       >
         {!section ? (
-          <OverviewPage onAdd={() => setAdding(true)} onOpen={setEventId} />
+          <OverviewPage onAdd={() => setAdding(true)} onOpen={openEvent} />
         ) : section === "sources" ? (
           id ? (
             <SourcePage id={id} />
@@ -519,10 +419,10 @@ export function App() {
             <SourcesPage onAdd={() => setAdding(true)} />
           )
         ) : section === "events" ? (
-          <EventsPage onOpen={setEventId} />
+          <EventsPage onOpen={openEvent} initialStatus={id === "pending" ? "pending" : ""} />
         ) : section === "jobs" ? (
           id ? (
-            <JobPage id={id} onOpen={setEventId} />
+            <JobPage id={id} onOpen={openEvent} />
           ) : (
             <JobsPage />
           )
@@ -543,24 +443,14 @@ export function App() {
             />
           </section>
         )}
-        <footer className="app-footer">
-          <span>
-            <a href="#/about">Curb</a> <span className="dot-separator">·</span> Giám sát dừng đỗ đường
-            phố
-          </span>
-          <span>
-            Dữ liệu trên máy của bạn <span className="dot-separator">·</span>
-            <a href="#/help">
-              Hướng dẫn vận hành <ArrowRight size={12} />
-            </a>
-          </span>
-        </footer>
       </main>
       <AddSource open={adding} onClose={() => setAdding(false)} />
       {eventId && (
         <EventDrawer
           key={eventId}
           id={eventId}
+          onNext={setEventId}
+          scope={reviewScope}
           onClose={() => setEventId(undefined)}
         />
       )}

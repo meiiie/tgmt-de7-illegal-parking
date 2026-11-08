@@ -5,7 +5,6 @@ import {
   Database,
   HardDrive,
   History,
-  LockKeyhole,
   Save,
   Server,
   Trash2,
@@ -65,7 +64,7 @@ export function SettingsPage() {
     if (
       !(await confirm(
         "Xóa dữ liệu đã hết hạn?",
-        `Sẽ xóa ${storage.data.candidates.length} lượt xử lý, sự kiện và bằng chứng đi kèm, khoảng ${bytes(storage.data.reclaimable_bytes)}. Thao tác này không thể hoàn tác; hãy tải bản sao lưu nếu cần giữ hồ sơ.`,
+        `Sẽ xóa ${storage.data.candidates.length} lượt phân tích, cảnh báo và bằng chứng đi kèm, khoảng ${bytes(storage.data.reclaimable_bytes)}. Thao tác này không thể hoàn tác; hãy tải bản sao lưu nếu cần giữ hồ sơ.`,
         "Xóa dữ liệu hết hạn",
       ))
     )
@@ -94,18 +93,14 @@ export function SettingsPage() {
     <>
       <div className="page-heading">
         <div>
-          <h1>Cài đặt trạm</h1>
-          <p>Dữ liệu và suy luận nằm trên máy của bạn.</p>
+          <h1>Cài đặt</h1>
         </div>
-        <span className="local-chip">
-          <LockKeyhole size={14} />
-          Chỉ trên máy này
-        </span>
+
       </div>
       <div className="settings-layout">
         <form onSubmit={save} className="form-stack">
           <section className="panel settings-section">
-            <h2>Không gian vận hành</h2>
+            <h2>Thông tin trạm</h2>
             <div className="field-grid">
               <label>
                 Tên trạm
@@ -117,7 +112,7 @@ export function SettingsPage() {
                 />
               </label>
               <label>
-                Tên người vận hành
+                Tên người duyệt
                 <input
                   value={form.operator_name}
                   onChange={(e) => change("operator_name", e.target.value)}
@@ -125,14 +120,13 @@ export function SettingsPage() {
                   maxLength={80}
                 />
                 <small>
-                  Được ghi vào lịch sử duyệt; đây không phải tài khoản đăng
-                  nhập.
+                  Tên ghi trong lịch sử duyệt.
                 </small>
               </label>
             </div>
           </section>
           <section className="panel settings-section">
-            <h2>Mô hình & xử lý</h2>
+            <h2>Phân tích</h2>
             <div className="field-grid">
               <label>
                 Mô hình
@@ -168,7 +162,7 @@ export function SettingsPage() {
                 />
               </label>
               <label>
-                Kích thước suy luận
+                Kích thước ảnh phân tích
                 <select
                   value={form.image_size}
                   onChange={(e) => change("image_size", Number(e.target.value))}
@@ -181,7 +175,7 @@ export function SettingsPage() {
                 </select>
               </label>
               <label>
-                Ngưỡng detector
+                Ngưỡng nhận diện
                 <input
                   type="number"
                   min={0.1}
@@ -257,7 +251,7 @@ export function SettingsPage() {
             </details>
           </section>
           <section className="panel settings-section">
-            <h2>Bằng chứng & lưu trữ</h2>
+            <h2>Bằng chứng và lưu trữ</h2>
             <div className="field-grid">
               <label>
                 Video trước cảnh báo (giây)
@@ -459,7 +453,7 @@ export function SettingsPage() {
                         "source.connection_updated": "Đổi kết nối camera",
                         "zones.updated": "Lưu vùng giám sát",
                         "settings.updated": "Đổi cài đặt",
-                        "job.queued": "Tạo lượt xử lý",
+                        "job.queued": "Tạo lượt phân tích",
                         "job.cancel_requested": "Yêu cầu dừng",
                         "source.archived": "Lưu trữ nguồn",
                         "source.restored": "Khôi phục nguồn",
@@ -484,8 +478,7 @@ export function HelpPage() {
     <>
       <div className="page-heading">
         <div>
-          <h1>Từ góc nhìn đến bằng chứng</h1>
-          <p>Hướng dẫn vận hành Curb trên đường phố.</p>
+          <h1>Hướng dẫn</h1>
         </div>
       </div>
       <div className="help-grid">
@@ -517,7 +510,7 @@ export function HelpPage() {
             <li>
               <strong>Chạy và theo dõi</strong>
               <p>
-                Một nguồn dùng GPU tại một thời điểm. Camera chạy liên tục sẽ
+                Mỗi lần chỉ phân tích một nguồn. Camera chạy liên tục sẽ
                 giữ tài nguyên đến khi dừng. Nút dừng giữ lại bằng chứng đã ghi.
               </p>
             </li>
@@ -577,7 +570,7 @@ export function HelpPage() {
               </dd>
               <dt>Ứng dụng đóng đột ngột</dt>
               <dd>
-                Lượt đang chạy được đánh dấu gián đoạn ở lần mở sau. Sự kiện đã
+                Lượt đang chạy được đánh dấu gián đoạn ở lần mở sau. Cảnh báo đã
                 lưu vẫn còn; tạo lượt mới từ nguồn để chạy lại.
               </dd>
             </dl>
@@ -585,7 +578,7 @@ export function HelpPage() {
           <section className="panel">
             <h2>Dữ liệu riêng trên máy</h2>
             <p>
-              Ứng dụng chỉ nghe tại 127.0.0.1. Tên người vận hành là nhãn lịch
+              Ứng dụng chỉ nghe tại 127.0.0.1. Tên người duyệt là nhãn lịch
               sử, không phải hệ thống phân quyền. Không mở cổng này ra Internet.
             </p>
             <p>

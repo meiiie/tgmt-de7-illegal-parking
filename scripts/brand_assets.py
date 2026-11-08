@@ -9,7 +9,7 @@ def export_brand(destination: Path):
     draw = ImageDraw.Draw(image)
     def box(points):
         return tuple(value * scale for value in points)
-    draw.rounded_rectangle(box((0, 0, 256, 256)), radius=58 * scale, fill="#ed592e")
+    draw.rounded_rectangle(box((0, 0, 256, 256)), radius=58 * scale, fill="#2b3b79")
     draw.arc(box((64, 64, 126, 126)), 180, 270, fill="white", width=18 * scale)
     draw.arc(box((64, 130, 126, 192)), 90, 180, fill="white", width=18 * scale)
     draw.line(box((95, 73, 192, 73)), fill="white", width=18 * scale)

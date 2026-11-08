@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import {
   Badge,
+  api,
   Button,
   clockTime,
   Download,
@@ -44,9 +45,13 @@ import type {
 export function EventDrawer({
   id,
   onClose,
+  onNext,
+  scope = "",
 }: {
   id: string;
   onClose: () => void;
+  onNext?: (id: string) => void;
+  scope?: string;
 }) {
   const resource = useResource<EventRecord>(`/events/${id}`, 2000);
   const event = resource.data;
@@ -59,7 +64,7 @@ export function EventDrawer({
   useEffect(() => {
     if (event) setStatus(event.status);
   }, [event?.status]);
-  const save = async () => {
+  const save = async (next = false) => {
     setBusy(true);
     setError("");
     try {
@@ -70,7 +75,20 @@ export function EventDrawer({
       });
       setNote("");
       resource.refresh();
-      notice("Đã lưu quyết định và lịch sử xử lý.");
+      notice("Đã lưu kết quả duyệt");
+      if (next && onNext) {
+        try {
+          const query = new URLSearchParams(scope);
+          query.set("status", "pending");
+          query.set("page_size", "1");
+          query.delete("page");
+          const pending = await api<EventList>(`/events?${query}`);
+          if (pending.items[0]) onNext(pending.items[0].id);
+          else { onClose(); notice("Không còn cảnh báo chờ duyệt trong danh sách này"); }
+        } catch {
+          notice("Đã lưu. Chưa tải được cảnh báo tiếp theo; mở lại danh sách để tiếp tục.", true);
+        }
+      }
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -78,7 +96,7 @@ export function EventDrawer({
     }
   };
   return (
-    <Modal open title="Hồ sơ cảnh báo" onClose={onClose} wide>
+    <Modal open title="Hồ sơ cảnh báo" onClose={() => { if (!busy) onClose(); }} wide>
       {!event ? (
         resource.error ? (
           <ErrorBox message={resource.error} retry={resource.refresh} />
@@ -105,7 +123,7 @@ export function EventDrawer({
                   onClick={() => setMedia("snapshot")}
                 >
                   <FileImage size={16} />
-                  Ảnh cảnh báo
+                  Ảnh
                 </button>
                 <button
                   className={media === "clip" ? "selected" : ""}
@@ -114,7 +132,7 @@ export function EventDrawer({
                 >
                   <Video size={16} />
                   {event.payload.clip_ready
-                    ? "Video bằng chứng"
+                    ? "Video"
                     : "Video đang hoàn tất"}
                 </button>
               </div>
@@ -169,7 +187,7 @@ export function EventDrawer({
                   <strong>{duration(event.payload.dwell_s)}</strong>
                 </div>
                 <div>
-                  <span>Thời điểm trong nguồn</span>
+                  <span>{event.job?.config.source.kind === "camera" ? "Thời điểm từ lúc bắt đầu" : "Thời điểm trong video"}</span>
                   <strong>{clockTime(event.payload.alert_time_s)}</strong>
                 </div>
                 <div>
@@ -177,15 +195,9 @@ export function EventDrawer({
                   <strong>#{event.payload.track_id}</strong>
                 </div>
               </div>
-              <p className="field-note">
-                Cảnh báo được tạo khi xe dừng quá ngưỡng trong vùng đã cấu hình.
-                Xem cả diễn biến trước và sau; kiểm tra đèn tín hiệu, ùn xe và
-                điều kiện đường trước khi kết luận.
-              </p>
               {event.job?.config.source.metadata.attribution && (
                 <p className="field-note">
                   Video mẫu · <a href={event.job.config.source.metadata.source_url} target="_blank" rel="noreferrer">{event.job.config.source.metadata.attribution}</a>.
-                  {" "}Ảnh và clip có thêm chú thích của Curb; giữ ghi nguồn và giấy phép khi chia sẻ.
                 </p>
               )}
               <details className="technical-details">
@@ -200,7 +212,7 @@ export function EventDrawer({
                     <dd>{clockTime(event.payload.stop_start_s)}</dd>
                   </div>
                   <div>
-                    <dt>Điểm detector</dt>
+                    <dt>Điểm nhận diện</dt>
                     <dd>
                       {Math.round(event.payload.confidence * 100)}%{" "}
                       <small>(không phải độ chắc chắn vi phạm)</small>
@@ -211,7 +223,7 @@ export function EventDrawer({
                     <dd>{event.job?.config.settings.model}</dd>
                   </div>
                   <div>
-                    <dt>Mã sự kiện</dt>
+                    <dt>Mã cảnh báo</dt>
                     <dd className="mono">{id}</dd>
                   </div>
                 </dl>
@@ -221,15 +233,12 @@ export function EventDrawer({
                     go(`/jobs/${event.job_id}`);
                   }}
                 >
-                  Mở lượt xử lý <ArrowRight size={15} />
+                  Mở lượt phân tích <ArrowRight size={15} />
                 </Button>
               </details>
             </div>
             <aside className="review-panel">
-              <h3>Quyết định của bạn</h3>
-              <p className="muted">
-                Kết quả được lưu cùng tên người vận hành và thời gian.
-              </p>
+              <h3>Duyệt cảnh báo</h3>
               <div
                 className="review-options"
                 role="group"
@@ -246,6 +255,8 @@ export function EventDrawer({
                   <button
                     key={value}
                     className={status === value ? "selected" : ""}
+                    aria-pressed={status === value}
+                    disabled={busy}
                     onClick={() => setStatus(value)}
                   >
                     {value === "confirmed" ? (
@@ -257,31 +268,31 @@ export function EventDrawer({
                     ) : (
                       <Clock3 size={17} />
                     )}
-                    <span>{statusLabels[value]}</span>
+                    <span>{{ confirmed: "Xác nhận", dismissed: "Bỏ qua", resolved: "Đã xử lý", pending: "Chờ duyệt" }[value]}</span>
                     {status === value && <Check size={15} />}
                   </button>
                 ))}
               </div>
               <label>
-                Lý do / ghi chú
+                {status === "pending" ? "Ghi chú (không bắt buộc)" : "Lý do"}
                 <textarea
                   rows={4}
                   value={note}
+                  disabled={busy}
                   onChange={(e) => setNote(e.target.value)}
                   maxLength={2000}
-                  placeholder="Ví dụ: xe chờ đèn đỏ; hoặc đã kiểm tra và xe dừng trong vùng hạn chế…"
+                  placeholder={status === "dismissed" ? "Ví dụ: xe đang chờ đèn đỏ" : status === "confirmed" ? "Ví dụ: xe dừng quá thời gian cho phép" : "Nhập ghi chú"}
+                  required={status !== "pending"}
                 />
               </label>
               <ErrorBox message={error} />
-              <Button
-                variant="primary"
-                onClick={save}
-                busy={busy}
-                disabled={status !== "pending" && !note.trim()}
-              >
-                <Check size={16} />
-                Lưu quyết định
-              </Button>
+              <p className="field-note">Xác nhận sau khi xem bằng chứng và đối chiếu quy định tại vị trí này.</p>
+              <div className="review-actions">
+                <Button variant="primary" onClick={() => save(!!onNext && status !== "pending")} busy={busy} disabled={status !== "pending" && !note.trim()}>
+                  <Check size={16} />{onNext && status !== "pending" ? "Lưu và duyệt tiếp" : "Lưu kết quả"}
+                </Button>
+                {onNext && status !== "pending" && <Button onClick={() => save()} disabled={busy || !note.trim()}>Lưu và ở lại</Button>}
+              </div>
               <div className="review-history">
                 <h4>
                   <History size={16} />
@@ -291,7 +302,7 @@ export function EventDrawer({
                   event.reviews.map((review) => (
                     <article key={review.id}>
                       <strong>{statusLabels[review.status]}</strong>
-                      <p>{review.note || "Đưa về hàng đợi xem xét."}</p>
+                      <p>{review.note || "Đưa về danh sách chờ duyệt."}</p>
                       <small>
                         {review.operator} · {stamp(review.created_at)}
                       </small>
@@ -299,7 +310,7 @@ export function EventDrawer({
                   ))
                 ) : (
                   <p className="muted">
-                    Chưa có quyết định. Hồ sơ đang chờ người vận hành xem xét.
+                    Chưa có lượt duyệt
                   </p>
                 )}
               </div>
@@ -378,8 +389,8 @@ export function EventTable({
   );
 }
 
-export function EventsPage({ onOpen }: { onOpen: (id: string) => void }) {
-  const [status, setStatus] = useState("");
+export function EventsPage({ onOpen, initialStatus = "" }: { onOpen: (id: string, scope?: string) => void; initialStatus?: string }) {
+  const [status, setStatus] = useState(initialStatus);
   const [source, setSource] = useState("");
   const [vehicle, setVehicle] = useState("");
   const [query, setQuery] = useState("");
@@ -414,8 +425,7 @@ export function EventsPage({ onOpen }: { onOpen: (id: string) => void }) {
     <>
       <div className="page-heading">
         <div>
-          <h1>Sự kiện & bằng chứng</h1>
-          <p>Xem diễn biến, ghi nhận quyết định, giữ hồ sơ rõ ràng.</p>
+          <h1>Cảnh báo</h1>
         </div>
         <Download path={`/export/events?${params}`} name="curb-events.csv">
           Xuất CSV
@@ -426,8 +436,8 @@ export function EventsPage({ onOpen }: { onOpen: (id: string) => void }) {
           <div className="search-field">
             <Search size={17} />
             <input
-              aria-label="Tìm sự kiện"
-              placeholder="Tìm nguồn, vùng hoặc mã sự kiện…"
+              aria-label="Tìm cảnh báo"
+              placeholder="Tìm nguồn, vùng hoặc mã cảnh báo…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -481,7 +491,7 @@ export function EventsPage({ onOpen }: { onOpen: (id: string) => void }) {
           <label>
             Từ ngày
             <input
-              aria-label="Sự kiện từ ngày"
+              aria-label="Cảnh báo từ ngày"
               type="date"
               value={start}
               onChange={(e) => setStart(e.target.value)}
@@ -490,7 +500,7 @@ export function EventsPage({ onOpen }: { onOpen: (id: string) => void }) {
           <label>
             Đến ngày
             <input
-              aria-label="Sự kiện đến ngày"
+              aria-label="Cảnh báo đến ngày"
               type="date"
               value={end}
               min={start}
@@ -502,23 +512,25 @@ export function EventsPage({ onOpen }: { onOpen: (id: string) => void }) {
               Xóa bộ lọc
             </Button>
           )}
-          <span>{events.data?.total ?? 0} sự kiện</span>
+          <span>{events.data?.total ?? 0} cảnh báo</span>
         </div>
         <ErrorBox message={events.error} retry={events.refresh} />
         {events.loading && !events.data ? (
           <Loading />
         ) : events.data?.items.length ? (
-          <EventTable events={events.data.items} onOpen={onOpen} />
+          <EventTable events={events.data.items} onOpen={(id) => onOpen(id, params.toString())} />
         ) : (
           <Empty
             icon={<ShieldCheck size={32} />}
             title={
               status || source || vehicle || search || start || end
-                ? "Không có sự kiện khớp bộ lọc"
+                ? "Không có cảnh báo khớp bộ lọc"
                 : "Chưa có cảnh báo"
             }
           >
-            Các sự kiện xe dừng quá ngưỡng sẽ xuất hiện sau khi xử lý nguồn.
+            {status || source || vehicle || search || start || end
+              ? "Thay đổi hoặc xóa bộ lọc để xem cảnh báo khác."
+              : "Chạy phân tích video hoặc camera để tạo cảnh báo."}
           </Empty>
         )}
         <div className="pagination">
@@ -543,7 +555,7 @@ export function EventsPage({ onOpen }: { onOpen: (id: string) => void }) {
       </section>
       <p className="footnote">
         Bộ lọc ngày dùng thời gian tạo hồ sơ trên máy này. Thời điểm trong video
-        được ghi riêng trong từng sự kiện.
+        được ghi riêng trong từng cảnh báo.
       </p>
     </>
   );

@@ -25,4 +25,4 @@ Giả định triển khai ban đầu: một người vận hành trên một m�
 
 ## Visual commitment
 
-Tham chiếu ảnh người dùng: sáng, trắng/xám dịu, nút đen, điểm nhấn cam, panel bo góc, thanh điều hướng gọn. Mockup imagegen là định hướng bố cục; dữ liệu minh họa và khả năng OCR trong ảnh không phải tính năng hoặc kết quả sản phẩm.
+Bộ màu người dùng xác nhận ngày 08/11/2026: Void Eclipse #0B0B0B, Abyss Blue #2B3B79, Silver Mist #E4E4E4. Bề mặt trắng, chữ đen, xanh dành cho hành động và lựa chọn; giữ panel và điều hướng gọn của ảnh tham khảo đầu tiên. Mockup imagegen cũ chỉ là tham khảo bố cục; dữ liệu minh họa và khả năng OCR trong ảnh không phải tính năng hoặc kết quả sản phẩm. Nội dung hướng đến thao tác thực tế, bỏ lời dẫn và điều hướng lặp lại.

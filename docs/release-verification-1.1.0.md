@@ -1,6 +1,6 @@
 # Curb 1.1.0 — kiểm chứng bản phát hành
 
-Kiểm thử trên Windows ngày 08/11/2026, tự thực hiện; không có huấn luyện hoặc đánh giá độ chính xác độc lập. Commit nguồn của gói phát hành được ghi trong `release-manifest.json` và tag `v1.1.0`. Nền nghiên cứu trước thay đổi: `10f94e8a3c93a4b4654653b246ae9875c91250d1`.
+Kiểm thử trên Windows ngày 08–09/11/2026, tự thực hiện; không có huấn luyện hoặc đánh giá độ chính xác độc lập. Commit nguồn của gói phát hành được ghi trong `release-manifest.json` và tag `v1.1.0`. Nền nghiên cứu trước thay đổi: `10f94e8a3c93a4b4654653b246ae9875c91250d1`.
 
 ## Kết quả đã quan sát
 
@@ -15,11 +15,19 @@ Kiểm thử trên Windows ngày 08/11/2026, tự thực hiện; không có hu�
 | Gỡ ứng dụng | Uninstaller kết thúc mã 0, xóa executable và giữ nguyên cơ sở dữ liệu cùng các số lượng trên |
 | Cài lại | Quick Install cài vào `%LOCALAPPDATA%/Programs/Curb`, tự mở và đọc lại 2 nguồn, 2 lượt, 4 sự kiện cũ; không cần bấm Next/Install |
 | ZIP không hợp lệ | CLI từ chối với mã 1 và thông báo lỗi; không tạo thư mục đích, không ghi đè dữ liệu |
+| Dependency | `uv pip check` xác nhận 52 gói runtime tương thích; `npm audit` báo 0 advisory ở thời điểm kiểm tra, không thay thế rà soát bảo mật độc lập |
 | Nhận diện | Logo vector, biểu tượng Windows, phiên bản, nhà phát hành Meiiie, About và thông báo giấy phép thống nhất |
+| Luồng UX mới | Duyệt và mở hồ sơ tiếp theo; lọc riêng một mã rồi duyệt xong quay lại danh sách, hồ sơ ngoài bộ lọc vẫn chờ duyệt. Sửa điểm vùng bằng bàn phím làm khóa nút chạy và hiện lý do; lưu vùng mở lại nút chạy |
+| Chữ và bố cục | Kiểm tra cửa sổ 1090×735 và 1536×816, zoom 100%; phát hiện và sửa tràn thanh điều hướng khi phóng to 200%, kiểm tra lại không còn tràn. WebView2 dùng vi-VN, bộ chọn ngày hiện thứ tự ngày/tháng/năm và nhãn tiếng Việt. Thẻ Chờ duyệt mở đúng bộ lọc |
+| Quick Install mới | Biên dịch và cài thành công, mã thoát 0, không yêu cầu khởi động lại trên máy có đủ runtime. Đã quan sát thanh tiến độ Abyss Blue tăng từ 23% đến 31%; không có bước Next/Install |
+
+Rà soát nội dung dựa trên [tài liệu Apple, Google và Microsoft](ux-writing.md). Đã bỏ điều hướng lặp, lời dẫn không giúp thao tác và chuyển thông số kỹ thuật vào mục mở rộng. Bản production frontend và 33 unittest đạt sau thay đổi. Bộ quét Impeccable chỉ chạy quy tắc regex trên 12 tệp; không phải kiểm tra DOM hoặc chứng nhận khả năng truy cập. Chưa có thử nghiệm khả dụng với người dùng độc lập.
 
 Ảnh chụp từ cửa sổ thực tế, zoom 100%:
 
 ![Tổng quan](screenshots/curb-1.1-overview.jpg)
+
+![Kết quả phân tích](screenshots/curb-1.1-analysis.jpg)
 
 ![Bộ cài](screenshots/curb-1.1-installer.jpg)
 
@@ -62,6 +70,10 @@ npm --prefix web run build
 
 ## Giới hạn còn lại
 
-Chưa thử camera RTSP vật lý, mạng hiện trường, hoạt động liên tục 24/7, nhiều loại camera/mưa/đêm/rung hoặc hiệu quả theo lớp trên tập độc lập. HTTP camera replay chỉ kiểm tra luồng vận hành. Chưa kiểm tra mobile. Trường hợp máy thiếu WebView2/.NET chưa được tái hiện trên máy Windows sạch; bộ cài có kiểm tra và hướng dẫn tương ứng.
+[GitHub Actions run 42498742221](https://github.com/meiiie/tgmt-de7-illegal-parking/actions/runs/42498742221) không khởi chạy job do GitHub báo tài khoản bị khóa vì vấn đề billing. Cả hai job không thực thi bước nào; không gọi CI là đạt. Các kết quả logic/API/frontend ở trên được chạy cục bộ. Workflow giữ trong repo để chạy lại khi tài khoản được mở; workflow build Windows trên runner sạch chưa được thực thi.
+
+Chưa thử camera RTSP vật lý, mạng hiện trường, hoạt động liên tục 24/7, nhiều loại camera/mưa/đêm/rung hoặc hiệu quả theo lớp trên tập độc lập. HTTP camera replay chỉ kiểm tra luồng vận hành. Chưa kiểm tra mobile. Trường hợp máy thiếu WebView2/.NET/Visual C++ chưa được tái hiện trên máy Windows sạch; bộ cài có kiểm tra và hướng dẫn tương ứng.
+
+Rà soát DLL xác nhận `c10.dll`, `torch_cpu.dll` và `torch_python.dll` cần `MSVCP140.dll`; máy thử có Visual C++ 14.44.35211. Bộ cài kiểm tra runtime x64 v14.44+ và tải bản 14.51.36247.0 từ URL Microsoft cố định khi thiếu, kiểm tra SHA-256 `843068991daaa1f73ad9f6239bce4d0f6a07a51f18c37ea2a867e9beca71295c`. Đã tải tệp và xác minh chữ ký Microsoft; chưa gỡ runtime dùng chung để giả lập máy thiếu thành phần. Cài runtime có thể cần UAC, không tự khởi động lại Windows. Đối chiếu [hướng dẫn triển khai của Microsoft](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist).
 
 Chưa có chứng thư ký mã; không tuyên bố tránh được SmartScreen. Một người vận hành, một worker tại một thời điểm; không có OCR biển số, nhận diện danh tính, phân quyền nhiều người hay xử phạt tự động. Cần chạy thử và đánh giá tại địa điểm triển khai trước khi dựa vào cảnh báo để vận hành thực tế.

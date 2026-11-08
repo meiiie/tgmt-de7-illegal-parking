@@ -25,3 +25,5 @@ Tự thực hiện tuần tự theo pstack, không giao việc. Đã đọc nguy
 Ghi kết quả mới ở `outputs/release-1.1.0/`; tóm tắt có thể công khai ở `docs/release-verification-1.1.0.md`. Không thay báo cáo lịch sử.
 
 Tài liệu chính thức đã đối chiếu: [Inno Setup](https://jrsoftware.org/ishelp/), [WebView2 distribution](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution), [Windows code signing](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/code-signing-options), [Ultralytics license](https://www.ultralytics.com/license), [FFmpeg legal](https://ffmpeg.org/legal.html).
+
+Ngoại lệ hạ tầng được ghi nhận khi thực hiện: GitHub Actions không khởi chạy do tài khoản bị khóa vì billing. Không thay đổi thanh toán hoặc chuyển sang tài khoản khác. Giữ kết quả kiểm tra cục bộ và công bố rõ CI chưa được thực thi trong báo cáo/Release; không đánh dấu CI xanh.

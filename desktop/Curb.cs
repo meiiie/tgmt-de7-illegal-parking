@@ -80,7 +80,7 @@ sealed class CurbWindow : Form
         StartPosition = FormStartPosition.CenterScreen;
         ClientSize = new Size(1360, 880);
         MinimumSize = new Size(1024, 700);
-        BackColor = Color.FromArgb(243, 243, 240);
+        BackColor = Color.FromArgb(228, 228, 228);
         Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         status.Dock = DockStyle.Fill;
         status.TextAlign = ContentAlignment.MiddleCenter;
@@ -154,7 +154,8 @@ sealed class CurbWindow : Form
                 throw new TimeoutException("Dịch vụ không phản hồi.");
             });
             if (closing) return;
-            var environment = await CoreWebView2Environment.CreateAsync(null, Path.Combine(data, "webview"));
+            var webOptions = new CoreWebView2EnvironmentOptions { Language = "vi-VN" };
+            var environment = await CoreWebView2Environment.CreateAsync(null, Path.Combine(data, "webview"), webOptions);
             status.Text = "Curb " + BuildInfo.Version + "\nĐang tải không gian làm việc…";
             await view.EnsureCoreWebView2Async(environment);
             if (closing) return;
@@ -220,7 +221,7 @@ sealed class CurbWindow : Form
             if (picker.ShowDialog(this) != DialogResult.OK) return;
             archive = picker.FileName;
         }
-        if (MessageBox.Show(this, "Curb sẽ khôi phục vào thư mục mới và mở lại ứng dụng. Lượt xử lý đang chạy sẽ dừng. Dữ liệu hiện tại được giữ nguyên.\n\nTiếp tục khôi phục?", "Khôi phục bản sao lưu", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK) return;
+        if (MessageBox.Show(this, "Curb sẽ khôi phục vào thư mục mới và mở lại ứng dụng. Lượt phân tích đang chạy sẽ dừng. Dữ liệu hiện tại được giữ nguyên.\n\nTiếp tục khôi phục?", "Khôi phục bản sao lưu", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK) return;
         restoring = true;
         var destination = Path.Combine(Path.GetDirectoryName(data), "restored-" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + "-" + Guid.NewGuid().ToString("N").Substring(0, 6));
         status.Text = "Đang khôi phục bản sao lưu…\nDữ liệu hiện tại vẫn được giữ nguyên.";

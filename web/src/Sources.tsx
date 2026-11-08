@@ -70,7 +70,7 @@ export function AddSource({
   const finish = (source: Source) => {
     onClose();
     go(`/sources/${source.id}`);
-    notice("Đã thêm nguồn. Kiểm tra hình ảnh và vùng giám sát trước khi chạy.");
+    notice("Đã thêm nguồn");
   };
   const submit = async (event: FormEvent) => {
     event.preventDefault();
@@ -209,7 +209,7 @@ export function AddSource({
         </Button>
       </form>
       <div className="demo-invite">
-        <span>Muốn thử trước?</span>
+
         <Button variant="quiet" onClick={demo} busy={busy}>
           Dùng video mẫu <ArrowRight size={15} />
         </Button>
@@ -233,8 +233,7 @@ export function SourcesPage({ onAdd }: { onAdd: () => void }) {
     <>
       <div className="page-heading">
         <div>
-          <h1>Nguồn giám sát</h1>
-          <p>Mỗi góc nhìn, một vùng quan sát rõ ràng.</p>
+          <h1>Video và camera</h1>
         </div>
         <Button variant="primary" onClick={onAdd}>
           <Plus size={17} />
@@ -276,7 +275,7 @@ export function SourcesPage({ onAdd }: { onAdd: () => void }) {
                 ? "Không tìm thấy nguồn phù hợp"
                 : archived
                   ? "Chưa có nguồn lưu trữ"
-                  : "Bắt đầu từ một góc đường"
+                  : "Chưa có video hoặc camera"
             }
             action={
               !archived && !query ? (
@@ -286,7 +285,11 @@ export function SourcesPage({ onAdd }: { onAdd: () => void }) {
               ) : undefined
             }
           >
-            Nhập video hoặc kết nối camera, sau đó đánh dấu vùng cần theo dõi.
+            {query
+              ? "Thử tên khác hoặc xóa từ khóa."
+              : !archived
+                ? "Chọn video từ máy tính, kết nối camera hoặc dùng video mẫu."
+                : undefined}
           </Empty>
         </section>
       ) : (
@@ -478,7 +481,7 @@ function ZoneEditor({
       await send(`/sources/${source.id}/zones`, { zones }, "PUT");
       setDirty(false);
       onDirty(false);
-      notice("Đã lưu vùng và quy tắc. Lượt chạy mới sẽ dùng cấu hình này.");
+      notice("Đã lưu vùng");
       saved();
     } catch (e) {
       setError((e as Error).message);
@@ -490,8 +493,7 @@ function ZoneEditor({
     <section className="panel zone-editor">
       <div className="section-heading">
         <div>
-          <h2>Vùng & quy tắc</h2>
-          <p>Đánh dấu mặt đường cần giám sát.</p>
+          <h2>Vùng giám sát</h2>
         </div>
         <Button
           variant="primary"
@@ -500,7 +502,7 @@ function ZoneEditor({
           disabled={!dirty || drawing}
         >
           <Save size={16} />
-          Lưu cấu hình
+          Lưu vùng
         </Button>
       </div>
       <div className="zone-tools">
@@ -508,7 +510,7 @@ function ZoneEditor({
           <>
             <span>
               <MousePointer2 size={16} />
-              Đã đặt {points.length} điểm
+              {points.length} điểm · chọn ít nhất 3 điểm quanh vùng cần theo dõi
             </span>
             <Button
               onClick={() => setPoints((current) => current.slice(0, -1))}
@@ -545,7 +547,7 @@ function ZoneEditor({
               Vẽ vùng mới
             </Button>
             <span className="muted">
-              Chọn vùng để sửa; kéo điểm để đổi biên.
+              Kéo các điểm để sửa vùng.
             </span>
           </>
         )}
@@ -775,11 +777,10 @@ function ZoneEditor({
                   patch({ suppress_congestion: e.target.checked })
                 }
               />
-              Tạm ngăn cảnh báo khi nhiều xe cùng đứng yên trong vùng
+              Bỏ qua tình huống ùn xe
             </label>
             <p className="field-note">
-              Áp dụng khi ít nhất 4 xe và 60% số xe trong vùng cùng đứng yên.
-              Đây là dấu hiệu hỗ trợ nhận biết ùn xe.
+              Tạm ngừng cảnh báo khi có ít nhất 4 xe trong vùng và 60% đứng yên.
             </p>
             <div className="schedule-fields">
               <label className="toggle-field">
@@ -909,7 +910,7 @@ function ZoneEditor({
       </div>
       {dirty && (
         <div className="inline-note">
-          Có thay đổi chưa lưu. Lưu cấu hình trước khi chạy phân tích.
+          Có thay đổi chưa lưu. Lưu vùng trước khi chạy phân tích.
         </div>
       )}
     </section>
@@ -944,13 +945,22 @@ export function SourcePage({ id }: { id: string }) {
       <Loading />
     );
   const current = jobs.data?.find((job) => active(job.status));
+  const startHint = source.archived
+    ? "Khôi phục nguồn để tiếp tục phân tích."
+    : dirty
+      ? "Lưu vùng đã chỉnh sửa trước khi chạy phân tích."
+      : !source.has_preview
+        ? "Kiểm tra kết nối camera để lấy khung hình và chọn vùng giám sát."
+        : !source.zones.some((zone) => zone.enabled)
+          ? "Vẽ và bật ít nhất một vùng giám sát để chạy phân tích."
+          : "";
   const start = () =>
     runAction("run", async () => {
       const job = await send<Job>("/jobs", {
         source_id: id,
         max_seconds: limit,
       });
-      notice("Đã thêm vào hàng đợi xử lý.");
+      notice("Đã thêm vào hàng đợi phân tích");
       go(`/jobs/${job.id}`);
     });
   return (
@@ -983,12 +993,7 @@ export function SourcePage({ id }: { id: string }) {
             <Button
               variant="primary"
               busy={busy === "run"}
-              disabled={
-                dirty ||
-                source.archived ||
-                !source.zones.some((z) => z.enabled) ||
-                !source.has_preview
-              }
+              disabled={!!startHint}
               onClick={start}
             >
               <Play size={17} />
@@ -997,10 +1002,11 @@ export function SourcePage({ id }: { id: string }) {
           )}
         </div>
       </div>
+      {!current && startHint && <p className="state-hint" role="status">{startHint}</p>}
       <ErrorBox message={resource.error} retry={resource.refresh} />
       {source.metadata.demo && (
-        <div className="info-banner">
-          <FileVideo size={20} />
+        <details className="demo-details">
+          <summary>Video mẫu · Nguồn và giấy phép</summary>
           <div>
             <strong>{source.metadata.demo_title || "Video mẫu có xe chờ đèn đỏ"}</strong>
             <span>
@@ -1016,7 +1022,7 @@ export function SourcePage({ id }: { id: string }) {
               {source.metadata.modifications && <> · {source.metadata.modifications}</>}
             </span>
           </div>
-        </div>
+        </details>
       )}
       {source.has_preview ? (
         <ZoneEditor
@@ -1054,10 +1060,10 @@ export function SourcePage({ id }: { id: string }) {
       <div className="two-columns source-bottom">
         <section className="panel">
           <div className="section-heading">
-            <h2>Thiết lập lượt chạy</h2>
+            <h2>Tùy chọn phân tích</h2>
           </div>
           <label>
-            Giới hạn thời gian nguồn (giây)
+            Phân tích tối đa (giây)
             <input
               type="number"
               min={0}
@@ -1066,8 +1072,7 @@ export function SourcePage({ id }: { id: string }) {
               onChange={(e) => setLimit(Number(e.target.value))}
             />
             <small>
-              0 = toàn bộ video hoặc chạy camera đến khi bạn dừng. Một nguồn xử
-              lý tại một thời điểm.
+              Nhập 0 để phân tích hết video hoặc chạy camera đến khi dừng.
             </small>
           </label>
           <div className="detail-list">
@@ -1117,7 +1122,7 @@ export function SourcePage({ id }: { id: string }) {
                   if (
                     await confirm(
                       source.archived ? "Khôi phục nguồn?" : "Lưu trữ nguồn?",
-                      "Các lượt xử lý và bằng chứng đã có vẫn được giữ lại.",
+                      "Các lượt phân tích và bằng chứng đã có vẫn được giữ lại.",
                       source.archived ? "Khôi phục" : "Lưu trữ",
                     )
                   ) {
@@ -1136,7 +1141,7 @@ export function SourcePage({ id }: { id: string }) {
         </section>
         <section className="panel">
           <div className="section-heading">
-            <h2>Lượt xử lý của nguồn</h2>
+            <h2>Lượt phân tích của nguồn</h2>
             <a href="#/jobs" className="text-link">
               Tất cả <ArrowRight size={15} />
             </a>
@@ -1157,7 +1162,7 @@ export function SourcePage({ id }: { id: string }) {
               ))}
             </div>
           ) : (
-            <Empty icon={<FolderOpen size={25} />} title="Chưa có lượt xử lý">
+            <Empty icon={<FolderOpen size={25} />} title="Chưa có lượt phân tích">
               Lưu vùng rồi chọn “Chạy phân tích”.
             </Empty>
           )}

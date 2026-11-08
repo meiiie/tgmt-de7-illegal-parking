@@ -2,7 +2,7 @@
 
 Bộ cài Windows x64 này bao gồm Python, mô hình YOLO26, FFmpeg và bộ xử lý CPU. Không cần cài Node.js hay Python riêng.
 
-Cần Windows 10 (1809 trở lên) / Windows 11 và .NET Framework 4.8. Nếu chưa có Microsoft WebView2, bộ cài cần Internet để tải thành phần này từ Microsoft.
+Cần Windows 10 (1809 trở lên) / Windows 11 và .NET Framework 4.8. Bộ cài cần Internet nếu thiếu Microsoft WebView2 hoặc Visual C++ x64; các thành phần được tải từ Microsoft. Cài Visual C++ có thể cần quyền quản trị Windows.
 
 Mở Curb từ biểu tượng trên Desktop hoặc Start menu. Dữ liệu được lưu tại %USERPROFILE%\Curb\data, tách biệt với thư mục cài phần mềm. Gỡ hoặc nâng cấp ứng dụng không xóa dữ liệu này.
 

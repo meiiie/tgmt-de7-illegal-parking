@@ -67,8 +67,7 @@ export function ReportsPage() {
     <>
       <div className="page-heading">
         <div>
-          <h1>Báo cáo vận hành</h1>
-          <p>Đọc số liệu cùng trạng thái duyệt và bối cảnh của từng nguồn.</p>
+          <h1>Báo cáo</h1>
         </div>
         <div className="actions">
           <Download path={`/export/events?${params}`} name="curb-report.csv">
@@ -124,7 +123,7 @@ export function ReportsPage() {
                 Tổng cảnh báo
               </span>
               <strong>{report.total}</strong>
-              <small>Trong khoảng đã chọn</small>
+
             </article>
             <article className="stat-card">
               <span>
@@ -132,7 +131,7 @@ export function ReportsPage() {
                 Đã xác nhận
               </span>
               <strong>{count("confirmed")}</strong>
-              <small>Qua duyệt của người vận hành</small>
+
             </article>
             <article className="stat-card">
               <span>
@@ -140,7 +139,7 @@ export function ReportsPage() {
                 Đã xử lý
               </span>
               <strong>{count("resolved")}</strong>
-              <small>Có ghi chú hoàn tất</small>
+
             </article>
             <article className="stat-card">
               <span>
@@ -148,7 +147,7 @@ export function ReportsPage() {
                 Đang chờ xem xét
               </span>
               <strong>{count("pending")}</strong>
-              <small>Cần kiểm tra bằng chứng</small>
+
             </article>
           </div>
           <section className="panel report-chart">
