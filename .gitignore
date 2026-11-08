@@ -16,6 +16,11 @@ checkpoints/
 weights/
 *.webm
 *.jpg
+!docs/screenshots/*.jpg
 *.zip
 *.tar
 yolo26*.pt
+web/node_modules/
+web/dist/
+*.tsbuildinfo
+.impeccable/review/

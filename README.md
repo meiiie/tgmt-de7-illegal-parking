@@ -1,111 +1,140 @@
-# Đề 7 - Phát hiện và cảnh báo ô tô dừng đỗ trái phép (SAM 3.1 + DINOv3)
+# Curb — giám sát dừng đỗ đường phố
 
-**Pipeline chính (chốt 27/10/2026): YOLO26s + ByteTrack** — AIC21 Track 4, 9 video / 7 sự kiện, 2 fps, dwell 20 s: **P 0.444, R 0.571, F1 0.500, 34.3 FPS e2e, 100 MB VRAM** (Kaggle T4, kernel v5). SAM 3.1 (+ DINOv3) là nhánh nghiên cứu: trên T4 chạy 0.5 FPS, ~7.9 GB, và hiện chưa bám được xe dừng (xem chẩn đoán v5, thử nghiệm v6 với prompt box).
+[**Tải Curb cho Windows**](https://github.com/meiiie/tgmt-de7-illegal-parking/releases/latest) · [Hướng dẫn & hỗ trợ](SUPPORT.md) · [Lịch sử phiên bản](CHANGELOG.md) · [AGPL-3.0](LICENSE)
 
-Học phần Thị giác máy tính nâng cao.
+![Curb 1.1 trên Windows](docs/screenshots/curb-1.1-overview.jpg)
 
-## Demo Gradio (`app.py`)
-Tải video → click các đỉnh polygon vùng cấm dừng/đỗ trên khung hình đầu → chọn backend → Chạy. Kết quả: video có track/vùng/cảnh báo, bảng cảnh báo (thời điểm bắt đầu dừng, thời điểm cảnh báo, dwell), ảnh và clip bằng chứng.
+Ứng dụng Windows để quản lý video/camera, cấu hình vùng theo dõi, phát hiện phương tiện dừng lâu, duyệt bằng chứng và xuất hồ sơ. Giao diện tiếng Việt; video và dữ liệu được xử lý cục bộ trên máy.
 
-### Chạy local (CPU, baseline YOLO26 + ByteTrack)
-```bash
-python3.12 -m venv .venv && . .venv/bin/activate
-pip install ultralytics lap gradio opencv-python "transformers>=4.56"   # ffmpeg cần có trong PATH
-python app.py            # mở http://127.0.0.1:7860
+Cảnh báo cần được người vận hành xem xét. Curb không tự kết luận vi phạm giao thông hoặc xử phạt. Bản hiện tại dành cho **một máy, một người vận hành, một nguồn suy luận tại một thời điểm**.
+
+## Ứng dụng desktop Windows
+
+Mở `Curb-Setup-1.1.0-x64.exe` và chờ màn hình tiến độ. Curb tự mở khi cài xong; lần sau mở từ Desktop hoặc Start menu. Không phải chọn thư mục hay bấm Next qua nhiều trang. Bộ cài kèm Python 3.12.10, PyTorch CPU, hai mô hình YOLO26, video mẫu, FFmpeg và giao diện đã build. Không cần terminal, Python hay Node riêng để sử dụng.
+
+- Windows 10 x64 (1809+) / Windows 11; .NET Framework 4.8; Microsoft WebView2. Bộ cài tải WebView2 từ Microsoft nếu máy chưa có, nên trường hợp đó cần Internet.
+- Dữ liệu desktop nằm tại `%USERPROFILE%/Curb/data`; tách khỏi thư mục cài. Gỡ ứng dụng giữ lại dữ liệu này.
+- Vỏ WinForms/WebView2 tự bật dịch vụ trên một cổng loopback trống. Đóng cửa sổ dừng worker và dịch vụ. Windows Job Object thu hồi các tiến trình con khi host kết thúc.
+- Bản desktop đi kèm **CPU**, chạy được khi không có NVIDIA. Bản phát triển dưới đây tiếp tục hỗ trợ CUDA. Các phép đo GPU trước đó không phải tốc độ của bộ cài CPU.
+- Có hộp thoại lưu tệp Windows cho CSV/JSON/video/ZIP. Bản cài hiện chưa ký chứng thư nhà phát hành.
+- Có thể chọn dữ liệu khác bằng tham số `--data-dir`. Thao tác này không tự di chuyển dữ liệu cũ.
+
+Build lại: `./build-desktop.ps1` (cần `.venv`, Node, uv, .NET Framework compiler, Inno Setup 6.5+/7, model và video mẫu). Build dùng `%LOCALAPPDATA%/CurbBuild/cache`, khóa dependency tại `desktop/requirements-lock.txt`. Dùng `-SkipDependencies` khi runtime đã chuẩn bị.
+
+Kiểm tra `SHA256SUMS.txt` trước khi phân phối lại. Bộ cài hiện chưa ký mã; checksum không thay thế chữ ký nhà phát hành.
+
+Tài liệu gốc: [WinForms + WebView2 của Microsoft](https://learn.microsoft.com/en-us/microsoft-edge/webview2/get-started/winforms), [CPython embeddable](https://docs.python.org/3.12/using/windows.html#the-embeddable-package), [Inno Setup](https://jrsoftware.org/isinfo.php). Mã nguồn bản build và giấy phép được kèm trong bộ cài.
+
+## Mở bản phát triển GPU / web
+
+Sau khi chuẩn bị môi trường phát triển, mở `Start-Curb.cmd`, hoặc:
+
+```powershell
+.\run-curb.ps1
 ```
-### Colab
-```python
-!git clone https://github.com/meiiie/tgmt-de7-illegal-parking.git && %cd tgmt-de7-illegal-parking
-!pip -q install ultralytics lap gradio "transformers>=4.56"
-!pip -q install "git+https://github.com/facebookresearch/sam3.git@7f473cf"   # chỉ khi dùng backend sam3 (GPU)
-!python app.py --share    # in ra link *.gradio.live
+
+Địa chỉ mặc định: **http://127.0.0.1:8765/**. Một thư mục dữ liệu chỉ cho một phiên Curb sử dụng.
+
+```powershell
+# Build lại sau khi sửa giao diện
+.\run-curb.ps1 -Build
+
+# Chọn ổ lưu dữ liệu khác; không tự di chuyển dữ liệu cũ
+.\run-curb.ps1 -DataDir 'D:\CurbData' -Port 8765
+
+# Chạy dịch vụ mà không mở trình duyệt
+.\run-curb.ps1 -NoBrowser
 ```
-### Kaggle (GPU T4, Internet ON)
-Thêm dataset `holilihu/de7-weights` (SAM 3.1 + DINOv3), ghép checkpoint: `cat /kaggle/input/**/sam31_part_* > weights/sam3.1_multiplex.pt`, rồi `python app.py --share` và điền đường dẫn checkpoint ở ô "SAM 3.1 checkpoint". Không cần HF token.
 
-Ảnh chụp thật (chạy CPU):
+`Ctrl+C` trong cửa sổ chạy sẽ dừng ứng dụng và yêu cầu worker hoàn tất bằng chứng. Nếu ứng dụng bị đóng đột ngột, lượt đang chạy được đánh dấu gián đoạn ở lần mở tiếp theo.
 
-![Vẽ vùng cấm đỗ](docs/screenshots/01_zone_drawn.png)
-![Kết quả: track, cảnh báo, ảnh bằng chứng](docs/screenshots/02_results.png)
+## Các chức năng đã triển khai
 
-## Kết quả (AIC21 Track 4, mức sự kiện)
+| Luồng | Chức năng |
+|---|---|
+| Nguồn | Nhập MP4/MOV/MKV/AVI/WebM tối đa 1 GB; camera RTSP/RTSPS/HTTP(S); kiểm tra kết nối; ảnh xem trước; tên, địa điểm, ghi chú; lưu trữ và khôi phục nguồn |
+| Vùng | Nhiều polygon, kiểm tra tự cắt/điểm trùng, kéo điểm hoặc sửa tọa độ; bật/tắt, loại xe, mức theo dõi, thời gian dừng |
+| Theo giờ | Ngày trong tuần, khung giờ thường hoặc qua nửa đêm; video cần mốc ghi hình gốc, camera dùng giờ máy |
+| Phân tích | YOLO26s hoặc YOLO26n + ByteTrack; GPU/CPU; hàng đợi bền vững; tiến độ và khung hình cập nhật; hủy; giới hạn thời lượng; khôi phục trạng thái sau gián đoạn |
+| Bằng chứng | Ảnh toàn cảnh, ảnh phương tiện, clip trước/sau; H.264 có byte range; video toàn lượt cho tệp nhập; clip camera bám thời gian nguồn dù lấy mẫu không đều |
+| Duyệt | Chờ xem xét / xác nhận / bỏ qua / đã xử lý; lý do, tên người vận hành, lịch sử và chống ghi đè quyết định cũ |
+| Báo cáo | Tìm kiếm, lọc nguồn/loại xe/trạng thái/ngày; phân trang; thống kê thực từ SQLite; xuất CSV/JSON và ZIP hồ sơ của từng lượt |
+| Vận hành | Cài đặt, GPU/FFmpeg/model/dung lượng; nhật ký hệ thống; sao lưu SQLite và media; khôi phục sang thư mục mới; dọn thủ công dữ liệu hết hạn |
 
-9 video (7 sự kiện), 2 fps, cả khung hình là vùng, dwell 20 s, khớp nếu cảnh báo nằm trong [bắt đầu dừng, kết thúc + 30 s], gộp cảnh báo trùng IoU ≥ 0.3. GPU Kaggle T4.
+Tên người vận hành là nhãn lịch sử, **không phải tài khoản xác thực**. Dịch vụ chỉ bind loopback; không cung cấp chế độ LAN, Internet hoặc nhiều người dùng trong bản này.
 
-| Cấu hình | P | R | F1 | FPS e2e | VRAM đỉnh |
-|---|---|---|---|---|---|
-| YOLO26s + ByteTrack (baseline) | 0.40 | 0.57 | 0.471 | 34.2 | 100 MB |
-| YOLO26s + ByteTrack + DINOv3 re-ID | – | – | 0.435 | 33.6 | 175 MB |
-| SAM 3.1 (+ DINOv3) | xem bảng v4 | | | | |
+## Chạy thử
 
-Số đo SAM 3.1 đã có (v3, clip Gaithersburg 480p, stride 3, 658 frame, bf16 autocast + attention fp16): **0.18 FPS**, VRAM đỉnh **10.5 GB** (10.6 GB có DINOv3), 0 cảnh báo (đúng, clip không có xe đỗ). v3 hết ngân sách thời gian trước khi chạy AIC21 nên chưa có P/R/F1.
+1. Chọn **Thêm nguồn → Dùng video mẫu**. Nếu thiếu mẫu, chạy `scripts/download-demo.ps1` trước.
+2. Mẫu Street Scene dài 30 giây có camera cố định, ba ô tô đỗ sát lề và phương tiện khác đi qua. Vùng theo dõi mép lề dùng ngưỡng 20 giây. Bấm **Chạy phân tích**.
+3. Mở sự kiện, xem ảnh và clip để đối chiếu xe dừng lâu. Quy định cấm đỗ của địa điểm chưa được xác minh; không dùng cảnh báo mẫu như bằng chứng xe vi phạm.
+4. Với dữ liệu của bạn, chọn vùng phù hợp mặt đường và quy định của địa điểm, hiệu chỉnh ngưỡng bằng video phát triển rồi kiểm tra trên camera/video độc lập.
 
-Kernel v4 (`kaggle/kernel_v4/`, tạo bằng `notebooks/make_nb_v4.py`): fp16, prompt `car`, 1 fps, 240 s đầu của video 9/33/35/7, cạnh dài 640 px, chunk 60, sanity 5 frame (0 box → dừng), ngân sách 100 phút, baseline chạy lại trên cùng cửa sổ, tất cả gộp vào `out/de7_v4_results.json`.
+Nguồn mẫu: [MERL Street Scene — CC BY-SA 4.0](https://zenodo.org/records/10870472). Xem [ghi nguồn và biến đổi video](docs/demo-video-source.md). Mẫu Gaithersburg cũ vẫn được giữ để kiểm tra hồi quy; tải lại bằng `scripts/download-legacy-demo.ps1` khi cần.
 
-### Kernel v4 (T4, fp16, 240 s đầu video 9/33/35/7, 1 fps, 640 px, 4 sự kiện; cùng eval)
+## Chuẩn bị môi trường phát triển trên máy Windows khác
 
-Sanity 5 frame prompt `car`: 33 box, VRAM 7.9 GB → đạt. Tổng 4934 s.
+Cần Python 3.12 (uv có thể chuẩn bị), Node.js 22.12+ cho build, [uv](https://docs.astral.sh/uv/getting-started/installation/) và [FFmpeg](https://ffmpeg.org/download.html) trong PATH. Bản CUDA cần driver NVIDIA tương thích CUDA 12.6. Dành đủ dung lượng cho môi trường PyTorch, cache, video và bằng chứng; môi trường CUDA lớn hơn nhiều so với mã ứng dụng.
 
-| Cấu hình | P | R | F1 | FPS e2e | VRAM đỉnh |
-|---|---|---|---|---|---|
-| YOLO26s + ByteTrack | 1.0 | 0.75 | 0.857 | 13.315 | 66.1 MB |
-| YOLO26s + ByteTrack + DINOv3 | 0.8 | 1.0 | 0.889 | 14.076 | 145.2 MB |
-| SAM 3.1 fp16 | 0.0 | 0.0 | 0.0 | 0.482 | 7862.3 MB |
-| SAM 3.1 fp16 + DINOv3 | 0.0 | 0.0 | 0.0 | 0.481 | 7985.8 MB |
+```powershell
+.\setup-curb.ps1        # PyTorch CUDA 12.6, dependencies, frontend, model có kiểm tra SHA-256
+# hoặc
+.\setup-curb.ps1 -Cpu   # bản PyTorch CPU
+.\scripts\download-demo.ps1
+.\run-curb.ps1
+```
 
-SAM 3.1: 0 cảnh báo trên cả 4 video (0 jam frame, 0 re-ID merge) dù detector ra box → lỗi nằm ở khâu track/dwell với output SAM (nghi: ID đổi giữa các chunk 60 frame hoặc box dao động vượt `still_tol`), chưa kiểm chứng. Cửa sổ ngắn, 4 sự kiện → số baseline v4 không so trực tiếp với bảng 9 video.
+Đã kiểm chứng tại máy này: Python 3.12.2; torch 2.11.0+cu126; ultralytics 8.4.184; OpenCV 4.12.0.88; FastAPI 0.162.0; React 19.3.1; TypeScript 5.9.3; Vite 8.3.6; GTX 1650 4 GB. Dependency frontend được khóa trong `web/package-lock.json`. Không cần Node khi frontend đã build và chỉ chạy ứng dụng.
 
-### Kernel v5 (T4): baseline 9 video chạy lại + chẩn đoán SAM 3.1
+## Dữ liệu và khôi phục
 
-9 video AIC21 (7 sự kiện), 2 fps, dwell 20 s, pipeline hiện tại (gộp trùng IoU 0.3 và bỏ box < 200 px² ngay trong pipeline):
+Bản phát triển mặc định `outputs/curb/`; desktop dùng `%USERPROFILE%/Curb/data`:
 
-| Cấu hình | P | R | F1 | FPS e2e | VRAM đỉnh |
-|---|---|---|---|---|---|
-| YOLO26s + ByteTrack | 0.444 | 0.571 | 0.500 | 34.3 | 100 MB |
-| YOLO26s + ByteTrack + DINOv3 | 0.333 | 0.571 | 0.421 | 33.1 | 175 MB |
+- `curb.sqlite3`: nguồn, vùng, công việc, sự kiện, lịch sử duyệt và cài đặt.
+- `uploads/`: bản video đã nhập.
+- `sources/`: ảnh khung hình để vẽ vùng.
+- `jobs/<id>/`: ảnh, clip, video toàn lượt, `manifest.json` và `metrics.json`.
 
-SAM 3.1 fp16, video 35, 240 s đầu, 1 fps, 640 px, chunk 60, max_objects 8 (sanity: 40 box / 5 frame, 7.86 GB):
+Manifest ghi snapshot cấu hình, commit nền, hash mã Python/model/video, môi trường, seed và thiết bị. Metrics ghi số frame, thời gian model/toàn lượt, số cảnh báo, số frame có ùn xe và VRAM tensor đỉnh. Không có huấn luyện hoặc phép đo độ chính xác độc lập trong lượt xây ứng dụng.
 
-| Biến thể | FPS e2e | VRAM | ID gốc → ID cuối | Dòng đứng yên | Dwell max | Cảnh báo |
-|---|---|---|---|---|---|---|
-| Không nối ID | 0.55 | 7.86 GB | 32 → 32 | 3 / 738 | 3 s | 0 (F1 0) |
-| Nối ID IoU + DINOv3 | 0.54 | 7.99 GB | 32 → 31 (1 lần nối) | 3 / 738 | 3 s | 0 (F1 0) |
+Trong **Cài đặt → Sao lưu**, dừng các công việc rồi tải ZIP. Bản desktop có nút **Khôi phục bản sao lưu…** để chọn ZIP, tạo thư mục mới và mở lại với dữ liệu khôi phục. Dữ liệu cũ được giữ nguyên. Địa chỉ và mật khẩu camera **không có trong bản sao lưu**; cần nhập lại sau khi khôi phục. SQLite của phiên vận hành có chứa thông tin kết nối camera và chưa mã hóa trên đĩa; bảo vệ tài khoản Windows/thư mục dữ liệu tương ứng.
 
-Kết luận: giả thuyết "ID đổi ở ranh giới chunk" **bị bác bỏ**. Các track dài nhất là xe đang chạy (tâm box dịch 100–230 px) và rất nhỏ (cao 8–22 px); chỉ 165/240 frame có box, trung bình 4.5 box/frame. Xe dừng của sự kiện có vẻ không được SAM 3.1 bám ở 640 px với giới hạn 8 đối tượng (suy luận từ dump, chưa kiểm chứng trực quan). Hướng tiếp: giữ độ phân giải gốc, tăng `max_objects`, hoặc dùng YOLO đề xuất box làm prompt cho SAM 3.1. Dump: `results/v5_tracks/`.
+```powershell
+# Chỉ nhận thư mục đích chưa tồn tại, không ghi đè dữ liệu
+.venv/Scripts/python.exe -m curb.backup 'D:\Backups\curb-backup.zip' --destination 'D:\CurbRestored'
+.\run-curb.ps1 -DataDir 'D:\CurbRestored'
+```
 
-### Kernel v6 (T4): SAM 3.1 với prompt box YOLO26s + text, 800 px, 32 đối tượng
+Thời hạn lưu trữ chỉ tạo danh sách đề xuất dọn, không tự xóa. Nút dọn xóa hồ sơ/bằng chứng của lượt hết hạn sau xác nhận trong giao diện; nguồn và video đã nhập được giữ lại. Hãy sao lưu trước khi dọn.
 
-Sanity 5 frame (text + box): 137 box, 7.92 GB. Tổng 5665 s.
+## Kiểm tra phát triển
 
-Video 35, 240 s đầu, 1 fps (sự kiện 106–185 s; YOLO báo xe dừng ở mép trái, bbox [0,223,46,285]):
+```powershell
+.venv/Scripts/python.exe -m unittest discover -s tests -v
+npm --prefix web run build
+uv pip check --python .venv/Scripts/python.exe
 
-| Biến thể | FPS e2e | VRAM | Box/frame | ID | Dòng đứng yên | Dwell max | Dòng SAM trùng xe dừng (IoU>0.3) | Cảnh báo |
-|---|---|---|---|---|---|---|---|---|
-| Text `car` | 0.49 | 7.86 GB | 22.6 | 128 | 54 / 5340 | 4 s | 0 | 0 |
-| Text + box YOLO (13–26 box/chunk) | 0.45 | 7.92 GB | 20.6 | 131 | 43 / 4529 | 4 s | 3 (không đứng yên) | 0 |
+# Khi Curb đang chạy: upload và inference thật, HTTP camera phát lại,
+# cancel/disconnect, media decode/range, review, export và backup.
+.venv/Scripts/python.exe -X utf8 scripts/verify_curb.py
+```
 
-9 video, 240 s đầu, 1 fps (5 sự kiện trong cửa sổ):
+Script tích hợp tạo nguồn có tiền tố `[Kiểm thử]`, rồi lưu trữ chúng sau khi chạy; giữ lịch sử và bằng chứng để truy vết. Đây là kiểm thử vận hành bằng clip mẫu, không phải đánh giá camera hiện trường.
 
-| Cấu hình | Video | P | R | F1 | FPS e2e | VRAM |
-|---|---|---|---|---|---|---|
-| YOLO26s + ByteTrack | 9 | 1.00 | 0.60 | 0.750 | 23.1 | 100 MB |
-| SAM 3.1 text + box | 8 (hết ngân sách, bỏ 62) | 0 | 0 | 0 | 0.46 | 7.92 GB |
+Xem [kiểm chứng bản phát hành 1.1.0](docs/release-verification-1.1.0.md), [báo cáo web/GPU ban đầu](docs/rebuild-verification-2026-11-08.md) và [kiểm chứng desktop CPU ban đầu](docs/desktop-verification-2026-11-08.md). Giao diện Windows được kiểm tra trực tiếp trong cửa sổ ứng dụng. Mobile chưa được kiểm tra.
 
-Kết luận: 800 px + 32 đối tượng giúp SAM 3.1 thấy nhiều xe hơn (4.5 → 22 box/frame) nhưng **vẫn không bám được xe dừng** (xe bị cắt ở mép trái khung hình); prompt box YOLO không khắc phục được. ID ổn định trong chunk (nhiều track dài đủ 60 frame). Giữ YOLO26s + ByteTrack làm pipeline chính.
+## Kiến trúc và giới hạn triển khai
 
-## Công nghệ và license
+React/TypeScript được build và phục vụ cùng origin bởi FastAPI. SQLite WAL giữ dữ liệu. Mỗi công việc chạy trong tiến trình Python riêng; bộ điều phối cho một worker GPU hoạt động. Engine thời gian dừng là mô-đun thuần Python, tách khỏi detector và giao diện.
 
-| Thành phần | Phiên bản | License | Nguồn |
-|---|---|---|---|
-| SAM 3.1 (detect/segment/track theo text) | `facebook/sam3.1`, repo sam3 @7f473cf | SAM License (Meta, tùy chỉnh; HF gated) | https://github.com/facebookresearch/sam3/blob/main/LICENSE , https://huggingface.co/facebook/sam3.1 |
-| DINOv3 ViT-S/16 (re-ID) | `facebook/dinov3-vits16-pretrain-lvd1689m` | DINOv3 License (Meta, tùy chỉnh; HF gated) | https://github.com/facebookresearch/dinov3/blob/main/LICENSE.md , https://huggingface.co/facebook/dinov3-vits16-pretrain-lvd1689m |
-| YOLO26n/s + ByteTrack/BoT-SORT (baseline) | Ultralytics 8.4.184 | AGPL-3.0 | https://github.com/ultralytics/ultralytics/blob/main/LICENSE |
-| BoxMOT | – | AGPL-3.0 | https://github.com/mikel-brostrom/boxmot/blob/master/LICENSE |
-| Transformers | ≥ 4.56 | Apache-2.0 | https://github.com/huggingface/transformers/blob/main/LICENSE |
-| PyTorch | 2.11 | BSD-3-Clause | https://github.com/pytorch/pytorch/blob/main/LICENSE |
-| OpenCV | 4.x | Apache-2.0 | https://github.com/opencv/opencv/blob/4.x/LICENSE |
-| Gradio | – | Apache-2.0 | https://github.com/gradio-app/gradio/blob/main/LICENSE |
-| AI City Challenge 2021 Track 4 | train set | Tải công khai; điều khoản dùng theo trang AI City (chưa kiểm chứng điều khoản cụ thể) | https://www.aicitychallenge.org/ai-city-challenge-dataset-access/ |
-| Clip Gaithersburg MD-355/MD-124 (Wikimedia) | 480p | CC BY 4.0, G. Edward Johnson | https://commons.wikimedia.org/wiki/File:MD-355_and_MD-124_Gaithersburg_MD_2022-07-30_11-07-03_1.webm |
+Bản desktop Windows dùng WebView2 và CPU; bản web phát triển hỗ trợ CUDA. Khả năng xử lý thực tế phụ thuộc camera, độ phân giải, nhịp lấy mẫu và phần cứng. Camera HTTP phát lại đã được kiểm tra; chưa có địa chỉ RTSP hiện trường để thử. Chưa có OCR biển số, phân quyền nhiều người, triển khai Internet hay cam kết vận hành 24/7. Chưa kiểm tra độc lập mưa, đêm, camera rung, che khuất và mật độ đường phố Việt Nam.
 
-Lưu ý: dùng Ultralytics/BoxMOT (AGPL-3.0) trong sản phẩm đóng cần license thương mại; SAM/DINOv3 theo điều khoản riêng của Meta.
+Mã ứng dụng Curb được phát hành theo **AGPL-3.0-only**, phù hợp nhánh mã mở của [Ultralytics](https://www.ultralytics.com/license). Các thành phần bên thứ ba giữ giấy phép riêng; xem [thông báo thành phần](desktop/THIRD-PARTY-NOTICES.md). Mẫu MERL và các bản phái sinh giữ CC BY-SA 4.0. FFmpeg 7.1.1 của Gyan dùng GPLv3; nguồn tương ứng được kèm trong bộ cài và release.
+
+Các nguyên tắc pstack đã áp dụng: **Model the Domain** (Source/Job/Stop/Event riêng, snapshot bất biến); **Sequence Verifiable Units** (engine → API → suy luận → frontend); **Prove It Works** (chạy thật, giải mã media và ghi kết quả). Tự thực hiện và tự review, không dùng subagent.
+
+## Bản nghiên cứu được giữ nguyên
+
+Demo Gradio: `run.ps1`; pipeline cũ: `src/pipeline.py`; evaluator cũ: `src/evaluate.py`. Các notebook và `results/` lịch sử vẫn giữ nguyên. Chúng không dùng engine mới của Curb và còn các giới hạn được ghi trong [phân tích baseline](docs/preparation-2026-11-06.md).
+
+[Tài liệu nghiên cứu gốc](README-research.md) · [Hướng sản phẩm](PRODUCT.md) · [Hướng giao diện](DESIGN.md) · [Kế hoạch kiến trúc](docs/rebuild-plan.md)

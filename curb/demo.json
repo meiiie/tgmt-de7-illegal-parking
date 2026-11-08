@@ -1,0 +1,52 @@
+{
+  "id": "merl-streetscene-test006-30s-v1",
+  "filename": "streetscene_test006_30s.mp4",
+  "name": "Street Scene · dừng đỗ sát lề",
+  "location": "Đường phố · camera cố định trên cao",
+  "notes": "Đoạn 30 giây từ Test006, MERL Street Scene. Ba ô tô đỗ sát lề, các phương tiện khác di chuyển trên đường. Vùng và ngưỡng 20 giây là cấu hình minh họa, không phải quy định cấm đỗ tại địa điểm. Đoạn đã dùng làm demo/phát triển, không phải tập đánh giá độc lập.",
+  "metadata": {
+    "demo": true,
+    "demo_id": "merl-streetscene-test006-30s-v1",
+    "demo_title": "Xe đỗ sát lề · camera cố định",
+    "demo_description": "Đoạn 30 giây có xe đỗ bên đường và xe khác đi qua. Vùng mẫu theo dõi mép lề với ngưỡng 20 giây. Cảnh báo minh họa thời gian dừng; cần kiểm tra quy định địa điểm trước khi kết luận vi phạm.",
+    "attribution": "Mitsubishi Electric Research Laboratories (MERL), 2023 · Street Scene · CC BY-SA 4.0",
+    "source_url": "https://zenodo.org/records/10870472",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "source_sequence": "Test006",
+    "source_frames": "00001–00448, bước 3 từ nguồn 15 FPS",
+    "modifications": "Lấy mẫu 5 FPS giữ nguyên tốc độ thời gian; ghép H.264, 1280 × 720, không âm thanh. Video và hình trích xuất giữ giấy phép CC BY-SA 4.0."
+  },
+  "zone": {
+    "id": "demo-curb",
+    "name": "Mép lề · theo dõi dừng lâu",
+    "polygon": [
+      [
+        0.45,
+        0.23
+      ],
+      [
+        0.6,
+        0.23
+      ],
+      [
+        0.91,
+        0.87
+      ],
+      [
+        0.79,
+        0.96
+      ]
+    ],
+    "dwell_seconds": 20,
+    "enabled": true,
+    "severity": "watch",
+    "classes": [
+      "car",
+      "motorcycle",
+      "bus",
+      "truck"
+    ],
+    "suppress_congestion": true
+  }
+}

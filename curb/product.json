@@ -1,0 +1,8 @@
+{
+  "name": "Curb",
+  "version": "1.1.0",
+  "publisher": "Meiiie",
+  "description": "Giám sát dừng đỗ đường phố",
+  "repository": "https://github.com/meiiie/tgmt-de7-illegal-parking",
+  "license": "AGPL-3.0-only"
+}

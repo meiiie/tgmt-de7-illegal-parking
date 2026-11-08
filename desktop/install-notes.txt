@@ -1,0 +1,14 @@
+﻿Curb 1.1.0 — Giám sát dừng đỗ đường phố
+
+Bộ cài Windows x64 này bao gồm Python, mô hình YOLO26, FFmpeg và bộ xử lý CPU. Không cần cài Node.js hay Python riêng.
+
+Cần Windows 10 (1809 trở lên) / Windows 11 và .NET Framework 4.8. Nếu chưa có Microsoft WebView2, bộ cài cần Internet để tải thành phần này từ Microsoft.
+
+Mở Curb từ biểu tượng trên Desktop hoặc Start menu. Dữ liệu được lưu tại %USERPROFILE%\Curb\data, tách biệt với thư mục cài phần mềm. Gỡ hoặc nâng cấp ứng dụng không xóa dữ liệu này.
+
+Đóng cửa sổ sẽ dừng lượt đang xử lý và giữ bằng chứng đã ghi. Cảnh báo cần người vận hành kiểm tra. Mẫu có sẵn chỉ dùng thử giao diện và luồng xử lý, không chứng minh chất lượng triển khai thực địa.
+
+Bản CPU chạy độc lập; không dùng CUDA dù máy có GPU NVIDIA. Bản phát triển Python hỗ trợ CUDA được giữ riêng.
+
+Mã nguồn: https://github.com/meiiie/tgmt-de7-illegal-parking
+Thông tin thành phần và giấy phép: thư mục licenses và THIRD-PARTY-NOTICES.md trong thư mục cài.

@@ -1,0 +1,116 @@
+{
+  "kind": "synthetic_rule_engine_characterization",
+  "date": "2026-11-06",
+  "timezone": "Asia/Saigon",
+  "commit": "10f94e8a3c93a4b4654653b246ae9875c91250d1",
+  "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "packages": {
+    "numpy": "2.3.2",
+    "opencv-python": "4.13.0.92",
+    "torch": "2.12.0+cpu",
+    "ultralytics": null,
+    "gradio": null,
+    "transformers": "5.8.1",
+    "lap": null
+  },
+  "source_sha256": {
+    "src/pipeline.py": "4c0a959a14ff79cc682c218068137a15bfd55a7406f84593971597f1b93a5739",
+    "src/evaluate.py": "e46baa3bf5d801496e62f52ae57bd1aca543a72fa39d07eb915d71810d0708a6",
+    "app.py": "f6b8a5f66b85d9515585028c0a53cc2781fe24c8dcfb3be5a5fbf5160981e6f5",
+    "scripts/inspect_baseline.py": "73e025caa73ef1ae18918237c49f26008709281eff4862b294c21879bf4756ca"
+  },
+  "seed": null,
+  "data": "Deterministic black 64x64 MJPG frames at one FPS, with prescribed boxes and IDs. No dataset split.",
+  "limitations": [
+    "No detector, tracker, re-ID or SAM model is executed.",
+    "No accuracy, GPU performance or browser usability claim is made.",
+    "Spatial matching is a proposed stronger contract, not the current evaluator specification.",
+    "The missing-video probe replaces the model backend; full model startup is not covered."
+  ],
+  "artifacts": "outputs\\baseline-inspection-5f98c2cf",
+  "checks": [
+    {
+      "case": "stationary_positive",
+      "expected": 1,
+      "observed": 1,
+      "meets_expectation": true,
+      "evidence": "The real pipeline.main emits an alert after four seconds."
+    },
+    {
+      "case": "moving_negative",
+      "expected": 0,
+      "observed": 0,
+      "meets_expectation": true,
+      "evidence": "The bottom-center moves eight pixels each second."
+    },
+    {
+      "case": "exit_roi",
+      "expected": 0,
+      "observed": 1,
+      "meets_expectation": false,
+      "evidence": {
+        "alert_times": [
+          4.0
+        ],
+        "bottom_center_x": 33,
+        "roi_max_x": 32
+      }
+    },
+    {
+      "case": "two_distinct_stop_episodes",
+      "expected": 2,
+      "observed": 1,
+      "meets_expectation": false,
+      "evidence": {
+        "alert_times": [
+          4.0
+        ],
+        "second_episode_starts_s": 11
+      }
+    },
+    {
+      "case": "evaluator_distinct_episodes",
+      "expected": 2,
+      "observed": 1,
+      "meets_expectation": false,
+      "evidence": "Same position, separate events one hundred seconds apart."
+    },
+    {
+      "case": "evaluator_separate_zones",
+      "expected": 2,
+      "observed": 1,
+      "meets_expectation": false,
+      "evidence": "Different zones are currently deduplicated together."
+    },
+    {
+      "case": "spatial_event_matching",
+      "expected": 0,
+      "observed": 1,
+      "meets_expectation": false,
+      "evidence": "GT and prediction boxes do not overlap. The current temporal-only evaluator ignores GT bbox."
+    },
+    {
+      "case": "motion_between_equal_endpoints",
+      "expected": false,
+      "observed": true,
+      "meets_expectation": false,
+      "evidence": "A moving or jittering track returns to its first position within the observation window."
+    },
+    {
+      "case": "missing_video_rejected",
+      "expected": true,
+      "observed": false,
+      "meets_expectation": false,
+      "evidence": {
+        "returned_normally": true,
+        "frames_processed": 0
+      }
+    }
+  ],
+  "summary": {
+    "total": 9,
+    "met": 2,
+    "unmet": 7
+  }
+}

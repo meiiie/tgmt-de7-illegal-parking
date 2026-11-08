@@ -1,0 +1,41 @@
+name: Build Windows installer
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  desktop:
+    runs-on: windows-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Prepare build tools
+        shell: pwsh
+        run: |
+          python -m pip install uv
+          choco install innosetup ffmpeg --yes --no-progress
+      - name: Prepare application
+        shell: pwsh
+        run: |
+          ./setup-curb.ps1 -Cpu
+          ./scripts/download-demo.ps1
+          .venv/Scripts/python.exe -m unittest discover -s tests -v
+      - name: Build
+        shell: pwsh
+        run: |
+          ./build-desktop.ps1 -BuildRoot "$env:RUNNER_TEMP/CurbBuild"
+          .venv/Scripts/python.exe scripts/release_manifest.py --build-root "$env:RUNNER_TEMP/CurbBuild"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Curb-Windows-x64
+          path: ${{ runner.temp }}/CurbBuild/dist/*
+          if-no-files-found: error

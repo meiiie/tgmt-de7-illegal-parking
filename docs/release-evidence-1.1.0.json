@@ -1,0 +1,111 @@
+{
+  "purpose": "Development regression, not independent accuracy evaluation",
+  "runs": [
+    {
+      "name": "occlusion-gpu-final.json",
+      "baseline_sha256": "4bd78e02ee233315e51d14a1efa3a6805156174454083e35684ad2b0d7f27bc2",
+      "before": 6,
+      "after": 3,
+      "metrics": {
+        "wall_seconds": 20.5,
+        "model_seconds": 9.991,
+        "frames": 300,
+        "detection_observations": 2091,
+        "event_count": 3,
+        "sampled_fps": 14.634,
+        "source_seconds": 59.8,
+        "configured_sample_fps": 5.0,
+        "congested_frames": 0,
+        "device": "NVIDIA GeForce GTX 1650",
+        "peak_vram_mb": 93.98,
+        "precision": "float32",
+        "cancelled": false
+      },
+      "manifest": {
+        "application": "Curb 1.1.0",
+        "seed": 0,
+        "model_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+        "source_sha256": "697b61f38c556d102b999437393ccbff4907682c40b8204da27261f02ff55932",
+        "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "packages": {
+          "torch": "2.11.0+cu126",
+          "ultralytics": "8.4.184",
+          "numpy": "2.1.3",
+          "opencv-python": "4.12.0.88"
+        },
+        "code_sha256": {
+          "curb\\__init__.py": "c52ae211f5b935585ea48227237e5fc8ebefb6944310d5f5cfc9889d51a210b6",
+          "curb\\__main__.py": "8aaa4298160e83e73472e8c6bde0094aaed54afb82bccf2320d59399b056e0f8",
+          "curb\\api.py": "b7120e29c1b6484a69ec86532b80d8cec0401ca10580a19e30ef2dfb5df5c810",
+          "curb\\backup.py": "d0a9d0e3db6dfb28d4188e86239910da2db26297a9aaeb2675d0e82339a99112",
+          "curb\\desktop_service.py": "d19e57f459359b124b9a7e2407fe018708195d37d9fc3d8b9fb67218f10f5a2f",
+          "curb\\engine.py": "514600764f8be53c82edce73a61a86819bc3cdd7a243f3e21ea59b7cbab54e6c",
+          "curb\\instance.py": "9e811ab219ac59870c8ce8a81178a2317db1fefa365a1841b89ac74ac8e305a6",
+          "curb\\manager.py": "b11bbbc07ad8f0307aaee3865a3d827eba63ab1aeb7f71162a5624b090bfe40d",
+          "curb\\media.py": "35b4552b6a4f84849df2554409918a92d883abb2eed659ef011f0b71e4abec41",
+          "curb\\models.py": "026613659adb0134063f5ac278b5abc01757d2307d245ede2d6d0d507ac3befa",
+          "curb\\store.py": "e53a4b4164a1852c4b378d8c2429e893810c85123c65ddb9c70834bd7ad31bc5",
+          "curb\\worker.py": "baa15c248aa580ca96e9d187885fe351b844e406b6a190fab8cdf7585d954fb0"
+        },
+        "device": "NVIDIA GeForce GTX 1650",
+        "precision": "float32",
+        "tracker": "bytetrack.yaml",
+        "evaluation": "inference only; no independent accuracy evaluation"
+      }
+    },
+    {
+      "name": "occlusion-installed-cpu.json",
+      "baseline_sha256": "4bd78e02ee233315e51d14a1efa3a6805156174454083e35684ad2b0d7f27bc2",
+      "before": 6,
+      "after": 3,
+      "metrics": {
+        "wall_seconds": 70.719,
+        "model_seconds": 54.153,
+        "frames": 300,
+        "detection_observations": 2091,
+        "event_count": 3,
+        "sampled_fps": 4.242,
+        "source_seconds": 59.8,
+        "configured_sample_fps": 5.0,
+        "congested_frames": 0,
+        "device": "CPU",
+        "peak_vram_mb": null,
+        "precision": "float32",
+        "cancelled": false
+      },
+      "manifest": {
+        "application": "Curb 1.1.0",
+        "seed": 0,
+        "model_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+        "source_sha256": "697b61f38c556d102b999437393ccbff4907682c40b8204da27261f02ff55932",
+        "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "packages": {
+          "torch": "2.11.0+cpu",
+          "ultralytics": "8.4.184",
+          "numpy": "2.1.3",
+          "opencv-python": "4.12.0.88"
+        },
+        "code_sha256": {
+          "curb\\__init__.py": "c52ae211f5b935585ea48227237e5fc8ebefb6944310d5f5cfc9889d51a210b6",
+          "curb\\__main__.py": "8aaa4298160e83e73472e8c6bde0094aaed54afb82bccf2320d59399b056e0f8",
+          "curb\\api.py": "b7120e29c1b6484a69ec86532b80d8cec0401ca10580a19e30ef2dfb5df5c810",
+          "curb\\backup.py": "d0a9d0e3db6dfb28d4188e86239910da2db26297a9aaeb2675d0e82339a99112",
+          "curb\\desktop_service.py": "d19e57f459359b124b9a7e2407fe018708195d37d9fc3d8b9fb67218f10f5a2f",
+          "curb\\engine.py": "514600764f8be53c82edce73a61a86819bc3cdd7a243f3e21ea59b7cbab54e6c",
+          "curb\\instance.py": "9e811ab219ac59870c8ce8a81178a2317db1fefa365a1841b89ac74ac8e305a6",
+          "curb\\manager.py": "b11bbbc07ad8f0307aaee3865a3d827eba63ab1aeb7f71162a5624b090bfe40d",
+          "curb\\media.py": "35b4552b6a4f84849df2554409918a92d883abb2eed659ef011f0b71e4abec41",
+          "curb\\models.py": "026613659adb0134063f5ac278b5abc01757d2307d245ede2d6d0d507ac3befa",
+          "curb\\store.py": "e53a4b4164a1852c4b378d8c2429e893810c85123c65ddb9c70834bd7ad31bc5",
+          "curb\\worker.py": "baa15c248aa580ca96e9d187885fe351b844e406b6a190fab8cdf7585d954fb0"
+        },
+        "device": "CPU",
+        "precision": "float32",
+        "tracker": "bytetrack.yaml",
+        "evaluation": "inference only; no independent accuracy evaluation"
+      }
+    }
+  ]
+}

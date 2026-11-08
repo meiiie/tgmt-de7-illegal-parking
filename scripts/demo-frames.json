@@ -1,0 +1,1062 @@
+{
+  "record": "https://zenodo.org/records/10870472",
+  "url": "https://zenodo.org/records/10870472/files/StreetScene.zip?download=1",
+  "archive_size": 48975796813,
+  "archive_md5": "a74c51e99881c860d97e1ebb51ee1f2c",
+  "sequence": "Test006",
+  "source_fps": 15,
+  "sample_step": 3,
+  "fps": 5,
+  "frames": [
+    {
+      "name": "StreetScene/Test/Test006/00001.jpg",
+      "size": 233637,
+      "compressed": 233484,
+      "offset": 5563978742,
+      "crc": 2414154232
+    },
+    {
+      "name": "StreetScene/Test/Test006/00004.jpg",
+      "size": 236508,
+      "compressed": 236366,
+      "offset": 5564681387,
+      "crc": 1598799755
+    },
+    {
+      "name": "StreetScene/Test/Test006/00007.jpg",
+      "size": 237632,
+      "compressed": 237480,
+      "offset": 5565389548,
+      "crc": 944878897
+    },
+    {
+      "name": "StreetScene/Test/Test006/00010.jpg",
+      "size": 235545,
+      "compressed": 235124,
+      "offset": 5566103828,
+      "crc": 2266386297
+    },
+    {
+      "name": "StreetScene/Test/Test006/00013.jpg",
+      "size": 240212,
+      "compressed": 240090,
+      "offset": 5566817011,
+      "crc": 3605830960
+    },
+    {
+      "name": "StreetScene/Test/Test006/00016.jpg",
+      "size": 240150,
+      "compressed": 239916,
+      "offset": 5567537904,
+      "crc": 3169642102
+    },
+    {
+      "name": "StreetScene/Test/Test006/00019.jpg",
+      "size": 243371,
+      "compressed": 243236,
+      "offset": 5568263033,
+      "crc": 2274446163
+    },
+    {
+      "name": "StreetScene/Test/Test006/00022.jpg",
+      "size": 241233,
+      "compressed": 240966,
+      "offset": 5568992735,
+      "crc": 3804167955
+    },
+    {
+      "name": "StreetScene/Test/Test006/00025.jpg",
+      "size": 241765,
+      "compressed": 241593,
+      "offset": 5569717664,
+      "crc": 353838160
+    },
+    {
+      "name": "StreetScene/Test/Test006/00028.jpg",
+      "size": 243939,
+      "compressed": 243831,
+      "offset": 5570445566,
+      "crc": 2369001276
+    },
+    {
+      "name": "StreetScene/Test/Test006/00031.jpg",
+      "size": 242531,
+      "compressed": 242339,
+      "offset": 5571175691,
+      "crc": 2603103267
+    },
+    {
+      "name": "StreetScene/Test/Test006/00034.jpg",
+      "size": 243526,
+      "compressed": 243381,
+      "offset": 5571903580,
+      "crc": 3804723578
+    },
+    {
+      "name": "StreetScene/Test/Test006/00037.jpg",
+      "size": 238488,
+      "compressed": 237809,
+      "offset": 5572634867,
+      "crc": 3332404822
+    },
+    {
+      "name": "StreetScene/Test/Test006/00040.jpg",
+      "size": 243218,
+      "compressed": 243015,
+      "offset": 5573356394,
+      "crc": 3519544334
+    },
+    {
+      "name": "StreetScene/Test/Test006/00043.jpg",
+      "size": 244563,
+      "compressed": 244370,
+      "offset": 5574088568,
+      "crc": 2435625801
+    },
+    {
+      "name": "StreetScene/Test/Test006/00046.jpg",
+      "size": 247202,
+      "compressed": 247060,
+      "offset": 5574823921,
+      "crc": 3695368229
+    },
+    {
+      "name": "StreetScene/Test/Test006/00049.jpg",
+      "size": 247505,
+      "compressed": 247349,
+      "offset": 5575565053,
+      "crc": 3787743322
+    },
+    {
+      "name": "StreetScene/Test/Test006/00052.jpg",
+      "size": 246076,
+      "compressed": 245908,
+      "offset": 5576298912,
+      "crc": 59586500
+    },
+    {
+      "name": "StreetScene/Test/Test006/00055.jpg",
+      "size": 246940,
+      "compressed": 246781,
+      "offset": 5577036983,
+      "crc": 1701569509
+    },
+    {
+      "name": "StreetScene/Test/Test006/00058.jpg",
+      "size": 246870,
+      "compressed": 246705,
+      "offset": 5577773469,
+      "crc": 2922737413
+    },
+    {
+      "name": "StreetScene/Test/Test006/00061.jpg",
+      "size": 247847,
+      "compressed": 247671,
+      "offset": 5578514990,
+      "crc": 2279181904
+    },
+    {
+      "name": "StreetScene/Test/Test006/00064.jpg",
+      "size": 236585,
+      "compressed": 234831,
+      "offset": 5579256041,
+      "crc": 1143119340
+    },
+    {
+      "name": "StreetScene/Test/Test006/00067.jpg",
+      "size": 242778,
+      "compressed": 242513,
+      "offset": 5579970699,
+      "crc": 1607385073
+    },
+    {
+      "name": "StreetScene/Test/Test006/00070.jpg",
+      "size": 244658,
+      "compressed": 244383,
+      "offset": 5580700805,
+      "crc": 2295053246
+    },
+    {
+      "name": "StreetScene/Test/Test006/00073.jpg",
+      "size": 246439,
+      "compressed": 246212,
+      "offset": 5581434878,
+      "crc": 3209164228
+    },
+    {
+      "name": "StreetScene/Test/Test006/00076.jpg",
+      "size": 216535,
+      "compressed": 216399,
+      "offset": 5582174943,
+      "crc": 15368712
+    },
+    {
+      "name": "StreetScene/Test/Test006/00079.jpg",
+      "size": 226321,
+      "compressed": 226217,
+      "offset": 5582835757,
+      "crc": 2122629123
+    },
+    {
+      "name": "StreetScene/Test/Test006/00082.jpg",
+      "size": 233357,
+      "compressed": 233263,
+      "offset": 5583525389,
+      "crc": 3926421911
+    },
+    {
+      "name": "StreetScene/Test/Test006/00085.jpg",
+      "size": 234544,
+      "compressed": 234348,
+      "offset": 5584229512,
+      "crc": 3058948702
+    },
+    {
+      "name": "StreetScene/Test/Test006/00088.jpg",
+      "size": 238967,
+      "compressed": 238858,
+      "offset": 5584939095,
+      "crc": 3448408727
+    },
+    {
+      "name": "StreetScene/Test/Test006/00091.jpg",
+      "size": 239513,
+      "compressed": 239385,
+      "offset": 5585657965,
+      "crc": 210573592
+    },
+    {
+      "name": "StreetScene/Test/Test006/00094.jpg",
+      "size": 238225,
+      "compressed": 238009,
+      "offset": 5586374177,
+      "crc": 1857542373
+    },
+    {
+      "name": "StreetScene/Test/Test006/00097.jpg",
+      "size": 238688,
+      "compressed": 238448,
+      "offset": 5587091686,
+      "crc": 3538667009
+    },
+    {
+      "name": "StreetScene/Test/Test006/00100.jpg",
+      "size": 235644,
+      "compressed": 234555,
+      "offset": 5587808871,
+      "crc": 2678278242
+    },
+    {
+      "name": "StreetScene/Test/Test006/00103.jpg",
+      "size": 237409,
+      "compressed": 237163,
+      "offset": 5588516921,
+      "crc": 2289725096
+    },
+    {
+      "name": "StreetScene/Test/Test006/00106.jpg",
+      "size": 237683,
+      "compressed": 237470,
+      "offset": 5589228244,
+      "crc": 98971731
+    },
+    {
+      "name": "StreetScene/Test/Test006/00109.jpg",
+      "size": 238540,
+      "compressed": 238384,
+      "offset": 5589940504,
+      "crc": 3481510091
+    },
+    {
+      "name": "StreetScene/Test/Test006/00112.jpg",
+      "size": 240472,
+      "compressed": 240305,
+      "offset": 5590658457,
+      "crc": 2703196593
+    },
+    {
+      "name": "StreetScene/Test/Test006/00115.jpg",
+      "size": 241289,
+      "compressed": 241151,
+      "offset": 5591378993,
+      "crc": 2359454602
+    },
+    {
+      "name": "StreetScene/Test/Test006/00118.jpg",
+      "size": 243324,
+      "compressed": 243178,
+      "offset": 5592105370,
+      "crc": 1378711550
+    },
+    {
+      "name": "StreetScene/Test/Test006/00121.jpg",
+      "size": 244339,
+      "compressed": 244179,
+      "offset": 5592831309,
+      "crc": 3123540999
+    },
+    {
+      "name": "StreetScene/Test/Test006/00124.jpg",
+      "size": 246382,
+      "compressed": 246245,
+      "offset": 5593566677,
+      "crc": 3587323444
+    },
+    {
+      "name": "StreetScene/Test/Test006/00127.jpg",
+      "size": 247056,
+      "compressed": 246905,
+      "offset": 5594305867,
+      "crc": 3161584751
+    },
+    {
+      "name": "StreetScene/Test/Test006/00130.jpg",
+      "size": 248295,
+      "compressed": 248154,
+      "offset": 5595048107,
+      "crc": 1958672284
+    },
+    {
+      "name": "StreetScene/Test/Test006/00133.jpg",
+      "size": 246188,
+      "compressed": 246022,
+      "offset": 5595788885,
+      "crc": 498449977
+    },
+    {
+      "name": "StreetScene/Test/Test006/00136.jpg",
+      "size": 247793,
+      "compressed": 247635,
+      "offset": 5596529374,
+      "crc": 3032006396
+    },
+    {
+      "name": "StreetScene/Test/Test006/00139.jpg",
+      "size": 246748,
+      "compressed": 246412,
+      "offset": 5597275446,
+      "crc": 3913673738
+    },
+    {
+      "name": "StreetScene/Test/Test006/00142.jpg",
+      "size": 251294,
+      "compressed": 251149,
+      "offset": 5598021061,
+      "crc": 3963931758
+    },
+    {
+      "name": "StreetScene/Test/Test006/00145.jpg",
+      "size": 251928,
+      "compressed": 251802,
+      "offset": 5598776161,
+      "crc": 4109371774
+    },
+    {
+      "name": "StreetScene/Test/Test006/00148.jpg",
+      "size": 252785,
+      "compressed": 252630,
+      "offset": 5599533387,
+      "crc": 2422167075
+    },
+    {
+      "name": "StreetScene/Test/Test006/00151.jpg",
+      "size": 247142,
+      "compressed": 246567,
+      "offset": 5600293104,
+      "crc": 1944708722
+    },
+    {
+      "name": "StreetScene/Test/Test006/00154.jpg",
+      "size": 250583,
+      "compressed": 250401,
+      "offset": 5601039541,
+      "crc": 1753617468
+    },
+    {
+      "name": "StreetScene/Test/Test006/00157.jpg",
+      "size": 210956,
+      "compressed": 210679,
+      "offset": 5601793368,
+      "crc": 1653290348
+    },
+    {
+      "name": "StreetScene/Test/Test006/00160.jpg",
+      "size": 222589,
+      "compressed": 222501,
+      "offset": 5602443812,
+      "crc": 2522316645
+    },
+    {
+      "name": "StreetScene/Test/Test006/00163.jpg",
+      "size": 227260,
+      "compressed": 227139,
+      "offset": 5603117636,
+      "crc": 1601969626
+    },
+    {
+      "name": "StreetScene/Test/Test006/00166.jpg",
+      "size": 229676,
+      "compressed": 229537,
+      "offset": 5603800907,
+      "crc": 1780820565
+    },
+    {
+      "name": "StreetScene/Test/Test006/00169.jpg",
+      "size": 228885,
+      "compressed": 227836,
+      "offset": 5604490757,
+      "crc": 2114477162
+    },
+    {
+      "name": "StreetScene/Test/Test006/00172.jpg",
+      "size": 231643,
+      "compressed": 231492,
+      "offset": 5605178248,
+      "crc": 503436783
+    },
+    {
+      "name": "StreetScene/Test/Test006/00175.jpg",
+      "size": 232858,
+      "compressed": 232678,
+      "offset": 5605873919,
+      "crc": 995853343
+    },
+    {
+      "name": "StreetScene/Test/Test006/00178.jpg",
+      "size": 235933,
+      "compressed": 235758,
+      "offset": 5606576794,
+      "crc": 2700155235
+    },
+    {
+      "name": "StreetScene/Test/Test006/00181.jpg",
+      "size": 237124,
+      "compressed": 236980,
+      "offset": 5607285132,
+      "crc": 239256258
+    },
+    {
+      "name": "StreetScene/Test/Test006/00184.jpg",
+      "size": 238220,
+      "compressed": 238040,
+      "offset": 5607996955,
+      "crc": 63118714
+    },
+    {
+      "name": "StreetScene/Test/Test006/00187.jpg",
+      "size": 239707,
+      "compressed": 239576,
+      "offset": 5608712522,
+      "crc": 1126756789
+    },
+    {
+      "name": "StreetScene/Test/Test006/00190.jpg",
+      "size": 238459,
+      "compressed": 238226,
+      "offset": 5609432513,
+      "crc": 2516020942
+    },
+    {
+      "name": "StreetScene/Test/Test006/00193.jpg",
+      "size": 241478,
+      "compressed": 241342,
+      "offset": 5610152993,
+      "crc": 2435712897
+    },
+    {
+      "name": "StreetScene/Test/Test006/00196.jpg",
+      "size": 242351,
+      "compressed": 242217,
+      "offset": 5610878354,
+      "crc": 2435355861
+    },
+    {
+      "name": "StreetScene/Test/Test006/00199.jpg",
+      "size": 243603,
+      "compressed": 243462,
+      "offset": 5611608289,
+      "crc": 3055763312
+    },
+    {
+      "name": "StreetScene/Test/Test006/00202.jpg",
+      "size": 241630,
+      "compressed": 241444,
+      "offset": 5612335713,
+      "crc": 3409040153
+    },
+    {
+      "name": "StreetScene/Test/Test006/00205.jpg",
+      "size": 237792,
+      "compressed": 237503,
+      "offset": 5613044841,
+      "crc": 261202595
+    },
+    {
+      "name": "StreetScene/Test/Test006/00208.jpg",
+      "size": 239691,
+      "compressed": 239407,
+      "offset": 5613760666,
+      "crc": 351196672
+    },
+    {
+      "name": "StreetScene/Test/Test006/00211.jpg",
+      "size": 240002,
+      "compressed": 239762,
+      "offset": 5614478963,
+      "crc": 1235893829
+    },
+    {
+      "name": "StreetScene/Test/Test006/00214.jpg",
+      "size": 239916,
+      "compressed": 239625,
+      "offset": 5615194426,
+      "crc": 2793064154
+    },
+    {
+      "name": "StreetScene/Test/Test006/00217.jpg",
+      "size": 240760,
+      "compressed": 240498,
+      "offset": 5615913894,
+      "crc": 996094213
+    },
+    {
+      "name": "StreetScene/Test/Test006/00220.jpg",
+      "size": 240443,
+      "compressed": 240051,
+      "offset": 5616637457,
+      "crc": 4045406258
+    },
+    {
+      "name": "StreetScene/Test/Test006/00223.jpg",
+      "size": 243839,
+      "compressed": 243624,
+      "offset": 5617364219,
+      "crc": 1591946839
+    },
+    {
+      "name": "StreetScene/Test/Test006/00226.jpg",
+      "size": 243359,
+      "compressed": 243181,
+      "offset": 5618091712,
+      "crc": 1240806439
+    },
+    {
+      "name": "StreetScene/Test/Test006/00229.jpg",
+      "size": 244112,
+      "compressed": 243955,
+      "offset": 5618823519,
+      "crc": 2967623689
+    },
+    {
+      "name": "StreetScene/Test/Test006/00232.jpg",
+      "size": 237046,
+      "compressed": 236049,
+      "offset": 5619552357,
+      "crc": 4114287324
+    },
+    {
+      "name": "StreetScene/Test/Test006/00235.jpg",
+      "size": 240655,
+      "compressed": 240430,
+      "offset": 5620266362,
+      "crc": 1609014824
+    },
+    {
+      "name": "StreetScene/Test/Test006/00238.jpg",
+      "size": 240625,
+      "compressed": 240397,
+      "offset": 5620987813,
+      "crc": 1718090217
+    },
+    {
+      "name": "StreetScene/Test/Test006/00241.jpg",
+      "size": 239684,
+      "compressed": 239424,
+      "offset": 5621709094,
+      "crc": 1321532032
+    },
+    {
+      "name": "StreetScene/Test/Test006/00244.jpg",
+      "size": 203972,
+      "compressed": 203733,
+      "offset": 5622430678,
+      "crc": 434926629
+    },
+    {
+      "name": "StreetScene/Test/Test006/00247.jpg",
+      "size": 213722,
+      "compressed": 213625,
+      "offset": 5623056298,
+      "crc": 1883595094
+    },
+    {
+      "name": "StreetScene/Test/Test006/00250.jpg",
+      "size": 221397,
+      "compressed": 221253,
+      "offset": 5623704573,
+      "crc": 3374220321
+    },
+    {
+      "name": "StreetScene/Test/Test006/00253.jpg",
+      "size": 226306,
+      "compressed": 226157,
+      "offset": 5624375482,
+      "crc": 2656618951
+    },
+    {
+      "name": "StreetScene/Test/Test006/00256.jpg",
+      "size": 228971,
+      "compressed": 228853,
+      "offset": 5625058060,
+      "crc": 2929084603
+    },
+    {
+      "name": "StreetScene/Test/Test006/00259.jpg",
+      "size": 230187,
+      "compressed": 230009,
+      "offset": 5625747725,
+      "crc": 3973641491
+    },
+    {
+      "name": "StreetScene/Test/Test006/00262.jpg",
+      "size": 231747,
+      "compressed": 231628,
+      "offset": 5626437806,
+      "crc": 3581971619
+    },
+    {
+      "name": "StreetScene/Test/Test006/00265.jpg",
+      "size": 234130,
+      "compressed": 233992,
+      "offset": 5627135947,
+      "crc": 731398408
+    },
+    {
+      "name": "StreetScene/Test/Test006/00268.jpg",
+      "size": 235074,
+      "compressed": 234931,
+      "offset": 5627840644,
+      "crc": 3551607215
+    },
+    {
+      "name": "StreetScene/Test/Test006/00271.jpg",
+      "size": 236714,
+      "compressed": 236559,
+      "offset": 5628544290,
+      "crc": 1488794160
+    },
+    {
+      "name": "StreetScene/Test/Test006/00274.jpg",
+      "size": 238029,
+      "compressed": 237899,
+      "offset": 5629255374,
+      "crc": 3256254410
+    },
+    {
+      "name": "StreetScene/Test/Test006/00277.jpg",
+      "size": 234627,
+      "compressed": 234180,
+      "offset": 5629969827,
+      "crc": 2955981041
+    },
+    {
+      "name": "StreetScene/Test/Test006/00280.jpg",
+      "size": 239315,
+      "compressed": 239193,
+      "offset": 5630680867,
+      "crc": 3422875075
+    },
+    {
+      "name": "StreetScene/Test/Test006/00283.jpg",
+      "size": 240280,
+      "compressed": 240138,
+      "offset": 5631400871,
+      "crc": 644298850
+    },
+    {
+      "name": "StreetScene/Test/Test006/00286.jpg",
+      "size": 241973,
+      "compressed": 241862,
+      "offset": 5632124499,
+      "crc": 1420501542
+    },
+    {
+      "name": "StreetScene/Test/Test006/00289.jpg",
+      "size": 243840,
+      "compressed": 243727,
+      "offset": 5632852127,
+      "crc": 349907483
+    },
+    {
+      "name": "StreetScene/Test/Test006/00292.jpg",
+      "size": 245064,
+      "compressed": 244930,
+      "offset": 5633584296,
+      "crc": 2009115501
+    },
+    {
+      "name": "StreetScene/Test/Test006/00295.jpg",
+      "size": 244320,
+      "compressed": 244172,
+      "offset": 5634318041,
+      "crc": 3463955139
+    },
+    {
+      "name": "StreetScene/Test/Test006/00298.jpg",
+      "size": 245625,
+      "compressed": 245471,
+      "offset": 5635052678,
+      "crc": 1362402179
+    },
+    {
+      "name": "StreetScene/Test/Test006/00301.jpg",
+      "size": 247022,
+      "compressed": 246897,
+      "offset": 5635789709,
+      "crc": 3598680302
+    },
+    {
+      "name": "StreetScene/Test/Test006/00304.jpg",
+      "size": 242234,
+      "compressed": 241799,
+      "offset": 5636530291,
+      "crc": 144464045
+    },
+    {
+      "name": "StreetScene/Test/Test006/00307.jpg",
+      "size": 246864,
+      "compressed": 246715,
+      "offset": 5637263946,
+      "crc": 3293456348
+    },
+    {
+      "name": "StreetScene/Test/Test006/00310.jpg",
+      "size": 246191,
+      "compressed": 246015,
+      "offset": 5638005490,
+      "crc": 3679326041
+    },
+    {
+      "name": "StreetScene/Test/Test006/00313.jpg",
+      "size": 249027,
+      "compressed": 248917,
+      "offset": 5638747449,
+      "crc": 1704737891
+    },
+    {
+      "name": "StreetScene/Test/Test006/00316.jpg",
+      "size": 249273,
+      "compressed": 249145,
+      "offset": 5639493289,
+      "crc": 3714954503
+    },
+    {
+      "name": "StreetScene/Test/Test006/00319.jpg",
+      "size": 248583,
+      "compressed": 248466,
+      "offset": 5640235397,
+      "crc": 824182815
+    },
+    {
+      "name": "StreetScene/Test/Test006/00322.jpg",
+      "size": 249644,
+      "compressed": 249524,
+      "offset": 5640982616,
+      "crc": 2094098143
+    },
+    {
+      "name": "StreetScene/Test/Test006/00325.jpg",
+      "size": 246993,
+      "compressed": 246819,
+      "offset": 5641724503,
+      "crc": 4275965315
+    },
+    {
+      "name": "StreetScene/Test/Test006/00328.jpg",
+      "size": 223117,
+      "compressed": 222961,
+      "offset": 5642409122,
+      "crc": 4149124376
+    },
+    {
+      "name": "StreetScene/Test/Test006/00331.jpg",
+      "size": 229552,
+      "compressed": 229422,
+      "offset": 5643084740,
+      "crc": 2736116623
+    },
+    {
+      "name": "StreetScene/Test/Test006/00334.jpg",
+      "size": 232066,
+      "compressed": 231959,
+      "offset": 5643776543,
+      "crc": 2302497
+    },
+    {
+      "name": "StreetScene/Test/Test006/00337.jpg",
+      "size": 229853,
+      "compressed": 229110,
+      "offset": 5644473437,
+      "crc": 800015341
+    },
+    {
+      "name": "StreetScene/Test/Test006/00340.jpg",
+      "size": 234496,
+      "compressed": 234335,
+      "offset": 5645170481,
+      "crc": 575600288
+    },
+    {
+      "name": "StreetScene/Test/Test006/00343.jpg",
+      "size": 235370,
+      "compressed": 235225,
+      "offset": 5645875290,
+      "crc": 1371388237
+    },
+    {
+      "name": "StreetScene/Test/Test006/00346.jpg",
+      "size": 236873,
+      "compressed": 236737,
+      "offset": 5646580553,
+      "crc": 193983473
+    },
+    {
+      "name": "StreetScene/Test/Test006/00349.jpg",
+      "size": 237748,
+      "compressed": 237615,
+      "offset": 5647290372,
+      "crc": 3265917448
+    },
+    {
+      "name": "StreetScene/Test/Test006/00352.jpg",
+      "size": 238014,
+      "compressed": 237873,
+      "offset": 5648002569,
+      "crc": 3404388409
+    },
+    {
+      "name": "StreetScene/Test/Test006/00355.jpg",
+      "size": 237526,
+      "compressed": 237312,
+      "offset": 5648714096,
+      "crc": 2371485400
+    },
+    {
+      "name": "StreetScene/Test/Test006/00358.jpg",
+      "size": 239523,
+      "compressed": 239368,
+      "offset": 5649428257,
+      "crc": 4256634018
+    },
+    {
+      "name": "StreetScene/Test/Test006/00361.jpg",
+      "size": 240506,
+      "compressed": 240322,
+      "offset": 5650145103,
+      "crc": 1029160212
+    },
+    {
+      "name": "StreetScene/Test/Test006/00364.jpg",
+      "size": 241172,
+      "compressed": 241018,
+      "offset": 5650866408,
+      "crc": 163975535
+    },
+    {
+      "name": "StreetScene/Test/Test006/00367.jpg",
+      "size": 241512,
+      "compressed": 241319,
+      "offset": 5651590604,
+      "crc": 1205814464
+    },
+    {
+      "name": "StreetScene/Test/Test006/00370.jpg",
+      "size": 241675,
+      "compressed": 241501,
+      "offset": 5652315057,
+      "crc": 3069646144
+    },
+    {
+      "name": "StreetScene/Test/Test006/00373.jpg",
+      "size": 243375,
+      "compressed": 243207,
+      "offset": 5653040308,
+      "crc": 2416457456
+    },
+    {
+      "name": "StreetScene/Test/Test006/00376.jpg",
+      "size": 243300,
+      "compressed": 243119,
+      "offset": 5653768110,
+      "crc": 2074158577
+    },
+    {
+      "name": "StreetScene/Test/Test006/00379.jpg",
+      "size": 244163,
+      "compressed": 243987,
+      "offset": 5654498761,
+      "crc": 2852299745
+    },
+    {
+      "name": "StreetScene/Test/Test006/00382.jpg",
+      "size": 244270,
+      "compressed": 244058,
+      "offset": 5655229706,
+      "crc": 1456620869
+    },
+    {
+      "name": "StreetScene/Test/Test006/00385.jpg",
+      "size": 246053,
+      "compressed": 245897,
+      "offset": 5655963588,
+      "crc": 479904682
+    },
+    {
+      "name": "StreetScene/Test/Test006/00388.jpg",
+      "size": 245452,
+      "compressed": 245218,
+      "offset": 5656701592,
+      "crc": 1399763074
+    },
+    {
+      "name": "StreetScene/Test/Test006/00391.jpg",
+      "size": 244246,
+      "compressed": 244033,
+      "offset": 5657432103,
+      "crc": 1580667975
+    },
+    {
+      "name": "StreetScene/Test/Test006/00394.jpg",
+      "size": 245419,
+      "compressed": 245233,
+      "offset": 5658166749,
+      "crc": 2849562242
+    },
+    {
+      "name": "StreetScene/Test/Test006/00397.jpg",
+      "size": 247388,
+      "compressed": 247207,
+      "offset": 5658904844,
+      "crc": 1268929383
+    },
+    {
+      "name": "StreetScene/Test/Test006/00400.jpg",
+      "size": 248038,
+      "compressed": 247868,
+      "offset": 5659646115,
+      "crc": 3292675384
+    },
+    {
+      "name": "StreetScene/Test/Test006/00403.jpg",
+      "size": 249405,
+      "compressed": 249223,
+      "offset": 5660390293,
+      "crc": 3187031052
+    },
+    {
+      "name": "StreetScene/Test/Test006/00406.jpg",
+      "size": 250236,
+      "compressed": 250071,
+      "offset": 5661138634,
+      "crc": 936286281
+    },
+    {
+      "name": "StreetScene/Test/Test006/00409.jpg",
+      "size": 248634,
+      "compressed": 248464,
+      "offset": 5661885007,
+      "crc": 1075007361
+    },
+    {
+      "name": "StreetScene/Test/Test006/00412.jpg",
+      "size": 217639,
+      "compressed": 217502,
+      "offset": 5662591935,
+      "crc": 909526034
+    },
+    {
+      "name": "StreetScene/Test/Test006/00415.jpg",
+      "size": 225544,
+      "compressed": 225239,
+      "offset": 5663254987,
+      "crc": 1049208153
+    },
+    {
+      "name": "StreetScene/Test/Test006/00418.jpg",
+      "size": 231325,
+      "compressed": 231187,
+      "offset": 5663939993,
+      "crc": 738893156
+    },
+    {
+      "name": "StreetScene/Test/Test006/00421.jpg",
+      "size": 231830,
+      "compressed": 231519,
+      "offset": 5664635712,
+      "crc": 3535082285
+    },
+    {
+      "name": "StreetScene/Test/Test006/00424.jpg",
+      "size": 236495,
+      "compressed": 236273,
+      "offset": 5665334689,
+      "crc": 2136856160
+    },
+    {
+      "name": "StreetScene/Test/Test006/00427.jpg",
+      "size": 238374,
+      "compressed": 238125,
+      "offset": 5666045131,
+      "crc": 839700576
+    },
+    {
+      "name": "StreetScene/Test/Test006/00430.jpg",
+      "size": 241688,
+      "compressed": 241537,
+      "offset": 5666762648,
+      "crc": 1957223477
+    },
+    {
+      "name": "StreetScene/Test/Test006/00433.jpg",
+      "size": 242789,
+      "compressed": 242587,
+      "offset": 5667486657,
+      "crc": 1218099798
+    },
+    {
+      "name": "StreetScene/Test/Test006/00436.jpg",
+      "size": 243263,
+      "compressed": 242998,
+      "offset": 5668216265,
+      "crc": 4290569132
+    },
+    {
+      "name": "StreetScene/Test/Test006/00439.jpg",
+      "size": 245186,
+      "compressed": 244995,
+      "offset": 5668949226,
+      "crc": 942010913
+    },
+    {
+      "name": "StreetScene/Test/Test006/00442.jpg",
+      "size": 245130,
+      "compressed": 244943,
+      "offset": 5669684492,
+      "crc": 1094376687
+    },
+    {
+      "name": "StreetScene/Test/Test006/00445.jpg",
+      "size": 245530,
+      "compressed": 245352,
+      "offset": 5670419507,
+      "crc": 1287949546
+    },
+    {
+      "name": "StreetScene/Test/Test006/00448.jpg",
+      "size": 246522,
+      "compressed": 246358,
+      "offset": 5671157396,
+      "crc": 4100403918
+    }
+  ]
+}
