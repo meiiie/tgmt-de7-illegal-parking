@@ -1,8 +1,6 @@
 import threading
 import time
 
-import cv2
-
 
 class LatestFrameBuffer:
     """Bounded live-frame handoff: a slow consumer receives the newest frame."""
@@ -39,6 +37,8 @@ class LatestFrameBuffer:
 
 class LatestVideoCapture:
     def __init__(self, uri, read_timeout=5):
+        import cv2
+
         self.timeout = read_timeout
         self.buffer = LatestFrameBuffer()
         self.last_sequence = 0
@@ -70,6 +70,8 @@ class LatestVideoCapture:
         return self.opened
 
     def get(self, prop):
+        import cv2
+
         return self.fps if prop == cv2.CAP_PROP_FPS else 0
 
     def read(self):

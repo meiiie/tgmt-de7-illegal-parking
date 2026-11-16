@@ -35,3 +35,14 @@ công bố khác do metadata lưu tệp; checksum thực nằm trong
 Giữ nguyên bộ cài và tag 1.1.0. Bản vá camera trong commit mới chưa được đóng
 vào bộ cài CPU cũ. Không gắn số đo GTX 1650 cho tốc độ của bộ cài đó. Dataset,
 trọng số, cơ sở dữ liệu, URI camera vận hành và log riêng không được công bố.
+
+## Sửa lỗi kiểm thử trên môi trường sạch
+
+[Lượt CI đầu](https://github.com/meiiie/tgmt-de7-illegal-parking/actions/runs/43876256997)
+chạy được trên GitHub: frontend đạt, còn kiểm thử Python dừng khi import
+`curb.capture` vì thiếu OpenCV. Môi trường kiểm thử logic/API không cài mô hình
+hoặc thư viện camera. Đã tái hiện cùng lỗi bằng cách chặn import `cv2` cục bộ.
+
+Đã chuyển việc nạp OpenCV vào lúc khởi tạo/sử dụng `LatestVideoCapture`.
+`LatestFrameBuffer` tiếp tục kiểm tra được bằng Python thuần; đường nhận camera
+thực tế vẫn yêu cầu OpenCV như cấu hình ứng dụng. Không bỏ hoặc skip ca kiểm thử.
