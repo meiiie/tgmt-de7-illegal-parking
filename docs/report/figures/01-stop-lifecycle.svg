@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="453.6pt" height="187.2pt" viewBox="0 0 453.6 187.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-14T21:44:01.610522</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 187.2
+L 453.6 187.2
+L 453.6 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 13.40388 80.88912
+L 123.40188 80.88912
+L 123.40188 31.86144
+L 13.40388 31.86144
+z
+" clip-path="url(#p24ed2e01c3)" style="fill: #ffffff; stroke: #0b0b0b; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 167.40108 80.88912
+L 286.19892 80.88912
+L 286.19892 31.86144
+L 167.40108 31.86144
+z
+" clip-path="url(#p24ed2e01c3)" style="fill: #ffffff; stroke: #0b0b0b; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 330.19812 80.88912
+L 440.19612 80.88912
+L 440.19612 31.86144
+L 330.19812 31.86144
+z
+" clip-path="url(#p24ed2e01c3)" style="fill: #2b3b79; stroke: #2b3b79; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 125.402576 54.55944
+Q 145.400826 54.55944 164.281042 54.55944
+" clip-path="url(#p24ed2e01c3)" style="fill: none; stroke: #0b0b0b; stroke-linecap: round"/>
+    <path d="M 159.881042 52.35944
+L 164.281042 54.55944
+L 159.881042 56.75944
+z
+" clip-path="url(#p24ed2e01c3)" style="fill: #0b0b0b; stroke: #0b0b0b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 288.199616 54.55944
+Q 308.197866 54.55944 327.078082 54.55944
+" clip-path="url(#p24ed2e01c3)" style="fill: none; stroke: #0b0b0b; stroke-linecap: round"/>
+    <path d="M 322.678082 52.35944
+L 327.078082 54.55944
+L 322.678082 56.75944
+z
+" clip-path="url(#p24ed2e01c3)" style="fill: #0b0b0b; stroke: #0b0b0b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 226.8 113.389597
+Q 226.8 98.141113 226.8 84.010662
+" clip-path="url(#p24ed2e01c3)" style="fill: none; stroke: #0b0b0b; stroke-linecap: round"/>
+    <path d="M 224.6 88.410662
+L 226.8 84.010662
+L 229 88.410662
+z
+" clip-path="url(#p24ed2e01c3)" style="fill: #0b0b0b; stroke: #0b0b0b; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 385.19712 80.88912
+L 385.19712 115.39008
+" clip-path="url(#p24ed2e01c3)" style="fill: none; stroke: #0b0b0b; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 385.19712 115.39008
+L 226.8 115.39008
+" clip-path="url(#p24ed2e01c3)" style="fill: none; stroke: #0b0b0b; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 15.60384 151.70688
+L 437.99616 151.70688
+" clip-path="url(#p24ed2e01c3)" style="fill: none; stroke: #e4e4e4; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Arial', 'DejaVu Sans'; text-anchor: middle; fill: #0b0b0b" x="68.40288" y="51.183976" transform="rotate(-0 68.40288 51.183976)">Xe hợp lệ</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans'; fill: #0b0b0b" transform="translate(45.807958 65.644754)">Trong vùng</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans'; fill: #0b0b0b" transform="translate(35.386239 76.202615)">Đúng loại và lịch</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Arial', 'DejaVu Sans'; text-anchor: middle; fill: #0b0b0b" x="226.8" y="51.938664" transform="rotate(-0 226.8 51.938664)">Theo dõi lần dừng</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans'; fill: #0b0b0b" transform="translate(193.280625 66.420301)">Vị trí · mốc dừng</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans'; fill: #0b0b0b" transform="translate(185.013281 76.998553)">Lịch sử chuyển động</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Arial', 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="385.19712" y="52.200382" transform="rotate(-0 385.19712 52.200382)">Đã cảnh báo</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans'; fill: #ffffff" transform="translate(347.653057 66.420301)">Giữ cùng lần dừng</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans'; fill: #ffffff" transform="translate(354.478995 77.030896)">Chặn hồ sơ lặp</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 8.8px; font-family: 'Arial', 'DejaVu Sans'; fill: #0b0b0b" transform="translate(126.373542 11.065588)">Khởi tạo /</text>
+    <text style="font-size: 8.8px; font-family: 'Arial', 'DejaVu Sans'; fill: #0b0b0b" transform="translate(123.136792 22.086557)">kế thừa mã</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans'; fill: #0b0b0b" transform="translate(255.761252 16.552304)">Đủ thời gian dừng và đứng yên</text>
+    <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans'; fill: #0b0b0b" transform="translate(276.049025 25.803691)">Không bị chặn ùn xe</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans'; fill: #0b0b0b" transform="translate(223.694263 129.184251)">Dịch chuyển liên tục đủ cửa sổ xác nhận:</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans'; fill: #0b0b0b" transform="translate(221.741685 140.455872)">đặt lại mốc dừng và cho phép lần báo mới</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 8.8px; font-family: 'Arial', 'DejaVu Sans'; text-anchor: start; fill: #0b0b0b" x="15.60384" y="165.620733" transform="rotate(-0 15.60384 165.620733)">Trước cảnh báo: chuyển động vượt ngưỡng làm đặt lại mốc dừng.</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 8.8px; font-family: 'Arial', 'DejaVu Sans'; text-anchor: start; fill: #0b0b0b" x="15.60384" y="179.219595" transform="rotate(-0 15.60384 179.219595)">Mất dấu trong giới hạn: giữ trạng thái. Quá hạn, ra khỏi vùng hoặc hết lịch: xóa.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p24ed2e01c3">
+   <rect x="6.804" y="2.808" width="439.992" height="181.584"/>
+  </clipPath>
+ </defs>
+</svg>

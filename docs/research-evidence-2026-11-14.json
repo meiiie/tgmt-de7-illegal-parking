@@ -1,0 +1,488 @@
+{
+  "review_date": "2026-11-14",
+  "source_commit": "06f38bc6bff630c8b3dcd3a4c8892fd70a3715fe",
+  "historical_activity": "stored artifact arithmetic and source inspection only; no new AI City inference or official rescoring",
+  "historical_rows": [
+    {
+      "config": "yolo26s_bytetrack",
+      "videos": "9",
+      "frames": "15079",
+      "fps_model": "55.5",
+      "fps_e2e": "34.22",
+      "vram_peak_mb": "100.0",
+      "tp": "4",
+      "fp": "16",
+      "fn": "3",
+      "precision": "0.2",
+      "recall": "0.571",
+      "f1": "0.296",
+      "start_mae_s": "19.38",
+      "mean_alert_latency_s": "36.88"
+    },
+    {
+      "config": "yolo26s_bytetrack_dino",
+      "videos": "9",
+      "frames": "15079",
+      "fps_model": "57.73",
+      "fps_e2e": "33.61",
+      "vram_peak_mb": "174.9",
+      "tp": "5",
+      "fp": "35",
+      "fn": "2",
+      "precision": "0.125",
+      "recall": "0.714",
+      "f1": "0.213",
+      "start_mae_s": "32.4",
+      "mean_alert_latency_s": "45.1"
+    },
+    {
+      "config": "v4_sam31_fp16_win240s_1fps",
+      "videos": "4",
+      "frames": "960",
+      "fps_model": "0.522",
+      "fps_e2e": "0.482",
+      "vram_peak_mb": "7862.3",
+      "tp": "0",
+      "fp": "0",
+      "fn": "4",
+      "precision": "0.0",
+      "recall": "0.0",
+      "f1": "0.0",
+      "start_mae_s": "",
+      "mean_alert_latency_s": ""
+    },
+    {
+      "config": "v4_yolo26s_bytetrack_win240s_1fps",
+      "videos": "4",
+      "frames": "960",
+      "fps_model": "23.613",
+      "fps_e2e": "13.315",
+      "vram_peak_mb": "66.1",
+      "tp": "3",
+      "fp": "0",
+      "fn": "1",
+      "precision": "1.0",
+      "recall": "0.75",
+      "f1": "0.857",
+      "start_mae_s": "19.33",
+      "mean_alert_latency_s": "39.33"
+    },
+    {
+      "config": "v4_yolo26s_bytetrack_dino_win240s_1fps",
+      "videos": "4",
+      "frames": "960",
+      "fps_model": "27.413",
+      "fps_e2e": "14.076",
+      "vram_peak_mb": "145.2",
+      "tp": "4",
+      "fp": "1",
+      "fn": "0",
+      "precision": "0.8",
+      "recall": "1.0",
+      "f1": "0.889",
+      "start_mae_s": "60.5",
+      "mean_alert_latency_s": "81.5"
+    },
+    {
+      "config": "v4_sam31_fp16_dino_win240s_1fps",
+      "videos": "4",
+      "frames": "960",
+      "fps_model": "0.52",
+      "fps_e2e": "0.481",
+      "vram_peak_mb": "7985.8",
+      "tp": "0",
+      "fp": "0",
+      "fn": "4",
+      "precision": "0.0",
+      "recall": "0.0",
+      "f1": "0.0",
+      "start_mae_s": "",
+      "mean_alert_latency_s": ""
+    },
+    {
+      "config": "v5_yolo26s_bytetrack_aic9_2fps",
+      "videos": "9",
+      "frames": "15079",
+      "fps_model": "55.17",
+      "fps_e2e": "34.3",
+      "vram_peak_mb": "100.0",
+      "tp": "4",
+      "fp": "5",
+      "fn": "3",
+      "precision": "0.444",
+      "recall": "0.571",
+      "f1": "0.5",
+      "start_mae_s": "19.38",
+      "mean_alert_latency_s": "36.88"
+    },
+    {
+      "config": "v5_yolo26s_bytetrack_dino_aic9_2fps",
+      "videos": "9",
+      "frames": "15079",
+      "fps_model": "56.23",
+      "fps_e2e": "33.08",
+      "vram_peak_mb": "174.9",
+      "tp": "4",
+      "fp": "8",
+      "fn": "3",
+      "precision": "0.333",
+      "recall": "0.571",
+      "f1": "0.421",
+      "start_mae_s": "19.38",
+      "mean_alert_latency_s": "36.88"
+    },
+    {
+      "config": "v5_sam31_nostitch_v35_240s_1fps",
+      "videos": "1",
+      "frames": "240",
+      "fps_model": "0.6",
+      "fps_e2e": "0.55",
+      "vram_peak_mb": "7862.3",
+      "tp": "0",
+      "fp": "0",
+      "fn": "1",
+      "precision": "0.0",
+      "recall": "0.0",
+      "f1": "0.0",
+      "start_mae_s": "",
+      "mean_alert_latency_s": ""
+    },
+    {
+      "config": "v5_sam31_stitch_dino_v35_240s_1fps",
+      "videos": "1",
+      "frames": "240",
+      "fps_model": "0.59",
+      "fps_e2e": "0.54",
+      "vram_peak_mb": "7985.8",
+      "tp": "0",
+      "fp": "0",
+      "fn": "1",
+      "precision": "0.0",
+      "recall": "0.0",
+      "f1": "0.0",
+      "start_mae_s": "",
+      "mean_alert_latency_s": ""
+    },
+    {
+      "config": "v6_sam31_text_800_32_v35_240s_1fps",
+      "videos": "1",
+      "frames": "240",
+      "fps_model": "0.53",
+      "fps_e2e": "0.49",
+      "vram_peak_mb": "7862.3",
+      "tp": "0",
+      "fp": "0",
+      "fn": "1",
+      "precision": "0.0",
+      "recall": "0.0",
+      "f1": "0.0",
+      "start_mae_s": "",
+      "mean_alert_latency_s": ""
+    },
+    {
+      "config": "v6_sam31_textbox_800_32_v35_240s_1fps",
+      "videos": "1",
+      "frames": "240",
+      "fps_model": "0.49",
+      "fps_e2e": "0.45",
+      "vram_peak_mb": "7922.4",
+      "tp": "0",
+      "fp": "0",
+      "fn": "1",
+      "precision": "0.0",
+      "recall": "0.0",
+      "f1": "0.0",
+      "start_mae_s": "",
+      "mean_alert_latency_s": ""
+    },
+    {
+      "config": "v6_yolo26s_bytetrack_win240s_1fps",
+      "videos": "9",
+      "frames": "2165",
+      "fps_model": "41.803",
+      "fps_e2e": "23.13",
+      "vram_peak_mb": "100.0",
+      "tp": "3",
+      "fp": "0",
+      "fn": "2",
+      "precision": "1.0",
+      "recall": "0.6",
+      "f1": "0.75",
+      "start_mae_s": "15.0",
+      "mean_alert_latency_s": "35.0"
+    },
+    {
+      "config": "v6_sam31_textbox_800_32_win240s_1fps",
+      "videos": "8",
+      "frames": "1925",
+      "fps_model": "0.498",
+      "fps_e2e": "0.463",
+      "vram_peak_mb": "7922.4",
+      "tp": "0",
+      "fp": "0",
+      "fn": "5",
+      "precision": "0.0",
+      "recall": "0.0",
+      "f1": "0.0",
+      "start_mae_s": "",
+      "mean_alert_latency_s": ""
+    }
+  ],
+  "historical_arithmetic_checks": [
+    {
+      "configuration": "yolo26s_bytetrack",
+      "tp": 4,
+      "fp": 16,
+      "fn": 3,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "yolo26s_bytetrack_dino",
+      "tp": 5,
+      "fp": 35,
+      "fn": 2,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v4_sam31_fp16_win240s_1fps",
+      "tp": 0,
+      "fp": 0,
+      "fn": 4,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v4_yolo26s_bytetrack_win240s_1fps",
+      "tp": 3,
+      "fp": 0,
+      "fn": 1,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v4_yolo26s_bytetrack_dino_win240s_1fps",
+      "tp": 4,
+      "fp": 1,
+      "fn": 0,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v4_sam31_fp16_dino_win240s_1fps",
+      "tp": 0,
+      "fp": 0,
+      "fn": 4,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v5_yolo26s_bytetrack_aic9_2fps",
+      "tp": 4,
+      "fp": 5,
+      "fn": 3,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v5_yolo26s_bytetrack_dino_aic9_2fps",
+      "tp": 4,
+      "fp": 8,
+      "fn": 3,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v5_sam31_nostitch_v35_240s_1fps",
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v5_sam31_stitch_dino_v35_240s_1fps",
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v6_sam31_text_800_32_v35_240s_1fps",
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v6_sam31_textbox_800_32_v35_240s_1fps",
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v6_yolo26s_bytetrack_win240s_1fps",
+      "tp": 3,
+      "fp": 0,
+      "fn": 2,
+      "metrics_match_counts": true
+    },
+    {
+      "configuration": "v6_sam31_textbox_800_32_win240s_1fps",
+      "tp": 0,
+      "fp": 0,
+      "fn": 5,
+      "metrics_match_counts": true
+    }
+  ],
+  "v5_json_csv_match": true,
+  "artifact_sha256": {
+    "results\\aic21_table.csv": "87f9a43f7ff8cfaf5b2a6f72e6194a86b09634edbef17b043ad0aa407aa9f548",
+    "kaggle\\kernel_v5\\de7_v5_diag_aic9.ipynb": "91e1ad7f071818d4efa996f880dc44aee8b1434afea3e137092505b4a39955a9",
+    "configs\\zones_aic_full.json": "0ec89e531b50e5513a8efd0301db1ccaf63390b9ee957622c4aaf77084433aa3",
+    "src\\pipeline.py": "4c0a959a14ff79cc682c218068137a15bfd55a7406f84593971597f1b93a5739",
+    "src\\evaluate.py": "e46baa3bf5d801496e62f52ae57bd1aca543a72fa39d07eb915d71810d0708a6",
+    "results\\de7_v4_results.json": "7c704e9348f9616228c70b8fe673cdadd3969965b17057a566208f2f8d49b9c4",
+    "results\\de7_v5_results.json": "ecdf7579136d7f852efc64f95ec6748446ef0b8805f8113ea1b2111d3b4bc3f6",
+    "results\\de7_v6_results.json": "b2fc9bfb4b53d044f4864bc7029153745efa85b186c536fd1215f744fe5fe70d"
+  },
+  "v5_embedded_source": {
+    "pipeline_sha256": "6cd593ff7475878c4e3cca631a77b8f051216800a7ca0c8ff1dc21076a3a1c78",
+    "argument_defaults": [
+      "ap.add_argument(\"--model\", default=\"yolo26n.pt\"); ap.add_argument(\"--tracker\", default=\"bytetrack.yaml\")",
+      "ap.add_argument(\"--imgsz\", type=int, default=640); ap.add_argument(\"--conf\", type=float, default=0.25)",
+      "ap.add_argument(\"--device\", default=None); ap.add_argument(\"--half\", action=\"store_true\")",
+      "ap.add_argument(\"--reid_thr\", type=float, default=0.75); ap.add_argument(\"--dedup_iou\", type=float, default=0.3); ap.add_argument(\"--min_area\", type=float, default=200)",
+      "ap.add_argument(\"--stride\", type=int, default=1); ap.add_argument(\"--max_frames\", type=int, default=0)"
+    ]
+  },
+  "live_trial": {
+    "source": {
+      "id": "sJvEFrG0wq0",
+      "title": "Camera cổng trường Nguyễn Huệ Đà Nẵng 2026-11-14 12:30",
+      "channel": "Phát Triển Đà Nẵng",
+      "webpage_url": "https://www.youtube.com/watch?v=sJvEFrG0wq0",
+      "live_status": "is_live",
+      "format_id": "94",
+      "width": 854,
+      "height": 480,
+      "fps": 30.0,
+      "protocol": "m3u8_native"
+    },
+    "started_utc": "2026-11-14T05:30:01.641114+00:00",
+    "finished_utc": "2026-11-14T05:32:16.714958+00:00",
+    "requested_seconds": 120,
+    "transport": "YouTube HLS -> FFmpeg IPv4 resolution, -re, fps=5 -> latest-frame MJPEG on loopback -> unmodified Curb worker",
+    "status": "completed",
+    "metrics": {
+      "wall_seconds": 129.889,
+      "model_seconds": 5.938,
+      "frames": 74,
+      "detection_observations": 315,
+      "event_count": 0,
+      "sampled_fps": 0.57,
+      "source_seconds": 120.625,
+      "configured_sample_fps": 5.0,
+      "congested_frames": 0,
+      "device": "NVIDIA GeForce GTX 1650",
+      "peak_vram_mb": 110.52,
+      "precision": "float32",
+      "cancelled": false
+    },
+    "bridge_frames_produced": 120,
+    "first_frame_sha256": "40033e3f4a8d1514839d64b8453a624afb3394cf5959f6a64428afad375e8295",
+    "harness_sha256": "0f07e344df0d20043a89489aa8625a50a6358ebc0736f3f12bb296d1f58d319d",
+    "accuracy_evaluation": false,
+    "camera_to_alert_latency_measured": false,
+    "settings": {
+      "operator_name": "Người vận hành",
+      "site_name": "Trạm giám sát cục bộ",
+      "model": "yolo26s.pt",
+      "device": "cuda",
+      "confidence": 0.3,
+      "sample_fps": 5.0,
+      "image_size": 640,
+      "still_window": 2,
+      "movement_tolerance": 0.18,
+      "lost_grace": 1.5,
+      "minimum_area": 200,
+      "evidence_before": 5,
+      "evidence_after": 3,
+      "save_annotated": false,
+      "retention_days": 30
+    },
+    "zones": [
+      {
+        "id": "road-watch",
+        "name": "Mặt đường · thử vận hành",
+        "polygon": [
+          [
+            0.0,
+            0.35
+          ],
+          [
+            0.55,
+            0.22
+          ],
+          [
+            0.73,
+            0.2
+          ],
+          [
+            0.47,
+            0.99
+          ],
+          [
+            0.0,
+            0.99
+          ]
+        ],
+        "dwell_seconds": 20.0,
+        "enabled": true,
+        "severity": "watch",
+        "classes": [
+          "car",
+          "motorcycle",
+          "bus",
+          "truck"
+        ],
+        "suppress_congestion": true,
+        "schedule_enabled": false,
+        "start_time": "00:00",
+        "end_time": "00:00",
+        "weekdays": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    ],
+    "model_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+    "code_sha256": {
+      "curb/__init__.py": "c52ae211f5b935585ea48227237e5fc8ebefb6944310d5f5cfc9889d51a210b6",
+      "curb/__main__.py": "8aaa4298160e83e73472e8c6bde0094aaed54afb82bccf2320d59399b056e0f8",
+      "curb/api.py": "b7120e29c1b6484a69ec86532b80d8cec0401ca10580a19e30ef2dfb5df5c810",
+      "curb/backup.py": "93294b7dee7448e6b111247398f1aa6324f081889ed94854964998b4c43b3e4c",
+      "curb/desktop_service.py": "d19e57f459359b124b9a7e2407fe018708195d37d9fc3d8b9fb67218f10f5a2f",
+      "curb/engine.py": "514600764f8be53c82edce73a61a86819bc3cdd7a243f3e21ea59b7cbab54e6c",
+      "curb/instance.py": "9e811ab219ac59870c8ce8a81178a2317db1fefa365a1841b89ac74ac8e305a6",
+      "curb/manager.py": "b11bbbc07ad8f0307aaee3865a3d827eba63ab1aeb7f71162a5624b090bfe40d",
+      "curb/media.py": "35b4552b6a4f84849df2554409918a92d883abb2eed659ef011f0b71e4abec41",
+      "curb/models.py": "026613659adb0134063f5ac278b5abc01757d2307d245ede2d6d0d507ac3befa",
+      "curb/store.py": "e53a4b4164a1852c4b378d8c2429e893810c85123c65ddb9c70834bd7ad31bc5",
+      "curb/worker.py": "baa15c248aa580ca96e9d187885fe351b844e406b6a190fab8cdf7585d954fb0"
+    },
+    "python": "3.12.2",
+    "packages": {
+      "torch": "2.11.0+cu126",
+      "ultralytics": "8.4.184",
+      "numpy": "2.1.3",
+      "opencv-python": "4.12.0.88"
+    },
+    "seed": 0,
+    "camera_clock_visual_observation": {
+      "first_frame": "2026-11-14 12:30:05",
+      "last_worker_preview": "2026-11-14 12:30:29",
+      "progress_seconds": 24,
+      "method": "visual reading of provider timestamp; not synchronized with an independently verified camera clock"
+    },
+    "read_timeout_warning_count": 17
+  }
+}

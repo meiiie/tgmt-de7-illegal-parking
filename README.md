@@ -1,12 +1,25 @@
 # Curb — giám sát dừng đỗ đường phố
 
-[**Tải Curb cho Windows**](https://github.com/meiiie/tgmt-de7-illegal-parking/releases/latest) · [Hướng dẫn & hỗ trợ](SUPPORT.md) · [Lịch sử phiên bản](CHANGELOG.md) · [AGPL-3.0](LICENSE)
+[**Tải Curb cho Windows**](https://github.com/meiiie/tgmt-de7-illegal-parking/releases/latest) · [**Báo cáo 3 chương**](docs/report/README.md) · [Hướng dẫn & hỗ trợ](SUPPORT.md) · [Lịch sử phiên bản](CHANGELOG.md) · [AGPL-3.0](LICENSE)
 
 ![Curb 1.1 trên Windows](docs/screenshots/curb-1.1-overview.jpg)
 
 Ứng dụng Windows để quản lý video/camera, cấu hình vùng theo dõi, phát hiện phương tiện dừng lâu, duyệt bằng chứng và xuất hồ sơ. Giao diện tiếng Việt; video và dữ liệu được xử lý cục bộ trên máy.
 
 Cảnh báo cần được người vận hành xem xét. Curb không tự kết luận vi phạm giao thông hoặc xử phạt. Bản hiện tại dành cho **một máy, một người vận hành, một nguồn suy luận tại một thời điểm**.
+
+## Báo cáo và thực nghiệm
+
+[Báo cáo Word, 3 chương, 36 trang](docs/report/Curb-report.docx) trình bày bài toán và phương pháp, thiết kế và xây dựng Curb, thực nghiệm và đánh giá. Có ảnh thư mục dữ liệu, kết quả AI City và camera YouTube, sơ đồ kiến trúc, vòng đời lần dừng và quy trình duyệt. [Sơ đồ SVG](docs/report/README.md#sơ-đồ-và-biểu-đồ) được kèm để chỉnh sửa hoặc sử dụng khi trình bày.
+
+| Phép thử ngày 14/11/2026 | Kết quả đã ghi nhận |
+|---|---|
+| AI City 2021 Track 4, chín đoạn train × 240 giây, GTX 1650 | 2.160 khung lấy mẫu; TP/FP/FN = 3/0/2; Precision 1,000, Recall 0,600, F1 0,750 theo bộ chấm thời gian của đề tài |
+| Camera YouTube Đà Nẵng, lượt 180 giây qua dịch vụ Curb | 883 khung; 4,901 FPS trong thời gian nhận nguồn và 4,745 FPS toàn lượt; sáu cảnh báo chưa có nhãn đúng/sai |
+
+Chín video AI City đã được dùng để phát triển và chọn ngưỡng. Các kết quả này không phải điểm test chính thức của cuộc thi; lượt camera chưa đánh giá độ chính xác độc lập. Cấu hình, phép chấm và giới hạn được ghi trong [hồ sơ AI City/camera](docs/realtime-and-aicity-2026-11-14.md) và [các lượt qua API Curb](docs/curb-camera-and-report-2026-11-14.md).
+
+Mã nguồn hiện có bản sửa nhận ảnh camera trên luồng riêng, giữ khung mới nhất và đo timeout, reconnect, tuổi ảnh sau giải mã. Bản sửa này chưa nằm trong bộ cài CPU **1.1.0** đã phát hành; bộ cài vẫn được giữ đúng tag nguồn của nó.
 
 ## Ứng dụng desktop Windows
 

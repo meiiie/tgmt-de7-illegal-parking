@@ -1,4 +1,14 @@
-# Đề 7 - Phát hiện và cảnh báo ô tô dừng đỗ trái phép (SAM 3.1 + DINOv3)
+# Đề 7 - Phát hiện và cảnh báo ô tô dừng đỗ trái phép
+
+**Đối chiếu sau bảo vệ, 14/11/2026:** các kết quả AIC21 bên dưới thuộc tập con phát triển của **AI City 2021 Track 4**, chấm bằng evaluator riêng với dung sai 30 giây; không phải điểm test chính thức hoặc độ chính xác đỗ xe trái phép. FPS pipeline tính trên khung lấy mẫu. DINOv3 là nhánh re-ID thử nghiệm, không nằm trong worker Curb 1.1.0. Xem [bản đối chiếu báo cáo, vai trò mô hình và thử camera Đà Nẵng](docs/report-correction-2026-11-14.md) cùng [bằng chứng tóm tắt](docs/research-evidence-2026-11-14.json).
+
+**Thực nghiệm mới trên máy, cùng ngày:** archive Track 4 đã tải đầy đủ, 100 train đã giải nén/kiểm tra CRC; Curb chạy mới 9 video × 240 giây, TP/FP/FN = 3/0/2, F1 = 0,750 theo bộ chấm riêng. Sau sửa nhận luồng, camera Đà Nẵng chạy 300 giây đạt 4,917 FPS khi nhận nguồn, không timeout; chưa chấm độ chính xác live hoặc thử 24/7. Xem [dữ liệu, lệnh, kết quả và giới hạn](docs/realtime-and-aicity-2026-11-14.md), [bằng chứng mới](docs/realtime-and-aicity-evidence-2026-11-14.json). Đây là bản nguồn có bản vá, chưa nằm trong bộ cài CPU 1.1.0.
+
+**Lượt qua dịch vụ Curb và chỉnh báo cáo:** đã hoàn tất job RTSP/HTTPS công khai, YouTube 180 giây và nhập lại video 35 qua API; xuất/giải mã bằng chứng và kiểm tra duyệt hồ sơ. Giữ cả kết quả HTTPS/HLS thấp. Trong lượt đó chưa chụp được GUI Curb do Computer Use dừng theo chính sách URL. Xem [kết quả và phạm vi kiểm tra](docs/curb-camera-and-report-2026-11-14.md) cùng [cấu hình, manifest, metrics](docs/curb-camera-evidence-2026-11-14.json).
+
+**Biên tập và ảnh giao diện ở lượt tiếp theo:** đã áp dụng Việt ngữ toàn thư, vẽ ba hình theo Scientific Figure Making và chụp Curb desktop với hồ sơ Street Scene đã lưu. Bản Word mới giữ nguyên 19 bảng; ảnh desktop CPU được phân biệt với số đo bản nguồn CUDA. Xem [nguồn hướng dẫn, ảnh và kiểm chứng bản giao](docs/report-editorial-2026-11-14.md).
+
+**Viết lại toàn bộ báo cáo theo sản phẩm Curb:** bản mới 35 trang, 9 hình và 10 bảng; tổ chức lại từ bài toán đến phương pháp, sản phẩm, đánh giá và triển khai. Dùng ảnh cảnh báo video 35 và khung kết quả camera YouTube từ lượt chạy thật, giữ nguyên số đo và giới hạn. Xem [phạm vi biên tập và kiểm chứng](docs/report-rewrite-curb-2026-11-14.md).
 
 **Pipeline chính (chốt 27/10/2026): YOLO26s + ByteTrack** — AIC21 Track 4, 9 video / 7 sự kiện, 2 fps, dwell 20 s: **P 0.444, R 0.571, F1 0.500, 34.3 FPS e2e, 100 MB VRAM** (Kaggle T4, kernel v5). SAM 3.1 (+ DINOv3) là nhánh nghiên cứu: trên T4 chạy 0.5 FPS, ~7.9 GB, và hiện chưa bám được xe dừng (xem chẩn đoán v5, thử nghiệm v6 với prompt box).
 

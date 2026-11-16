@@ -1,0 +1,1687 @@
+{
+  "date": "2026-11-14",
+  "base_commit": "06f38bc6bff630c8b3dcd3a4c8892fd70a3715fe",
+  "uncommitted_changes": true,
+  "scope": "Real Curb API jobs, original DOCX revision and local evidence; GUI capture stopped by Computer Use policy.",
+  "harness_sha256": "eb187e5c64dbdca09fbad9401c4c2b4282074155bb0fde76c1599646d4e71de2",
+  "prior_harness_sha256": "9e3b9fabce333181b314d4dbd4f48be3e7aa8a03f1859ac5583ea6d31cade8c4",
+  "camera_clock": {
+    "first_visible": "13:40:45",
+    "last_visible": "13:46:03",
+    "visible_progress_seconds": 318,
+    "first_to_last_file_write_span_seconds": 318.122,
+    "relative_lag_growth_seconds_approx": 0.122,
+    "absolute_camera_latency_measured": false
+  },
+  "gui_evidence": {
+    "file_explorer_train": true,
+    "new_curb_gui_screenshot": false,
+    "reason": "Computer Use stopped: could not determine current browser URL confidently enough to enforce policy",
+    "no_alternative_ui_automation_used": true
+  },
+  "camera_runs": [
+    {
+      "id": "49f9ec98a6e94c838d23c09e14644ff8",
+      "source_name": "VDOT I-66 · RTSP trực tiếp",
+      "status": "completed",
+      "created_at": "2026-11-14T06:38:29.571634+00:00",
+      "started_at": "2026-11-14T06:38:29.704028+00:00",
+      "finished_at": "2026-11-14T06:40:39.862393+00:00",
+      "config": {
+        "settings": {
+          "operator_name": "Người vận hành",
+          "site_name": "Trạm giám sát cục bộ",
+          "model": "yolo26s.pt",
+          "device": "cuda",
+          "confidence": 0.3,
+          "sample_fps": 5.0,
+          "image_size": 640,
+          "still_window": 2.0,
+          "movement_tolerance": 0.18,
+          "lost_grace": 1.5,
+          "minimum_area": 200,
+          "evidence_before": 5.0,
+          "evidence_after": 3.0,
+          "save_annotated": false,
+          "retention_days": 30
+        },
+        "zones": [
+          {
+            "id": "road-test",
+            "name": "Toàn khung · thử kết nối",
+            "polygon": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0
+              ],
+              [
+                1.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0
+              ]
+            ],
+            "dwell_seconds": 20.0,
+            "enabled": true,
+            "severity": "watch",
+            "classes": [
+              "car",
+              "motorcycle",
+              "bus",
+              "truck"
+            ],
+            "suppress_congestion": true,
+            "schedule_enabled": false,
+            "start_time": "00:00",
+            "end_time": "00:00",
+            "weekdays": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          }
+        ],
+        "source": {
+          "id": "1c10132653ce40d59b3ebe1114597d76",
+          "name": "VDOT I-66 · RTSP trực tiếp",
+          "kind": "camera",
+          "location": "",
+          "notes": "Nguồn camera giao thông công khai VDOT / 511 Virginia. Thử vận hành, chưa gán nhãn sự kiện.",
+          "zones": [
+            {
+              "id": "road-test",
+              "name": "Toàn khung · thử kết nối",
+              "polygon": [
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dwell_seconds": 20.0,
+              "enabled": true,
+              "severity": "watch",
+              "classes": [
+                "car",
+                "motorcycle",
+                "bus",
+                "truck"
+              ],
+              "suppress_congestion": true,
+              "schedule_enabled": false,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "metadata": {
+            "width": 320,
+            "height": 240,
+            "fps": 15.0,
+            "frames": 0,
+            "duration": null
+          },
+          "archived": false,
+          "created_at": "2026-11-14T06:38:24.919623+00:00",
+          "updated_at": "2026-11-14T06:38:29.545549+00:00",
+          "connection": "Camera đã cấu hình · địa chỉ được giữ kín",
+          "has_preview": true
+        },
+        "max_seconds": 120
+      },
+      "metrics": {
+        "wall_seconds": 130.157,
+        "model_seconds": 28.632,
+        "frames": 454,
+        "detection_observations": 0,
+        "event_count": 0,
+        "sampled_fps": 3.488,
+        "source_seconds": 120.031,
+        "configured_sample_fps": 5.0,
+        "congested_frames": 0,
+        "device": "NVIDIA GeForce GTX 1650",
+        "peak_vram_mb": 110.52,
+        "precision": "float32",
+        "cancelled": false,
+        "capture_reconnects": 0,
+        "capture_read_timeouts": 0,
+        "capture_skipped_frames": 1278,
+        "max_decoded_frame_age_seconds": 0.297,
+        "frame_age_scope": "time since this process decoded the frame; excludes upstream camera and streaming latency"
+      },
+      "manifest": {
+        "application": "Curb 1.1.0",
+        "created_at": "2026-11-14T06:38:39.365675+00:00",
+        "job_id": "49f9ec98a6e94c838d23c09e14644ff8",
+        "source": {
+          "id": "1c10132653ce40d59b3ebe1114597d76",
+          "name": "VDOT I-66 · RTSP trực tiếp",
+          "kind": "camera",
+          "location": "",
+          "notes": "Nguồn camera giao thông công khai VDOT / 511 Virginia. Thử vận hành, chưa gán nhãn sự kiện.",
+          "zones": [
+            {
+              "id": "road-test",
+              "name": "Toàn khung · thử kết nối",
+              "polygon": [
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dwell_seconds": 20.0,
+              "enabled": true,
+              "severity": "watch",
+              "classes": [
+                "car",
+                "motorcycle",
+                "bus",
+                "truck"
+              ],
+              "suppress_congestion": true,
+              "schedule_enabled": false,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "metadata": {
+            "width": 320,
+            "height": 240,
+            "fps": 15.0,
+            "frames": 0,
+            "duration": null
+          },
+          "archived": false,
+          "created_at": "2026-11-14T06:38:24.919623+00:00",
+          "updated_at": "2026-11-14T06:38:29.545549+00:00",
+          "connection": "Camera đã cấu hình · địa chỉ được giữ kín",
+          "has_preview": true
+        },
+        "config": {
+          "settings": {
+            "operator_name": "Người vận hành",
+            "site_name": "Trạm giám sát cục bộ",
+            "model": "yolo26s.pt",
+            "device": "cuda",
+            "confidence": 0.3,
+            "sample_fps": 5.0,
+            "image_size": 640,
+            "still_window": 2.0,
+            "movement_tolerance": 0.18,
+            "lost_grace": 1.5,
+            "minimum_area": 200,
+            "evidence_before": 5.0,
+            "evidence_after": 3.0,
+            "save_annotated": false,
+            "retention_days": 30
+          },
+          "zones": [
+            {
+              "id": "road-test",
+              "name": "Toàn khung · thử kết nối",
+              "polygon": [
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dwell_seconds": 20.0,
+              "enabled": true,
+              "severity": "watch",
+              "classes": [
+                "car",
+                "motorcycle",
+                "bus",
+                "truck"
+              ],
+              "suppress_congestion": true,
+              "schedule_enabled": false,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "source": {
+            "id": "1c10132653ce40d59b3ebe1114597d76",
+            "name": "VDOT I-66 · RTSP trực tiếp",
+            "kind": "camera",
+            "location": "",
+            "notes": "Nguồn camera giao thông công khai VDOT / 511 Virginia. Thử vận hành, chưa gán nhãn sự kiện.",
+            "zones": [
+              {
+                "id": "road-test",
+                "name": "Toàn khung · thử kết nối",
+                "polygon": [
+                  [
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    1.0,
+                    0.0
+                  ],
+                  [
+                    1.0,
+                    1.0
+                  ],
+                  [
+                    0.0,
+                    1.0
+                  ]
+                ],
+                "dwell_seconds": 20.0,
+                "enabled": true,
+                "severity": "watch",
+                "classes": [
+                  "car",
+                  "motorcycle",
+                  "bus",
+                  "truck"
+                ],
+                "suppress_congestion": true,
+                "schedule_enabled": false,
+                "start_time": "00:00",
+                "end_time": "00:00",
+                "weekdays": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ]
+              }
+            ],
+            "metadata": {
+              "width": 320,
+              "height": 240,
+              "fps": 15.0,
+              "frames": 0,
+              "duration": null
+            },
+            "archived": false,
+            "created_at": "2026-11-14T06:38:24.919623+00:00",
+            "updated_at": "2026-11-14T06:38:29.545549+00:00",
+            "connection": "Camera đã cấu hình · địa chỉ được giữ kín",
+            "has_preview": true
+          },
+          "max_seconds": 120
+        },
+        "seed": 0,
+        "model_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+        "source_sha256": null,
+        "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "packages": {
+          "torch": "2.11.0+cu126",
+          "ultralytics": "8.4.184",
+          "numpy": "2.1.3",
+          "opencv-python": "4.12.0.88"
+        },
+        "code_sha256": {
+          "curb\\__init__.py": "c52ae211f5b935585ea48227237e5fc8ebefb6944310d5f5cfc9889d51a210b6",
+          "curb\\__main__.py": "8aaa4298160e83e73472e8c6bde0094aaed54afb82bccf2320d59399b056e0f8",
+          "curb\\api.py": "b7120e29c1b6484a69ec86532b80d8cec0401ca10580a19e30ef2dfb5df5c810",
+          "curb\\backup.py": "93294b7dee7448e6b111247398f1aa6324f081889ed94854964998b4c43b3e4c",
+          "curb\\capture.py": "8360834a716337c842e050944912365ff6438932be0c2736285d65329fb02bef",
+          "curb\\desktop_service.py": "d19e57f459359b124b9a7e2407fe018708195d37d9fc3d8b9fb67218f10f5a2f",
+          "curb\\engine.py": "514600764f8be53c82edce73a61a86819bc3cdd7a243f3e21ea59b7cbab54e6c",
+          "curb\\instance.py": "9e811ab219ac59870c8ce8a81178a2317db1fefa365a1841b89ac74ac8e305a6",
+          "curb\\manager.py": "b11bbbc07ad8f0307aaee3865a3d827eba63ab1aeb7f71162a5624b090bfe40d",
+          "curb\\media.py": "35b4552b6a4f84849df2554409918a92d883abb2eed659ef011f0b71e4abec41",
+          "curb\\models.py": "026613659adb0134063f5ac278b5abc01757d2307d245ede2d6d0d507ac3befa",
+          "curb\\store.py": "e53a4b4164a1852c4b378d8c2429e893810c85123c65ddb9c70834bd7ad31bc5",
+          "curb\\worker.py": "89821478d34b5b1e8db9df06948f150f5b7d30964bbe682cfbdb23b97b9b3bf3"
+        },
+        "device": "NVIDIA GeForce GTX 1650",
+        "precision": "float32",
+        "tracker": "bytetrack.yaml",
+        "evaluation": "inference only; no independent accuracy evaluation",
+        "git_commit": "06f38bc6bff630c8b3dcd3a4c8892fd70a3715fe"
+      },
+      "frames_per_source_clock_second": 3.7824
+    },
+    {
+      "id": "70d9c47540f641f293f60555c207b373",
+      "source_name": "VDOT I-66 · HTTPS trực tiếp",
+      "status": "completed",
+      "created_at": "2026-11-14T06:38:35.119983+00:00",
+      "started_at": "2026-11-14T06:40:40.789638+00:00",
+      "finished_at": "2026-11-14T06:42:52.993041+00:00",
+      "config": {
+        "settings": {
+          "operator_name": "Người vận hành",
+          "site_name": "Trạm giám sát cục bộ",
+          "model": "yolo26s.pt",
+          "device": "cuda",
+          "confidence": 0.3,
+          "sample_fps": 5.0,
+          "image_size": 640,
+          "still_window": 2.0,
+          "movement_tolerance": 0.18,
+          "lost_grace": 1.5,
+          "minimum_area": 200,
+          "evidence_before": 5.0,
+          "evidence_after": 3.0,
+          "save_annotated": false,
+          "retention_days": 30
+        },
+        "zones": [
+          {
+            "id": "road-test",
+            "name": "Toàn khung · thử kết nối",
+            "polygon": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0
+              ],
+              [
+                1.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0
+              ]
+            ],
+            "dwell_seconds": 20.0,
+            "enabled": true,
+            "severity": "watch",
+            "classes": [
+              "car",
+              "motorcycle",
+              "bus",
+              "truck"
+            ],
+            "suppress_congestion": true,
+            "schedule_enabled": false,
+            "start_time": "00:00",
+            "end_time": "00:00",
+            "weekdays": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          }
+        ],
+        "source": {
+          "id": "a70984d1a02e4990af155636b92c8338",
+          "name": "VDOT I-66 · HTTPS trực tiếp",
+          "kind": "camera",
+          "location": "",
+          "notes": "Nguồn camera giao thông công khai VDOT / 511 Virginia. Thử vận hành, chưa gán nhãn sự kiện.",
+          "zones": [
+            {
+              "id": "road-test",
+              "name": "Toàn khung · thử kết nối",
+              "polygon": [
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dwell_seconds": 20.0,
+              "enabled": true,
+              "severity": "watch",
+              "classes": [
+                "car",
+                "motorcycle",
+                "bus",
+                "truck"
+              ],
+              "suppress_congestion": true,
+              "schedule_enabled": false,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "metadata": {
+            "width": 320,
+            "height": 240,
+            "fps": 15.0,
+            "frames": 0,
+            "duration": null
+          },
+          "archived": false,
+          "created_at": "2026-11-14T06:38:29.606869+00:00",
+          "updated_at": "2026-11-14T06:38:35.083812+00:00",
+          "connection": "Camera đã cấu hình · địa chỉ được giữ kín",
+          "has_preview": true
+        },
+        "max_seconds": 120
+      },
+      "metrics": {
+        "wall_seconds": 132.202,
+        "model_seconds": 6.607,
+        "frames": 73,
+        "detection_observations": 0,
+        "event_count": 0,
+        "sampled_fps": 0.552,
+        "source_seconds": 124.641,
+        "configured_sample_fps": 5.0,
+        "congested_frames": 0,
+        "device": "NVIDIA GeForce GTX 1650",
+        "peak_vram_mb": 110.52,
+        "precision": "float32",
+        "cancelled": false,
+        "capture_reconnects": 0,
+        "capture_read_timeouts": 0,
+        "capture_skipped_frames": 1887,
+        "max_decoded_frame_age_seconds": 0.204,
+        "frame_age_scope": "time since this process decoded the frame; excludes upstream camera and streaming latency"
+      },
+      "manifest": {
+        "application": "Curb 1.1.0",
+        "created_at": "2026-11-14T06:40:46.672343+00:00",
+        "job_id": "70d9c47540f641f293f60555c207b373",
+        "source": {
+          "id": "a70984d1a02e4990af155636b92c8338",
+          "name": "VDOT I-66 · HTTPS trực tiếp",
+          "kind": "camera",
+          "location": "",
+          "notes": "Nguồn camera giao thông công khai VDOT / 511 Virginia. Thử vận hành, chưa gán nhãn sự kiện.",
+          "zones": [
+            {
+              "id": "road-test",
+              "name": "Toàn khung · thử kết nối",
+              "polygon": [
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dwell_seconds": 20.0,
+              "enabled": true,
+              "severity": "watch",
+              "classes": [
+                "car",
+                "motorcycle",
+                "bus",
+                "truck"
+              ],
+              "suppress_congestion": true,
+              "schedule_enabled": false,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "metadata": {
+            "width": 320,
+            "height": 240,
+            "fps": 15.0,
+            "frames": 0,
+            "duration": null
+          },
+          "archived": false,
+          "created_at": "2026-11-14T06:38:29.606869+00:00",
+          "updated_at": "2026-11-14T06:38:35.083812+00:00",
+          "connection": "Camera đã cấu hình · địa chỉ được giữ kín",
+          "has_preview": true
+        },
+        "config": {
+          "settings": {
+            "operator_name": "Người vận hành",
+            "site_name": "Trạm giám sát cục bộ",
+            "model": "yolo26s.pt",
+            "device": "cuda",
+            "confidence": 0.3,
+            "sample_fps": 5.0,
+            "image_size": 640,
+            "still_window": 2.0,
+            "movement_tolerance": 0.18,
+            "lost_grace": 1.5,
+            "minimum_area": 200,
+            "evidence_before": 5.0,
+            "evidence_after": 3.0,
+            "save_annotated": false,
+            "retention_days": 30
+          },
+          "zones": [
+            {
+              "id": "road-test",
+              "name": "Toàn khung · thử kết nối",
+              "polygon": [
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dwell_seconds": 20.0,
+              "enabled": true,
+              "severity": "watch",
+              "classes": [
+                "car",
+                "motorcycle",
+                "bus",
+                "truck"
+              ],
+              "suppress_congestion": true,
+              "schedule_enabled": false,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "source": {
+            "id": "a70984d1a02e4990af155636b92c8338",
+            "name": "VDOT I-66 · HTTPS trực tiếp",
+            "kind": "camera",
+            "location": "",
+            "notes": "Nguồn camera giao thông công khai VDOT / 511 Virginia. Thử vận hành, chưa gán nhãn sự kiện.",
+            "zones": [
+              {
+                "id": "road-test",
+                "name": "Toàn khung · thử kết nối",
+                "polygon": [
+                  [
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    1.0,
+                    0.0
+                  ],
+                  [
+                    1.0,
+                    1.0
+                  ],
+                  [
+                    0.0,
+                    1.0
+                  ]
+                ],
+                "dwell_seconds": 20.0,
+                "enabled": true,
+                "severity": "watch",
+                "classes": [
+                  "car",
+                  "motorcycle",
+                  "bus",
+                  "truck"
+                ],
+                "suppress_congestion": true,
+                "schedule_enabled": false,
+                "start_time": "00:00",
+                "end_time": "00:00",
+                "weekdays": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ]
+              }
+            ],
+            "metadata": {
+              "width": 320,
+              "height": 240,
+              "fps": 15.0,
+              "frames": 0,
+              "duration": null
+            },
+            "archived": false,
+            "created_at": "2026-11-14T06:38:29.606869+00:00",
+            "updated_at": "2026-11-14T06:38:35.083812+00:00",
+            "connection": "Camera đã cấu hình · địa chỉ được giữ kín",
+            "has_preview": true
+          },
+          "max_seconds": 120
+        },
+        "seed": 0,
+        "model_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+        "source_sha256": null,
+        "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "packages": {
+          "torch": "2.11.0+cu126",
+          "ultralytics": "8.4.184",
+          "numpy": "2.1.3",
+          "opencv-python": "4.12.0.88"
+        },
+        "code_sha256": {
+          "curb\\__init__.py": "c52ae211f5b935585ea48227237e5fc8ebefb6944310d5f5cfc9889d51a210b6",
+          "curb\\__main__.py": "8aaa4298160e83e73472e8c6bde0094aaed54afb82bccf2320d59399b056e0f8",
+          "curb\\api.py": "b7120e29c1b6484a69ec86532b80d8cec0401ca10580a19e30ef2dfb5df5c810",
+          "curb\\backup.py": "93294b7dee7448e6b111247398f1aa6324f081889ed94854964998b4c43b3e4c",
+          "curb\\capture.py": "8360834a716337c842e050944912365ff6438932be0c2736285d65329fb02bef",
+          "curb\\desktop_service.py": "d19e57f459359b124b9a7e2407fe018708195d37d9fc3d8b9fb67218f10f5a2f",
+          "curb\\engine.py": "514600764f8be53c82edce73a61a86819bc3cdd7a243f3e21ea59b7cbab54e6c",
+          "curb\\instance.py": "9e811ab219ac59870c8ce8a81178a2317db1fefa365a1841b89ac74ac8e305a6",
+          "curb\\manager.py": "b11bbbc07ad8f0307aaee3865a3d827eba63ab1aeb7f71162a5624b090bfe40d",
+          "curb\\media.py": "35b4552b6a4f84849df2554409918a92d883abb2eed659ef011f0b71e4abec41",
+          "curb\\models.py": "026613659adb0134063f5ac278b5abc01757d2307d245ede2d6d0d507ac3befa",
+          "curb\\store.py": "e53a4b4164a1852c4b378d8c2429e893810c85123c65ddb9c70834bd7ad31bc5",
+          "curb\\worker.py": "89821478d34b5b1e8db9df06948f150f5b7d30964bbe682cfbdb23b97b9b3bf3"
+        },
+        "device": "NVIDIA GeForce GTX 1650",
+        "precision": "float32",
+        "tracker": "bytetrack.yaml",
+        "evaluation": "inference only; no independent accuracy evaluation",
+        "git_commit": "06f38bc6bff630c8b3dcd3a4c8892fd70a3715fe"
+      },
+      "frames_per_source_clock_second": 0.5857
+    },
+    {
+      "id": "1b56c3020d7841cab6384f90460ed88a",
+      "source_name": "Đà Nẵng · YouTube trực tuyến",
+      "status": "completed",
+      "created_at": "2026-11-14T06:41:28.433272+00:00",
+      "started_at": "2026-11-14T06:42:53.859992+00:00",
+      "finished_at": "2026-11-14T06:45:59.933320+00:00",
+      "config": {
+        "settings": {
+          "operator_name": "Người vận hành",
+          "site_name": "Trạm giám sát cục bộ",
+          "model": "yolo26s.pt",
+          "device": "cuda",
+          "confidence": 0.3,
+          "sample_fps": 5.0,
+          "image_size": 640,
+          "still_window": 2.0,
+          "movement_tolerance": 0.18,
+          "lost_grace": 1.5,
+          "minimum_area": 200,
+          "evidence_before": 5.0,
+          "evidence_after": 3.0,
+          "save_annotated": false,
+          "retention_days": 30
+        },
+        "zones": [
+          {
+            "id": "road-watch",
+            "name": "Mặt đường · theo dõi thử",
+            "polygon": [
+              [
+                0.0,
+                0.35
+              ],
+              [
+                0.55,
+                0.22
+              ],
+              [
+                0.73,
+                0.2
+              ],
+              [
+                0.47,
+                0.99
+              ],
+              [
+                0.0,
+                0.99
+              ]
+            ],
+            "dwell_seconds": 20.0,
+            "enabled": true,
+            "severity": "watch",
+            "classes": [
+              "car",
+              "motorcycle",
+              "bus",
+              "truck"
+            ],
+            "suppress_congestion": true,
+            "schedule_enabled": false,
+            "start_time": "00:00",
+            "end_time": "00:00",
+            "weekdays": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          }
+        ],
+        "source": {
+          "id": "31ea666e5fb048e59a58b2ee7cf3ef49",
+          "name": "Đà Nẵng · YouTube trực tuyến",
+          "kind": "camera",
+          "location": "",
+          "notes": "Camera cổng trường Nguyễn Huệ. Nguồn https://www.youtube.com/watch?v=sJvEFrG0wq0 qua cầu nối HLS/MJPEG cục bộ; không phải RTSP gốc.",
+          "zones": [
+            {
+              "id": "road-watch",
+              "name": "Mặt đường · theo dõi thử",
+              "polygon": [
+                [
+                  0.0,
+                  0.35
+                ],
+                [
+                  0.55,
+                  0.22
+                ],
+                [
+                  0.73,
+                  0.2
+                ],
+                [
+                  0.47,
+                  0.99
+                ],
+                [
+                  0.0,
+                  0.99
+                ]
+              ],
+              "dwell_seconds": 20.0,
+              "enabled": true,
+              "severity": "watch",
+              "classes": [
+                "car",
+                "motorcycle",
+                "bus",
+                "truck"
+              ],
+              "suppress_congestion": true,
+              "schedule_enabled": false,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "metadata": {
+            "width": 854,
+            "height": 480,
+            "fps": 25.0,
+            "frames": 0,
+            "duration": null
+          },
+          "archived": false,
+          "created_at": "2026-11-14T06:38:48.658488+00:00",
+          "updated_at": "2026-11-14T06:41:28.409673+00:00",
+          "connection": "Camera đã cấu hình · địa chỉ được giữ kín",
+          "has_preview": true
+        },
+        "max_seconds": 180
+      },
+      "metrics": {
+        "wall_seconds": 186.072,
+        "model_seconds": 54.647,
+        "frames": 883,
+        "detection_observations": 8461,
+        "event_count": 6,
+        "sampled_fps": 4.745,
+        "source_seconds": 180.172,
+        "configured_sample_fps": 5.0,
+        "congested_frames": 795,
+        "device": "NVIDIA GeForce GTX 1650",
+        "peak_vram_mb": 110.52,
+        "precision": "float32",
+        "cancelled": false,
+        "capture_reconnects": 0,
+        "capture_read_timeouts": 0,
+        "capture_skipped_frames": 910,
+        "max_decoded_frame_age_seconds": 0.203,
+        "frame_age_scope": "time since this process decoded the frame; excludes upstream camera and streaming latency"
+      },
+      "manifest": {
+        "application": "Curb 1.1.0",
+        "created_at": "2026-11-14T06:42:59.614639+00:00",
+        "job_id": "1b56c3020d7841cab6384f90460ed88a",
+        "source": {
+          "id": "31ea666e5fb048e59a58b2ee7cf3ef49",
+          "name": "Đà Nẵng · YouTube trực tuyến",
+          "kind": "camera",
+          "location": "",
+          "notes": "Camera cổng trường Nguyễn Huệ. Nguồn https://www.youtube.com/watch?v=sJvEFrG0wq0 qua cầu nối HLS/MJPEG cục bộ; không phải RTSP gốc.",
+          "zones": [
+            {
+              "id": "road-watch",
+              "name": "Mặt đường · theo dõi thử",
+              "polygon": [
+                [
+                  0.0,
+                  0.35
+                ],
+                [
+                  0.55,
+                  0.22
+                ],
+                [
+                  0.73,
+                  0.2
+                ],
+                [
+                  0.47,
+                  0.99
+                ],
+                [
+                  0.0,
+                  0.99
+                ]
+              ],
+              "dwell_seconds": 20.0,
+              "enabled": true,
+              "severity": "watch",
+              "classes": [
+                "car",
+                "motorcycle",
+                "bus",
+                "truck"
+              ],
+              "suppress_congestion": true,
+              "schedule_enabled": false,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "metadata": {
+            "width": 854,
+            "height": 480,
+            "fps": 25.0,
+            "frames": 0,
+            "duration": null
+          },
+          "archived": false,
+          "created_at": "2026-11-14T06:38:48.658488+00:00",
+          "updated_at": "2026-11-14T06:41:28.409673+00:00",
+          "connection": "Camera đã cấu hình · địa chỉ được giữ kín",
+          "has_preview": true
+        },
+        "config": {
+          "settings": {
+            "operator_name": "Người vận hành",
+            "site_name": "Trạm giám sát cục bộ",
+            "model": "yolo26s.pt",
+            "device": "cuda",
+            "confidence": 0.3,
+            "sample_fps": 5.0,
+            "image_size": 640,
+            "still_window": 2.0,
+            "movement_tolerance": 0.18,
+            "lost_grace": 1.5,
+            "minimum_area": 200,
+            "evidence_before": 5.0,
+            "evidence_after": 3.0,
+            "save_annotated": false,
+            "retention_days": 30
+          },
+          "zones": [
+            {
+              "id": "road-watch",
+              "name": "Mặt đường · theo dõi thử",
+              "polygon": [
+                [
+                  0.0,
+                  0.35
+                ],
+                [
+                  0.55,
+                  0.22
+                ],
+                [
+                  0.73,
+                  0.2
+                ],
+                [
+                  0.47,
+                  0.99
+                ],
+                [
+                  0.0,
+                  0.99
+                ]
+              ],
+              "dwell_seconds": 20.0,
+              "enabled": true,
+              "severity": "watch",
+              "classes": [
+                "car",
+                "motorcycle",
+                "bus",
+                "truck"
+              ],
+              "suppress_congestion": true,
+              "schedule_enabled": false,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "source": {
+            "id": "31ea666e5fb048e59a58b2ee7cf3ef49",
+            "name": "Đà Nẵng · YouTube trực tuyến",
+            "kind": "camera",
+            "location": "",
+            "notes": "Camera cổng trường Nguyễn Huệ. Nguồn https://www.youtube.com/watch?v=sJvEFrG0wq0 qua cầu nối HLS/MJPEG cục bộ; không phải RTSP gốc.",
+            "zones": [
+              {
+                "id": "road-watch",
+                "name": "Mặt đường · theo dõi thử",
+                "polygon": [
+                  [
+                    0.0,
+                    0.35
+                  ],
+                  [
+                    0.55,
+                    0.22
+                  ],
+                  [
+                    0.73,
+                    0.2
+                  ],
+                  [
+                    0.47,
+                    0.99
+                  ],
+                  [
+                    0.0,
+                    0.99
+                  ]
+                ],
+                "dwell_seconds": 20.0,
+                "enabled": true,
+                "severity": "watch",
+                "classes": [
+                  "car",
+                  "motorcycle",
+                  "bus",
+                  "truck"
+                ],
+                "suppress_congestion": true,
+                "schedule_enabled": false,
+                "start_time": "00:00",
+                "end_time": "00:00",
+                "weekdays": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ]
+              }
+            ],
+            "metadata": {
+              "width": 854,
+              "height": 480,
+              "fps": 25.0,
+              "frames": 0,
+              "duration": null
+            },
+            "archived": false,
+            "created_at": "2026-11-14T06:38:48.658488+00:00",
+            "updated_at": "2026-11-14T06:41:28.409673+00:00",
+            "connection": "Camera đã cấu hình · địa chỉ được giữ kín",
+            "has_preview": true
+          },
+          "max_seconds": 180
+        },
+        "seed": 0,
+        "model_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+        "source_sha256": null,
+        "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "packages": {
+          "torch": "2.11.0+cu126",
+          "ultralytics": "8.4.184",
+          "numpy": "2.1.3",
+          "opencv-python": "4.12.0.88"
+        },
+        "code_sha256": {
+          "curb\\__init__.py": "c52ae211f5b935585ea48227237e5fc8ebefb6944310d5f5cfc9889d51a210b6",
+          "curb\\__main__.py": "8aaa4298160e83e73472e8c6bde0094aaed54afb82bccf2320d59399b056e0f8",
+          "curb\\api.py": "b7120e29c1b6484a69ec86532b80d8cec0401ca10580a19e30ef2dfb5df5c810",
+          "curb\\backup.py": "93294b7dee7448e6b111247398f1aa6324f081889ed94854964998b4c43b3e4c",
+          "curb\\capture.py": "8360834a716337c842e050944912365ff6438932be0c2736285d65329fb02bef",
+          "curb\\desktop_service.py": "d19e57f459359b124b9a7e2407fe018708195d37d9fc3d8b9fb67218f10f5a2f",
+          "curb\\engine.py": "514600764f8be53c82edce73a61a86819bc3cdd7a243f3e21ea59b7cbab54e6c",
+          "curb\\instance.py": "9e811ab219ac59870c8ce8a81178a2317db1fefa365a1841b89ac74ac8e305a6",
+          "curb\\manager.py": "b11bbbc07ad8f0307aaee3865a3d827eba63ab1aeb7f71162a5624b090bfe40d",
+          "curb\\media.py": "35b4552b6a4f84849df2554409918a92d883abb2eed659ef011f0b71e4abec41",
+          "curb\\models.py": "026613659adb0134063f5ac278b5abc01757d2307d245ede2d6d0d507ac3befa",
+          "curb\\store.py": "e53a4b4164a1852c4b378d8c2429e893810c85123c65ddb9c70834bd7ad31bc5",
+          "curb\\worker.py": "89821478d34b5b1e8db9df06948f150f5b7d30964bbe682cfbdb23b97b9b3bf3"
+        },
+        "device": "NVIDIA GeForce GTX 1650",
+        "precision": "float32",
+        "tracker": "bytetrack.yaml",
+        "evaluation": "inference only; no independent accuracy evaluation",
+        "git_commit": "06f38bc6bff630c8b3dcd3a4c8892fd70a3715fe"
+      },
+      "frames_per_source_clock_second": 4.9009
+    }
+  ],
+  "video_workflow": {
+    "job": {
+      "id": "72ad600772f1441aa57b47c2c1d61b57",
+      "source_name": "AI City 2021 Track 4 · video 35 · nhập qua Curb",
+      "status": "completed",
+      "created_at": "2026-11-14T06:43:20.620746+00:00",
+      "finished_at": "2026-11-14T06:46:16.058586+00:00",
+      "config": {
+        "settings": {
+          "operator_name": "Người vận hành",
+          "site_name": "Trạm giám sát cục bộ",
+          "model": "yolo26s.pt",
+          "device": "cuda",
+          "confidence": 0.25,
+          "sample_fps": 1.0,
+          "image_size": 640,
+          "still_window": 3.0,
+          "movement_tolerance": 0.1,
+          "lost_grace": 4.0,
+          "minimum_area": 200,
+          "evidence_before": 5.0,
+          "evidence_after": 3.0,
+          "save_annotated": true,
+          "retention_days": 30
+        },
+        "zones": [
+          {
+            "id": "all",
+            "name": "all",
+            "polygon": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0
+              ],
+              [
+                1.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0
+              ]
+            ],
+            "dwell_seconds": 20.0,
+            "enabled": true,
+            "severity": "watch",
+            "classes": [
+              "car",
+              "motorcycle",
+              "bus",
+              "truck"
+            ],
+            "suppress_congestion": true,
+            "schedule_enabled": false,
+            "start_time": "00:00",
+            "end_time": "00:00",
+            "weekdays": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          }
+        ],
+        "source": {
+          "id": "63c5cbc60e4d45a9b941c23b9cefc095",
+          "name": "AI City 2021 Track 4 · video 35 · nhập qua Curb",
+          "kind": "video",
+          "location": "",
+          "notes": "",
+          "zones": [
+            {
+              "id": "all",
+              "name": "all",
+              "polygon": [
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dwell_seconds": 20.0,
+              "enabled": true,
+              "severity": "watch",
+              "classes": [
+                "car",
+                "motorcycle",
+                "bus",
+                "truck"
+              ],
+              "suppress_congestion": true,
+              "schedule_enabled": false,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "metadata": {
+            "width": 800,
+            "height": 410,
+            "fps": 30.0,
+            "frames": 26646,
+            "duration": 888.2,
+            "bytes": 48199906,
+            "original_name": "35.mp4",
+            "sha256": "d9054afe2cb3e53d34ae9cb2c2a6c34e6790dac0bac12cc9a15bf4a75513d90f"
+          },
+          "archived": false,
+          "created_at": "2026-11-14T06:43:20.524420+00:00",
+          "updated_at": "2026-11-14T06:43:20.577838+00:00",
+          "connection": "Video đã nhập",
+          "has_preview": true
+        },
+        "max_seconds": 240
+      },
+      "metrics": {
+        "wall_seconds": 15.291,
+        "model_seconds": 7.46,
+        "frames": 240,
+        "detection_observations": 1321,
+        "event_count": 1,
+        "sampled_fps": 15.696,
+        "source_seconds": 240.0,
+        "configured_sample_fps": 1.0,
+        "congested_frames": 0,
+        "device": "NVIDIA GeForce GTX 1650",
+        "peak_vram_mb": 91.5,
+        "precision": "float32",
+        "cancelled": false
+      }
+    },
+    "checks": [
+      {
+        "artifact": "video35-snapshot.jpg",
+        "bytes": 47025,
+        "sha256": "d4d665a458314953378da52c22f055502c934e34f5ac8ca8d898060646ee705f"
+      },
+      {
+        "artifact": "video35-clip.mp4",
+        "bytes": 377231,
+        "sha256": "28bf79d9a97f6efb9b54f4321c697d87391bee233a0a4483e88cf39c57cac294"
+      },
+      {
+        "artifact": "video35-annotated.mp4",
+        "bytes": 8170240,
+        "sha256": "30546ae01392a0395d47b75917705bc7a950336d261084052bad5c30d8d309f9"
+      },
+      {
+        "artifact": "video35-evidence.zip",
+        "bytes": 8615726,
+        "sha256": "16d8f6cf6485fcac648b6ac89968131ab24ca49e4445d158d9e4ab352f4b0d3b"
+      },
+      {
+        "artifact": "video35-annotated.mp4",
+        "decoded_frames": 240
+      },
+      {
+        "artifact": "video35-clip.mp4",
+        "decoded_frames": 10
+      },
+      {
+        "artifact": "video35-evidence.zip",
+        "crc_valid": true,
+        "entries": 9
+      },
+      {
+        "artifact": "video35-events.json",
+        "bytes": 1814,
+        "sha256": "acd45edb2bab9cb5bf07a41d4312cc5891f3e9134aba626f87da73a2eaa9f648"
+      },
+      {
+        "artifact": "video35-events.csv",
+        "bytes": 459,
+        "sha256": "8d52a05690cea32ed3f2d8beb99a97ae75f5937e95a0fdeec7e5eb3b967c36a6"
+      }
+    ],
+    "review_test": {
+      "status": "dismissed",
+      "version": 1,
+      "review_count": 1
+    },
+    "manifest": {
+      "application": "Curb 1.1.0",
+      "created_at": "2026-11-14T06:46:03.755795+00:00",
+      "job_id": "72ad600772f1441aa57b47c2c1d61b57",
+      "source": {
+        "id": "63c5cbc60e4d45a9b941c23b9cefc095",
+        "name": "AI City 2021 Track 4 · video 35 · nhập qua Curb",
+        "kind": "video",
+        "location": "",
+        "notes": "",
+        "zones": [
+          {
+            "id": "all",
+            "name": "all",
+            "polygon": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0
+              ],
+              [
+                1.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0
+              ]
+            ],
+            "dwell_seconds": 20.0,
+            "enabled": true,
+            "severity": "watch",
+            "classes": [
+              "car",
+              "motorcycle",
+              "bus",
+              "truck"
+            ],
+            "suppress_congestion": true,
+            "schedule_enabled": false,
+            "start_time": "00:00",
+            "end_time": "00:00",
+            "weekdays": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          }
+        ],
+        "metadata": {
+          "width": 800,
+          "height": 410,
+          "fps": 30.0,
+          "frames": 26646,
+          "duration": 888.2,
+          "bytes": 48199906,
+          "original_name": "35.mp4",
+          "sha256": "d9054afe2cb3e53d34ae9cb2c2a6c34e6790dac0bac12cc9a15bf4a75513d90f"
+        },
+        "archived": false,
+        "created_at": "2026-11-14T06:43:20.524420+00:00",
+        "updated_at": "2026-11-14T06:43:20.577838+00:00",
+        "connection": "Video đã nhập",
+        "has_preview": true
+      },
+      "config": {
+        "settings": {
+          "operator_name": "Người vận hành",
+          "site_name": "Trạm giám sát cục bộ",
+          "model": "yolo26s.pt",
+          "device": "cuda",
+          "confidence": 0.25,
+          "sample_fps": 1.0,
+          "image_size": 640,
+          "still_window": 3.0,
+          "movement_tolerance": 0.1,
+          "lost_grace": 4.0,
+          "minimum_area": 200,
+          "evidence_before": 5.0,
+          "evidence_after": 3.0,
+          "save_annotated": true,
+          "retention_days": 30
+        },
+        "zones": [
+          {
+            "id": "all",
+            "name": "all",
+            "polygon": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0
+              ],
+              [
+                1.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0
+              ]
+            ],
+            "dwell_seconds": 20.0,
+            "enabled": true,
+            "severity": "watch",
+            "classes": [
+              "car",
+              "motorcycle",
+              "bus",
+              "truck"
+            ],
+            "suppress_congestion": true,
+            "schedule_enabled": false,
+            "start_time": "00:00",
+            "end_time": "00:00",
+            "weekdays": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          }
+        ],
+        "source": {
+          "id": "63c5cbc60e4d45a9b941c23b9cefc095",
+          "name": "AI City 2021 Track 4 · video 35 · nhập qua Curb",
+          "kind": "video",
+          "location": "",
+          "notes": "",
+          "zones": [
+            {
+              "id": "all",
+              "name": "all",
+              "polygon": [
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dwell_seconds": 20.0,
+              "enabled": true,
+              "severity": "watch",
+              "classes": [
+                "car",
+                "motorcycle",
+                "bus",
+                "truck"
+              ],
+              "suppress_congestion": true,
+              "schedule_enabled": false,
+              "start_time": "00:00",
+              "end_time": "00:00",
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "metadata": {
+            "width": 800,
+            "height": 410,
+            "fps": 30.0,
+            "frames": 26646,
+            "duration": 888.2,
+            "bytes": 48199906,
+            "original_name": "35.mp4",
+            "sha256": "d9054afe2cb3e53d34ae9cb2c2a6c34e6790dac0bac12cc9a15bf4a75513d90f"
+          },
+          "archived": false,
+          "created_at": "2026-11-14T06:43:20.524420+00:00",
+          "updated_at": "2026-11-14T06:43:20.577838+00:00",
+          "connection": "Video đã nhập",
+          "has_preview": true
+        },
+        "max_seconds": 240
+      },
+      "seed": 0,
+      "model_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+      "source_sha256": "d9054afe2cb3e53d34ae9cb2c2a6c34e6790dac0bac12cc9a15bf4a75513d90f",
+      "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+      "platform": "Windows-11-10.0.26300-SP0",
+      "packages": {
+        "torch": "2.11.0+cu126",
+        "ultralytics": "8.4.184",
+        "numpy": "2.1.3",
+        "opencv-python": "4.12.0.88"
+      },
+      "code_sha256": {
+        "curb\\__init__.py": "c52ae211f5b935585ea48227237e5fc8ebefb6944310d5f5cfc9889d51a210b6",
+        "curb\\__main__.py": "8aaa4298160e83e73472e8c6bde0094aaed54afb82bccf2320d59399b056e0f8",
+        "curb\\api.py": "b7120e29c1b6484a69ec86532b80d8cec0401ca10580a19e30ef2dfb5df5c810",
+        "curb\\backup.py": "93294b7dee7448e6b111247398f1aa6324f081889ed94854964998b4c43b3e4c",
+        "curb\\capture.py": "8360834a716337c842e050944912365ff6438932be0c2736285d65329fb02bef",
+        "curb\\desktop_service.py": "d19e57f459359b124b9a7e2407fe018708195d37d9fc3d8b9fb67218f10f5a2f",
+        "curb\\engine.py": "514600764f8be53c82edce73a61a86819bc3cdd7a243f3e21ea59b7cbab54e6c",
+        "curb\\instance.py": "9e811ab219ac59870c8ce8a81178a2317db1fefa365a1841b89ac74ac8e305a6",
+        "curb\\manager.py": "b11bbbc07ad8f0307aaee3865a3d827eba63ab1aeb7f71162a5624b090bfe40d",
+        "curb\\media.py": "35b4552b6a4f84849df2554409918a92d883abb2eed659ef011f0b71e4abec41",
+        "curb\\models.py": "026613659adb0134063f5ac278b5abc01757d2307d245ede2d6d0d507ac3befa",
+        "curb\\store.py": "e53a4b4164a1852c4b378d8c2429e893810c85123c65ddb9c70834bd7ad31bc5",
+        "curb\\worker.py": "89821478d34b5b1e8db9df06948f150f5b7d30964bbe682cfbdb23b97b9b3bf3"
+      },
+      "device": "NVIDIA GeForce GTX 1650",
+      "precision": "float32",
+      "tracker": "bytetrack.yaml",
+      "evaluation": "inference only; no independent accuracy evaluation",
+      "git_commit": "06f38bc6bff630c8b3dcd3a4c8892fd70a3715fe"
+    }
+  },
+  "media_sha256": {
+    "01-train-folder.png": "0341a0a174474b091e40f2cdeb19437a095e1aa23525244ffcf87e1eb0ef283b",
+    "aicity-video35-engine.jpg": "5e9293a41d2a030980e67fe4f5d3cce1175acc0860932eae4fa1814c35d4437c",
+    "camera-1b56c302-00min-engine.jpg": "7b7fbf2d129f0c39290716ab9c32d7d5ede8db1b894b8288aa5eac46cdea452f",
+    "camera-1b56c302-01min-engine.jpg": "05217011acb765a51c598019081ea7a6d9c2585e3580e6d54ab9416fb48eee06",
+    "camera-1b56c302-02min-engine.jpg": "fa2e102fa260f8f2a93761d7d2737a61bbb0cf62dc8fb35f22798598058f8892",
+    "camera-1b56c302-03min-engine.jpg": "9e1518612fd71e54ee4b0b5219821c4aea8a92332d993ecb2e10b69cfd093995",
+    "camera-49f9ec98-02min-engine.jpg": "7294d2b1c69ac0e8fc2ffdfb03d71884af9a126e6c748a315a007d5282dfde9c",
+    "camera-70d9c475-01min-engine.jpg": "415a023168fbba9554ae568c04a09f5e6c77ba314287e1f81a671057be42d3ff",
+    "camera-70d9c475-02min-engine.jpg": "2f07f2b4cd2ca54eba9ef16b77fdfe6d2728078916f6114bb03901dc2ef5ed4b",
+    "https-engine-final.jpg": "2f07f2b4cd2ca54eba9ef16b77fdfe6d2728078916f6114bb03901dc2ef5ed4b",
+    "rtsp-engine-final.jpg": "7294d2b1c69ac0e8fc2ffdfb03d71884af9a126e6c748a315a007d5282dfde9c",
+    "youtube-engine-final.jpg": "9e1518612fd71e54ee4b0b5219821c4aea8a92332d993ecb2e10b69cfd093995",
+    "youtube-first-frame.jpg": "4bc9bbd56e98aa4f9860ec47ebdc9193fb9cc55e2eb160032b425db09f0787cb"
+  },
+  "limits": [
+    "No new Curb GUI screenshot because Computer Use stopped by browser URL policy.",
+    "VDOT source was dark and blurred; connection/transport test only.",
+    "No independent live ground truth, official test score, maximum GPU FPS, or 24/7 claim.",
+    "Installed Curb 1.1.0 CPU package unchanged."
+  ]
+}

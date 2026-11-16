@@ -15,6 +15,7 @@ os.environ.setdefault("OPENCV_LOG_LEVEL", "SILENT")
 os.environ.setdefault("OPENCV_FFMPEG_CAPTURE_OPTIONS", "rtsp_transport;tcp")
 
 from . import __version__
+from .capture import LatestVideoCapture
 from .engine import Detection, DwellEngine
 from .media import NO_WINDOW, ROOT, TimedVideoEncoder, VideoEncoder, sha256
 from .models import Settings, Zone
@@ -90,8 +91,11 @@ def run(store: Store, jid: str):
     limit = config.get("max_seconds",0)
     total = min(duration,limit) if duration and limit else duration or limit
     cancelled = False
+    capture_reconnects, capture_skipped, capture_timeouts, max_frame_age = 0,0,0,0.0
 
     def open_source():
+        if is_live:
+            return LatestVideoCapture(source["uri"])
         return cv2.VideoCapture(source["uri"],cv2.CAP_FFMPEG,[cv2.CAP_PROP_OPEN_TIMEOUT_MSEC,8000,cv2.CAP_PROP_READ_TIMEOUT_MSEC,5000])
 
     def finish_clip(clip):
@@ -114,6 +118,10 @@ def run(store: Store, jid: str):
                 break
             if processed % 25 == 0 and shutil.disk_usage(store.root).free < 200*1024**2:
                 raise RuntimeError("Ổ lưu trữ còn dưới 200 MB. Dọn dữ liệu cũ hoặc chuyển thư mục dữ liệu rồi chạy lại.")
+            if is_live:
+                remaining = next_sample-(time.monotonic()-live_start)
+                if remaining > 0:
+                    time.sleep(remaining)
             ok, frame = cap.read()
             if not ok:
                 if not is_live:
@@ -125,6 +133,10 @@ def run(store: Store, jid: str):
                 if retries > 3:
                     raise RuntimeError("Mất kết nối camera sau 3 lần thử lại. Kiểm tra nguồn rồi tạo lượt chạy mới.")
                 store.update_job(jid,error=f"Mất hình ảnh, đang kết nối lại ({retries}/3)…")
+                capture_reconnects += 1
+                capture_skipped += cap.skipped_frames
+                capture_timeouts += cap.read_timeouts
+                max_frame_age = max(max_frame_age,cap.max_frame_age)
                 cap.release()
                 if (directory/"cancel").exists():
                     cancelled = True
@@ -139,7 +151,7 @@ def run(store: Store, jid: str):
             source_t = time.monotonic()-live_start if is_live else frame_index/source_fps
             if limit and source_t >= limit:
                 break
-            if source_t+1e-6 < next_sample:
+            if not is_live and source_t+1e-6 < next_sample:
                 continue
             next_sample = source_t+1/effective_fps if is_live else next_sample+1/effective_fps
             if is_live:
@@ -235,6 +247,10 @@ def run(store: Store, jid: str):
         store.update_job(jid,status="finalizing")
     finally:
         if cap:
+            if is_live:
+                capture_skipped += cap.skipped_frames
+                capture_timeouts += cap.read_timeouts
+                max_frame_age = max(max_frame_age,cap.max_frame_age)
             cap.release()
         if annotated:
             annotated.close()
@@ -242,6 +258,8 @@ def run(store: Store, jid: str):
             finish_clip(clip)
     elapsed = time.perf_counter()-started
     metrics = {"wall_seconds":round(elapsed,3),"model_seconds":round(model_seconds,3),"frames":processed,"detection_observations":detected_count,"event_count":event_count,"sampled_fps":round(processed/max(elapsed,.001),3),"source_seconds":round(source_t,3),"configured_sample_fps":cfg.sample_fps,"congested_frames":jam_frames,"device":manifest["device"],"peak_vram_mb":round(torch.cuda.max_memory_allocated()/1024**2,2) if cuda else None,"precision":"float32","cancelled":cancelled}
+    if is_live:
+        metrics.update({"capture_reconnects":capture_reconnects,"capture_read_timeouts":capture_timeouts,"capture_skipped_frames":capture_skipped,"max_decoded_frame_age_seconds":round(max_frame_age,4),"frame_age_scope":"time since this process decoded the frame; excludes upstream camera and streaming latency"})
     (directory/"metrics.json").write_text(json.dumps(metrics,indent=2),encoding="utf-8")
     store.update_job(jid,status="cancelled" if cancelled else "completed",progress=store.job(jid)["progress"] if cancelled else 100,frames=processed,source_seconds=source_t,fps=round(processed/max(elapsed,.001),2),event_count=event_count,metrics=metrics,finished_at=now(),error="")
 

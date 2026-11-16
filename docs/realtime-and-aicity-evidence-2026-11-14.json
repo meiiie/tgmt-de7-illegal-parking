@@ -1,0 +1,1655 @@
+{
+  "date": "2026-11-14",
+  "scope": "Local inference and transport changes; not training, official test scoring, signed desktop release, or a 24/7 validation.",
+  "base_commit": "06f38bc6bff630c8b3dcd3a4c8892fd70a3715fe",
+  "uncommitted_changes": true,
+  "dataset": {
+    "download": {
+      "downloaded_utc": "2026-11-14T06:09:03.876810+00:00",
+      "official_page": "https://www.aicitychallenge.org/2021-track4-download/",
+      "drive_file_id": "1gsR4pIEiWK7htPmIjiZjXetaa1X-T-Am",
+      "filename": "AICity21-Track4-Anomaly-Detection.zip",
+      "bytes": 15060951187,
+      "sha256": "e2cf0957af3e666a3049aca677a0ddcb119308023d941cd0c494fa04bc6d6c22",
+      "archive_entries": 259,
+      "train_videos": 100,
+      "test_videos": 150,
+      "uncompressed_bytes": 15125065908,
+      "ground_truth_sha256": "b542d8eff0b7786bd38d2d50615f1587546ab97f201ea1916180576c8afaf104",
+      "validation": "ZIP central directory opened and training labels read with CRC verification; full video CRC/inference not yet verified"
+    },
+    "training_extract": {
+      "count": 100,
+      "video_bytes": 4716410162,
+      "all_video_crcs_verified": true,
+      "files": [
+        {
+          "file": "67.mp4",
+          "bytes": 52583839,
+          "sha256": "d2aa31f29190e0b9d49df303536b92112ab0aec69b8f85afeac3bdeeb084925e",
+          "zip_crc32": "7ad1bc97",
+          "zip_offset": 832,
+          "crc_verified": true
+        },
+        {
+          "file": "1.mp4",
+          "bytes": 66305749,
+          "sha256": "92d2f1daa0dc44c0a997acc78f4ad08c4e8c2b03f930f6db9d3ff8ff9f85dcad",
+          "zip_crc32": "0ef22470",
+          "zip_offset": 52324348,
+          "crc_verified": true
+        },
+        {
+          "file": "86.mp4",
+          "bytes": 25351059,
+          "sha256": "c5d2e4daa7591361558353c4902ddca959ed8bb79490ba68c8199b1ee869c445",
+          "zip_crc32": "d22fb77b",
+          "zip_offset": 118442467,
+          "crc_verified": true
+        },
+        {
+          "file": "21.mp4",
+          "bytes": 54598081,
+          "sha256": "9290abab601843421f90bd850a92e4fc374ac3ac8d9fc8ab78ce802395e21466",
+          "zip_crc32": "9a5c7c1e",
+          "zip_offset": 143463386,
+          "crc_verified": true
+        },
+        {
+          "file": "50.mp4",
+          "bytes": 57800565,
+          "sha256": "bebc8bef64b18cdcf7a9ad846b37cae802b74cd96d33b489387a880913362d1a",
+          "zip_crc32": "ca507db5",
+          "zip_offset": 197807017,
+          "crc_verified": true
+        },
+        {
+          "file": "24.mp4",
+          "bytes": 37719312,
+          "sha256": "cbe1f434048552bd3b8a02da921b1aa102c224ec909cf0de0dc598ae54131423",
+          "zip_crc32": "5845f00a",
+          "zip_offset": 255351360,
+          "crc_verified": true
+        },
+        {
+          "file": "38.mp4",
+          "bytes": 49966271,
+          "sha256": "211db72fc39bcfe660f26f0ebc6a96ae96f4aae9fd049eaf76659f4ce760082f",
+          "zip_crc32": "0676414c",
+          "zip_offset": 292798977,
+          "crc_verified": true
+        },
+        {
+          "file": "29.mp4",
+          "bytes": 64701446,
+          "sha256": "81c5e55c5da9a7468a25fa45354244defb8752251ec71817a1cbcd4099af6341",
+          "zip_crc32": "a376d2b5",
+          "zip_offset": 342505644,
+          "crc_verified": true
+        },
+        {
+          "file": "82.mp4",
+          "bytes": 48273649,
+          "sha256": "a758f26281eb2d3f580900e19f40ea1b3e09369e50fe7ef829510ebd5b377253",
+          "zip_crc32": "844d3373",
+          "zip_offset": 406957861,
+          "crc_verified": true
+        },
+        {
+          "file": "93.mp4",
+          "bytes": 70824261,
+          "sha256": "1a148f8a1ba04e9729ed3a0f69775dc212c61879046bfe6b4f94aac518629ae5",
+          "zip_crc32": "161d4dd9",
+          "zip_offset": 454968717,
+          "crc_verified": true
+        },
+        {
+          "file": "20.mp4",
+          "bytes": 47402499,
+          "sha256": "c7177729961c16927d03d1a17352848a95e684329537546ba5f05d628b96f049",
+          "zip_crc32": "e64254c7",
+          "zip_offset": 525544008,
+          "crc_verified": true
+        },
+        {
+          "file": "47.mp4",
+          "bytes": 64424304,
+          "sha256": "1f68ab2110480b31144cf547ed1b31aa552c70fb1201668cc71dc403006e73f0",
+          "zip_crc32": "b1ba9a5f",
+          "zip_offset": 572674794,
+          "crc_verified": true
+        },
+        {
+          "file": "84.mp4",
+          "bytes": 27751372,
+          "sha256": "a1d94d4538aa90f98dfbab472d4e1d0491ea5d35f16b5dbcdb255a220a9e9aa9",
+          "zip_crc32": "db382c6d",
+          "zip_offset": 636845638,
+          "crc_verified": true
+        },
+        {
+          "file": "25.mp4",
+          "bytes": 36160872,
+          "sha256": "1711911a64f4d64cd7747268a6b8850dcec21ea75ced0aa5ff72a065da0841b6",
+          "zip_crc32": "c986fdb8",
+          "zip_offset": 664292844,
+          "crc_verified": true
+        },
+        {
+          "file": "74.mp4",
+          "bytes": 60142645,
+          "sha256": "31459c23fe2c0ca1627da3f2e296b54d5b2842ff3488afbdc1bfa4c44d567d28",
+          "zip_crc32": "dd921f01",
+          "zip_offset": 700170087,
+          "crc_verified": true
+        },
+        {
+          "file": "36.mp4",
+          "bytes": 43489509,
+          "sha256": "6306471b24310f7db72dafc6c5c84c29a3ad76252b380f3dcee69ff43c8e7d54",
+          "zip_crc32": "35912218",
+          "zip_offset": 760063645,
+          "crc_verified": true
+        },
+        {
+          "file": "30.mp4",
+          "bytes": 32457356,
+          "sha256": "f72de6c1c57299fcd9dee5e3b32715a0217652c778160da59e409c844bb57a37",
+          "zip_crc32": "54c07f2a",
+          "zip_offset": 803272671,
+          "crc_verified": true
+        },
+        {
+          "file": "5.mp4",
+          "bytes": 43679557,
+          "sha256": "26e65345a8de8d938399cf34aff0827544eaff72a3fa7bfc7cbb5a5ba5773f88",
+          "zip_crc32": "a18ea839",
+          "zip_offset": 835441061,
+          "crc_verified": true
+        },
+        {
+          "file": "66.mp4",
+          "bytes": 86157980,
+          "sha256": "f43727d0f2ab1f0d94786ff837aa1eaaeea3469ab54fe2030fa9ee9e4d29c8e4",
+          "zip_crc32": "06ecea79",
+          "zip_offset": 878852333,
+          "crc_verified": true
+        },
+        {
+          "file": "90.mp4",
+          "bytes": 48191348,
+          "sha256": "0217f20d05305be648808a9506e96c4be54be6ed062a147d6d056acf64a9e194",
+          "zip_crc32": "4ed4a938",
+          "zip_offset": 964845146,
+          "crc_verified": true
+        },
+        {
+          "file": "32.mp4",
+          "bytes": 27115057,
+          "sha256": "f1a77eac36855ee891a6550229b2a31f5228f6c63127c7ff8e141d81a38f990c",
+          "zip_crc32": "61adfc95",
+          "zip_offset": 1012796685,
+          "crc_verified": true
+        },
+        {
+          "file": "2.mp4",
+          "bytes": 57791100,
+          "sha256": "c6451f72bc4e67132600f8ebc30f950de207a47a8ec65cde910f3bdff20f59e1",
+          "zip_crc32": "48aa38b6",
+          "zip_offset": 1039611282,
+          "crc_verified": true
+        },
+        {
+          "file": "23.mp4",
+          "bytes": 25913107,
+          "sha256": "c6dfab24f4f98d9cd99bbfd5cd95cc9dda909b584735d7d66baa972c0e566a93",
+          "zip_crc32": "e5c3e2a0",
+          "zip_offset": 1097163489,
+          "crc_verified": true
+        },
+        {
+          "file": "14.mp4",
+          "bytes": 43742393,
+          "sha256": "52a8c5712a68db86ef518b81b1ca119b8624d453eed09e8695e326ccd3acdc67",
+          "zip_crc32": "8698dd7c",
+          "zip_offset": 1122764035,
+          "crc_verified": true
+        },
+        {
+          "file": "34.mp4",
+          "bytes": 61383953,
+          "sha256": "9811090ffda28f14cedb0f02fced88bf25f14d2ac1146169b1203254e145c318",
+          "zip_crc32": "caa7673a",
+          "zip_offset": 1166226962,
+          "crc_verified": true
+        },
+        {
+          "file": "45.mp4",
+          "bytes": 51913385,
+          "sha256": "e705459ece03a44c2cb4df1549857cdb46ae594a83974084afb5c594a1335f81",
+          "zip_crc32": "63b74d23",
+          "zip_offset": 1227356113,
+          "crc_verified": true
+        },
+        {
+          "file": "7.mp4",
+          "bytes": 44596028,
+          "sha256": "1fc07889929bfb23c78e35219f767023bb001d010b42711e45af0a1dadc255b7",
+          "zip_crc32": "8fb01348",
+          "zip_offset": 1279050086,
+          "crc_verified": true
+        },
+        {
+          "file": "57.mp4",
+          "bytes": 32538101,
+          "sha256": "726475e2ef861138631605c712b1ef0b999ed8e8fa27325f5b785e8e415ba548",
+          "zip_crc32": "0eeb09f3",
+          "zip_offset": 1323350120,
+          "crc_verified": true
+        },
+        {
+          "file": "42.mp4",
+          "bytes": 49603858,
+          "sha256": "a397b522a7969cb8abdf38a62222f62e07e5caf2993566a8f2f2910c06080d35",
+          "zip_crc32": "df40757b",
+          "zip_offset": 1355600794,
+          "crc_verified": true
+        },
+        {
+          "file": "41.mp4",
+          "bytes": 51319680,
+          "sha256": "beeda600509fffb80d40772ae9a7f171b85f387f3744f04f45c6fdde85ed0ed4",
+          "zip_crc32": "0b217d44",
+          "zip_offset": 1404940012,
+          "crc_verified": true
+        },
+        {
+          "file": "35.mp4",
+          "bytes": 48199906,
+          "sha256": "d9054afe2cb3e53d34ae9cb2c2a6c34e6790dac0bac12cc9a15bf4a75513d90f",
+          "zip_crc32": "38cb5839",
+          "zip_offset": 1455989062,
+          "crc_verified": true
+        },
+        {
+          "file": "4.mp4",
+          "bytes": 56871527,
+          "sha256": "c83d7089390f330eeadc0bd432871a7d89cd924262fba4e69c130a9c5e41247f",
+          "zip_crc32": "511380ed",
+          "zip_offset": 1503926264,
+          "crc_verified": true
+        },
+        {
+          "file": "27.mp4",
+          "bytes": 45621025,
+          "sha256": "5a7b53cc375b6c0e016e5985c90cdc7ef90ee6c09180e4393871416070874ae1",
+          "zip_crc32": "0276f48c",
+          "zip_offset": 1560568880,
+          "crc_verified": true
+        },
+        {
+          "file": "78.mp4",
+          "bytes": 29496189,
+          "sha256": "a0995fac505dd19423266fe63013d0fe0427aecf90db55a394c9bb5bc018acdc",
+          "zip_crc32": "c9f4f3cd",
+          "zip_offset": 1605918123,
+          "crc_verified": true
+        },
+        {
+          "file": "92.mp4",
+          "bytes": 56045673,
+          "sha256": "b4a7f0240f409ccd8a197bbd6038408a2cb945fd915ffda681c5751db225b973",
+          "zip_crc32": "1b3b03da",
+          "zip_offset": 1635126272,
+          "crc_verified": true
+        },
+        {
+          "file": "31.mp4",
+          "bytes": 65738295,
+          "sha256": "166bc2af4720cfb55394dd293e3fc35b9f7d10f674e2db5fb4f84d69ae81e0de",
+          "zip_crc32": "69d761df",
+          "zip_offset": 1690915378,
+          "crc_verified": true
+        },
+        {
+          "file": "62.mp4",
+          "bytes": 27475411,
+          "sha256": "86cbd497835b83d5369c99165641a969c99255a8f432ce46741e92d7b71ca0ff",
+          "zip_crc32": "98d3901a",
+          "zip_offset": 1756436870,
+          "crc_verified": true
+        },
+        {
+          "file": "76.mp4",
+          "bytes": 56304653,
+          "sha256": "a6deaaef2f49d3a4f0dd40ce3c985a8ad5133372865dbdb8d26168b910f3217f",
+          "zip_crc32": "f24dbde4",
+          "zip_offset": 1783442480,
+          "crc_verified": true
+        },
+        {
+          "file": "95.mp4",
+          "bytes": 68152594,
+          "sha256": "34ba5b1caa76e6332d481a465f6c32c239443e3dd5bb1b941aa17ad4d2e76af9",
+          "zip_crc32": "5bdca5ef",
+          "zip_offset": 1839501571,
+          "crc_verified": true
+        },
+        {
+          "file": "70.mp4",
+          "bytes": 52515989,
+          "sha256": "11721884989eac4ae2e8d4fa083309f0742a50969ce066a0460fdcf05c541e88",
+          "zip_crc32": "1ba4506d",
+          "zip_offset": 1907415392,
+          "crc_verified": true
+        },
+        {
+          "file": "48.mp4",
+          "bytes": 49608497,
+          "sha256": "b8c189ed07455a56f32d37c6491df3ea95d128acb5ba4f13d94e4ad85e287381",
+          "zip_crc32": "80e36ac4",
+          "zip_offset": 1959651637,
+          "crc_verified": true
+        },
+        {
+          "file": "49.mp4",
+          "bytes": 64416755,
+          "sha256": "34550d502af0b6d699558b9df98ecf040e6afe7fe2ae204b5ad6b9049502c34e",
+          "zip_crc32": "973e78b6",
+          "zip_offset": 2009011417,
+          "crc_verified": true
+        },
+        {
+          "file": "83.mp4",
+          "bytes": 49115943,
+          "sha256": "93fc4884e7b32921c4306d53ddf4cb0c81ec3410c90f87b6a8cce27a53380c43",
+          "zip_crc32": "76dda6c6",
+          "zip_offset": 2073171340,
+          "crc_verified": true
+        },
+        {
+          "file": "81.mp4",
+          "bytes": 30995318,
+          "sha256": "1e9f5b0108f9a72268c5425e4ae133bbb10588eaf8f76bfea33a72ba593e9612",
+          "zip_crc32": "130101f5",
+          "zip_offset": 2122029094,
+          "crc_verified": true
+        },
+        {
+          "file": "58.mp4",
+          "bytes": 51748579,
+          "sha256": "763151949a10b1057c913fe540814827acfb3daec31ab8b4f6ba580198ac1deb",
+          "zip_crc32": "20745883",
+          "zip_offset": 2152735592,
+          "crc_verified": true
+        },
+        {
+          "file": "44.mp4",
+          "bytes": 27403839,
+          "sha256": "fb7032b8e2aa5bac8eb14eacccffe8001c7d3df4b93f9452d5363016813a730f",
+          "zip_crc32": "7ca35652",
+          "zip_offset": 2204373930,
+          "crc_verified": true
+        },
+        {
+          "file": "12.mp4",
+          "bytes": 55182944,
+          "sha256": "cf84e6b4773e45640e66b990c4e6f9835e415950179e9c35bc4d8a0da332e297",
+          "zip_crc32": "1d3b5566",
+          "zip_offset": 2231476353,
+          "crc_verified": true
+        },
+        {
+          "file": "60.mp4",
+          "bytes": 24755861,
+          "sha256": "c96ba3f85c3cf148beccd19b4150a0620aee009501356008ae8587eedf53491f",
+          "zip_crc32": "db5eff72",
+          "zip_offset": 2286401336,
+          "crc_verified": true
+        },
+        {
+          "file": "40.mp4",
+          "bytes": 46732730,
+          "sha256": "1b25544784b28d91cded44795e3150d26e1b9dd101df16b89dbf665d13d6ef68",
+          "zip_crc32": "8c146d0d",
+          "zip_offset": 2310834449,
+          "crc_verified": true
+        },
+        {
+          "file": "80.mp4",
+          "bytes": 29235392,
+          "sha256": "b0021d12c7c2636870d8cbb3d47bb6f92a4a037551e544e04d781f61193e5fe5",
+          "zip_crc32": "6445062a",
+          "zip_offset": 2357306113,
+          "crc_verified": true
+        },
+        {
+          "file": "69.mp4",
+          "bytes": 63843850,
+          "sha256": "9add6560f3061058233608ad1bfa7ee9aa59026043cd0a9b7dfcbf22a45aeca0",
+          "zip_crc32": "4e1bb133",
+          "zip_offset": 2386243740,
+          "crc_verified": true
+        },
+        {
+          "file": "54.mp4",
+          "bytes": 58992393,
+          "sha256": "d0eaf24c758de10a780b427a2645d9bd9491548955e6865d7f61ede1308a2773",
+          "zip_crc32": "c7e0f688",
+          "zip_offset": 2449837577,
+          "crc_verified": true
+        },
+        {
+          "file": "91.mp4",
+          "bytes": 45661940,
+          "sha256": "2a3cd4018d2441341cb496aa8e8c25ca390f8fc7aa1beef5f0dd5a3d68328e05",
+          "zip_crc32": "cde336a4",
+          "zip_offset": 2508562960,
+          "crc_verified": true
+        },
+        {
+          "file": "16.mp4",
+          "bytes": 39284014,
+          "sha256": "2f0a4007118c5f5020e9f35590e195c73dace14f87f8e83973d0068acdf95310",
+          "zip_crc32": "bde9a1fa",
+          "zip_offset": 2553953697,
+          "crc_verified": true
+        },
+        {
+          "file": "19.mp4",
+          "bytes": 43047148,
+          "sha256": "2b1090d6ecb4aab1df19620ead4c3b4a8c8802930c6f32f0097cb24884f9b79a",
+          "zip_crc32": "44f72007",
+          "zip_offset": 2592963173,
+          "crc_verified": true
+        },
+        {
+          "file": "64.mp4",
+          "bytes": 23073895,
+          "sha256": "8abf6a701dd1666c22d0d0e2e701cca295fcf5918b86bcd054b7e0a83d4c6b91",
+          "zip_crc32": "acaa29a5",
+          "zip_offset": 2635743161,
+          "crc_verified": true
+        },
+        {
+          "file": "98.mp4",
+          "bytes": 53301449,
+          "sha256": "50d141348d050aebd1c8bca0ba9298b1f0a1fd2bb1ca3594b5931de9e43bb66d",
+          "zip_crc32": "66d4a006",
+          "zip_offset": 2658481123,
+          "crc_verified": true
+        },
+        {
+          "file": "100.mp4",
+          "bytes": 23905239,
+          "sha256": "b4301051dd1a92f04707d97375ef938007b3aceb304b465131be54ff502c7e30",
+          "zip_crc32": "29286ae1",
+          "zip_offset": 2711522816,
+          "crc_verified": true
+        },
+        {
+          "file": "33.mp4",
+          "bytes": 61168693,
+          "sha256": "0aefb5f549de146aab44c56e715c7a830effa04001049bfc06b551f9313194d3",
+          "zip_crc32": "d4fbdba9",
+          "zip_offset": 2735115301,
+          "crc_verified": true
+        },
+        {
+          "file": "55.mp4",
+          "bytes": 36124876,
+          "sha256": "db2bd6168a403ba4c699f076983d39e54249303a2eea77a29c904fabf7203eb7",
+          "zip_crc32": "3aba1fca",
+          "zip_offset": 2796026161,
+          "crc_verified": true
+        },
+        {
+          "file": "99.mp4",
+          "bytes": 55282838,
+          "sha256": "49285a4c8568219038d6101ad2176f03b7a82a91e41de8c4ba700986be47b5e0",
+          "zip_crc32": "dad8ffa5",
+          "zip_offset": 2831877578,
+          "crc_verified": true
+        },
+        {
+          "file": "53.mp4",
+          "bytes": 51498486,
+          "sha256": "bcb0f8e4ea6d96c150c8f4e77324afa97fe9e51d26a9be3ff60c17361fb35ba8",
+          "zip_crc32": "39060749",
+          "zip_offset": 2886903063,
+          "crc_verified": true
+        },
+        {
+          "file": "9.mp4",
+          "bytes": 59943509,
+          "sha256": "cfa4fc65f33477f0dd8089654e0c1e42502460a79dbcb0b95e927340785e973f",
+          "zip_crc32": "81bbefb7",
+          "zip_offset": 2938144819,
+          "crc_verified": true
+        },
+        {
+          "file": "13.mp4",
+          "bytes": 53437063,
+          "sha256": "1427a97f2cd01c1444dbbe86affa032569603d4b18928ab231ac5fa639fa4e00",
+          "zip_crc32": "31975b85",
+          "zip_offset": 2997837956,
+          "crc_verified": true
+        },
+        {
+          "file": "77.mp4",
+          "bytes": 38779308,
+          "sha256": "97e43116728845b9c16be682248a89c767b6f3cabc17f36450112f878def31d5",
+          "zip_crc32": "db071047",
+          "zip_offset": 3051012363,
+          "crc_verified": true
+        },
+        {
+          "file": "73.mp4",
+          "bytes": 38417707,
+          "sha256": "b6b3b561f02cf75f238dc7e2d8e11034df4be1da7eaa440c76092b7f313cc70d",
+          "zip_crc32": "b5f07209",
+          "zip_offset": 3089518595,
+          "crc_verified": true
+        },
+        {
+          "file": "22.mp4",
+          "bytes": 31928905,
+          "sha256": "56f4132d2d6ff3ebb77c4bc3537996a7e8335868b7bbbe281f32fe9a20e37a46",
+          "zip_crc32": "0f71e7a1",
+          "zip_offset": 3127628398,
+          "crc_verified": true
+        },
+        {
+          "file": "28.mp4",
+          "bytes": 54904092,
+          "sha256": "41d4d74c61402ab4cef5701639cd82bc6ad452d6fd42944cbf1f2fed70d26f5a",
+          "zip_crc32": "9c875bc9",
+          "zip_offset": 3159257552,
+          "crc_verified": true
+        },
+        {
+          "file": "85.mp4",
+          "bytes": 49963370,
+          "sha256": "f830a0976079965eef6c1ce1e65806256bffee5d32b8aa49bced84ecd89fb31b",
+          "zip_crc32": "56eea164",
+          "zip_offset": 3213914761,
+          "crc_verified": true
+        },
+        {
+          "file": "94.mp4",
+          "bytes": 44925952,
+          "sha256": "b98155fd3e83f5dbdd46aec00b59f7a67244c2f7e74dddb9291031e146e084da",
+          "zip_crc32": "f6478f03",
+          "zip_offset": 3263617451,
+          "crc_verified": true
+        },
+        {
+          "file": "63.mp4",
+          "bytes": 98110391,
+          "sha256": "465f5e2197d99f398b713931aa85167b301ba5417f8278d140d0cb7490b443e0",
+          "zip_crc32": "cd2ba1cc",
+          "zip_offset": 3308275988,
+          "crc_verified": true
+        },
+        {
+          "file": "71.mp4",
+          "bytes": 45142897,
+          "sha256": "1d383222ad5ac6a3d9b18633022c509bebb93c5489c0e11b3f02d2ae4c883a0d",
+          "zip_crc32": "436d5ae8",
+          "zip_offset": 3406186949,
+          "crc_verified": true
+        },
+        {
+          "file": "65.mp4",
+          "bytes": 51214051,
+          "sha256": "cca2c4f8e05fb8d82dc669e131585fb5eefa5055baec343d69f5e101d3f22d6e",
+          "zip_crc32": "92870dea",
+          "zip_offset": 3451061491,
+          "crc_verified": true
+        },
+        {
+          "file": "89.mp4",
+          "bytes": 41392566,
+          "sha256": "ac14f02d57bae153bf134b15582150f2049ecc51bf760b7752fe4c737c4d8a0b",
+          "zip_crc32": "9ce43ed0",
+          "zip_offset": 3502022030,
+          "crc_verified": true
+        },
+        {
+          "file": "15.mp4",
+          "bytes": 29108768,
+          "sha256": "c4b5c1989a7a7c92b49fcd1a94da66fed619358fc7f1b882cde75af6a0be6197",
+          "zip_crc32": "c9ff32cd",
+          "zip_offset": 3543145263,
+          "crc_verified": true
+        },
+        {
+          "file": "59.mp4",
+          "bytes": 56888657,
+          "sha256": "f0e562e8b260ad696f955dfd533f82c48b78f45c596ab27defbf2fb605530b90",
+          "zip_crc32": "f8063887",
+          "zip_offset": 3571949167,
+          "crc_verified": true
+        },
+        {
+          "file": "56.mp4",
+          "bytes": 55197433,
+          "sha256": "8fceef5d43204fb42d5205c6d2969072dba9bf345ae216d477ed7319e153ed33",
+          "zip_crc32": "4d2f4758",
+          "zip_offset": 3628591225,
+          "crc_verified": true
+        },
+        {
+          "file": "51.mp4",
+          "bytes": 28452080,
+          "sha256": "54eab52821e10b15afd08a5de523bca71f7bd5b906c4a661bdf7fae62760b002",
+          "zip_crc32": "0b9b146d",
+          "zip_offset": 3683533218,
+          "crc_verified": true
+        },
+        {
+          "file": "75.mp4",
+          "bytes": 49879859,
+          "sha256": "a05162f662beaea11148d331439f5c482c28eac6b905f0203b874a3641ffbbdc",
+          "zip_crc32": "bde098a4",
+          "zip_offset": 3711669918,
+          "crc_verified": true
+        },
+        {
+          "file": "97.mp4",
+          "bytes": 50953822,
+          "sha256": "7d3ea1a55e9e5461f3b3573f23ee82820f546a0be3600fb947f74b6a7c1a8929",
+          "zip_crc32": "8c913170",
+          "zip_offset": 3761297417,
+          "crc_verified": true
+        },
+        {
+          "file": "39.mp4",
+          "bytes": 35542828,
+          "sha256": "a928a9cce39152484b1452f6af7d971ef462900c12c23e1327d70434c0a2a1e1",
+          "zip_crc32": "9aee9b33",
+          "zip_offset": 3811991715,
+          "crc_verified": true
+        },
+        {
+          "file": "79.mp4",
+          "bytes": 40402362,
+          "sha256": "bc9c10b68472d5d4623fbb6ab597ea4c799928226a7a4f6f7713b2dfd5d09466",
+          "zip_crc32": "9a72f926",
+          "zip_offset": 3847258628,
+          "crc_verified": true
+        },
+        {
+          "file": "46.mp4",
+          "bytes": 38664614,
+          "sha256": "25ba8cf7868889d6bffb731cfd33da881f481cc6b751f18a1129e3c35cd4ccd5",
+          "zip_crc32": "4153bfac",
+          "zip_offset": 3887398008,
+          "crc_verified": true
+        },
+        {
+          "file": "61.mp4",
+          "bytes": 47429154,
+          "sha256": "64aebaa648489a497a9cbfbf0a525406da3d7abf08df638c37955966ef7865fc",
+          "zip_crc32": "43514d4e",
+          "zip_offset": 3925791600,
+          "crc_verified": true
+        },
+        {
+          "file": "52.mp4",
+          "bytes": 54991162,
+          "sha256": "07776b211f3a26aab969d01b2b566dcd7fdf3c4e04039441ffeef2d16f5b7640",
+          "zip_crc32": "dd00fa1e",
+          "zip_offset": 3972941764,
+          "crc_verified": true
+        },
+        {
+          "file": "68.mp4",
+          "bytes": 27945324,
+          "sha256": "bb4c242fff98b49c67e3566736a9dff4182157179db0ee8d51dbd9a7cf874a20",
+          "zip_crc32": "fa43ad61",
+          "zip_offset": 4027703902,
+          "crc_verified": true
+        },
+        {
+          "file": "87.mp4",
+          "bytes": 57098505,
+          "sha256": "4e6c08698b0666343a1efc201483d3d3e560e2d8d46a483cb9ccf0cc236d49a8",
+          "zip_crc32": "7337bece",
+          "zip_offset": 4055342510,
+          "crc_verified": true
+        },
+        {
+          "file": "96.mp4",
+          "bytes": 52245294,
+          "sha256": "f225acb779ecbb3dd4858e9c595b37ef7c0bb5117ff8497fa183a0a3e72d3b2b",
+          "zip_crc32": "3427203d",
+          "zip_offset": 4112172833,
+          "crc_verified": true
+        },
+        {
+          "file": "72.mp4",
+          "bytes": 85453927,
+          "sha256": "8a896692c77ed23e7261fa36476e18753987797a6fbe92400bd7dda8ab3b6db3",
+          "zip_crc32": "98ceab7b",
+          "zip_offset": 4164170368,
+          "crc_verified": true
+        },
+        {
+          "file": "6.mp4",
+          "bytes": 31910809,
+          "sha256": "bbcd14f2b8b44ec65e5d5e11fa1221329f525607b770519fb7be82c60d9c64ef",
+          "zip_crc32": "cad78d04",
+          "zip_offset": 4249402449,
+          "crc_verified": true
+        },
+        {
+          "file": "11.mp4",
+          "bytes": 56593525,
+          "sha256": "792dcae04dc7bd9c81938ef581befad43af538fe1f8491f9da83a53bf464bde8",
+          "zip_crc32": "335fed48",
+          "zip_offset": 4281014656,
+          "crc_verified": true
+        },
+        {
+          "file": "43.mp4",
+          "bytes": 51577739,
+          "sha256": "d177c55a1c94394bc8e87788724b4c900d72dafcc164ed6538536b6659be5f58",
+          "zip_crc32": "9de27393",
+          "zip_offset": 4337351213,
+          "crc_verified": true
+        },
+        {
+          "file": "37.mp4",
+          "bytes": 32739575,
+          "sha256": "171f352244379dafd0f418a08b8ba726b51c7373333a03b0703ff25c7d75f090",
+          "zip_crc32": "3724f61b",
+          "zip_offset": 4388670521,
+          "crc_verified": true
+        },
+        {
+          "file": "3.mp4",
+          "bytes": 38969971,
+          "sha256": "c462c1c3d70ba5a412e15d06aadb34c669b0e5cc8d1d80915f315f54746fb6fa",
+          "zip_crc32": "30fa541e",
+          "zip_offset": 4421077521,
+          "crc_verified": true
+        },
+        {
+          "file": "10.mp4",
+          "bytes": 40663566,
+          "sha256": "041636e7b5a5273d38ce4f59e7c7651d9cbdb07d450399c81ded7c19af121de3",
+          "zip_crc32": "979ebf5a",
+          "zip_offset": 4459770102,
+          "crc_verified": true
+        },
+        {
+          "file": "88.mp4",
+          "bytes": 34348155,
+          "sha256": "2681dd908e58e41f8525a408fe3b5b13648136704e24e16911aed1cc5c82ae6d",
+          "zip_crc32": "13be18ad",
+          "zip_offset": 4500165080,
+          "crc_verified": true
+        },
+        {
+          "file": "17.mp4",
+          "bytes": 47612907,
+          "sha256": "deb2736b5196902653a377171b0d00c638fe3644c0f3be535e546342329d7396",
+          "zip_crc32": "65c6fc90",
+          "zip_offset": 4534255121,
+          "crc_verified": true
+        },
+        {
+          "file": "18.mp4",
+          "bytes": 31819850,
+          "sha256": "389e4eecf65ece56a7903cb8232202ada82183c8923fe51064f7ad2d520ca733",
+          "zip_crc32": "7f4732be",
+          "zip_offset": 4581605418,
+          "crc_verified": true
+        },
+        {
+          "file": "8.mp4",
+          "bytes": 25108010,
+          "sha256": "a064c81718958d69f030af0ed849836b724a1012fd978c3d1f405da4ff1774a6",
+          "zip_crc32": "87cc0390",
+          "zip_offset": 4613107174,
+          "crc_verified": true
+        },
+        {
+          "file": "26.mp4",
+          "bytes": 51952178,
+          "sha256": "7a1edd8909789e7ad4da181b28eb0d571e008e624a044d477d1e17fbe8f30ce1",
+          "zip_crc32": "c822a2af",
+          "zip_offset": 4637883358,
+          "crc_verified": true
+        }
+      ],
+      "original_manifest_sha256": "81f122a47438cd6bcf52455eb9402e00aa007282dd36d4a2ad33aad1d3ddfeba",
+      "extraction_preceded_full_download": true
+    },
+    "test_extracted": false,
+    "test_evaluated": false
+  },
+  "aicity_current_curb": {
+    "dataset": "AI City Challenge 2021 Track 4 TRAIN subset",
+    "split": "development; these video IDs were previously used to select settings",
+    "selected_video_ids": [
+      2,
+      9,
+      11,
+      14,
+      33,
+      35,
+      58,
+      62,
+      7
+    ],
+    "window_seconds": 240,
+    "settings": {
+      "operator_name": "Người vận hành",
+      "site_name": "Trạm giám sát cục bộ",
+      "model": "yolo26s.pt",
+      "device": "cuda",
+      "confidence": 0.25,
+      "sample_fps": 1.0,
+      "image_size": 640,
+      "still_window": 3.0,
+      "movement_tolerance": 0.1,
+      "lost_grace": 4.0,
+      "minimum_area": 200,
+      "evidence_before": 5,
+      "evidence_after": 3,
+      "save_annotated": false,
+      "retention_days": 30
+    },
+    "zones": [
+      {
+        "id": "all",
+        "name": "all",
+        "polygon": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "dwell_seconds": 20.0,
+        "enabled": true,
+        "severity": "watch",
+        "classes": [
+          "car",
+          "motorcycle",
+          "bus",
+          "truck"
+        ],
+        "suppress_congestion": true,
+        "schedule_enabled": false,
+        "start_time": "00:00",
+        "end_time": "00:00",
+        "weekdays": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    ],
+    "evaluation_protocol": "src/evaluate.py legacy local temporal matching, tolerance=30 s; NOT official AI City scoring",
+    "ground_truth": [
+      {
+        "video": "9.mp4",
+        "zone": "all",
+        "stop_start_s": 0.0,
+        "stop_end_s": 240
+      },
+      {
+        "video": "11.mp4",
+        "zone": "all",
+        "stop_start_s": 0.0,
+        "stop_end_s": 240
+      },
+      {
+        "video": "33.mp4",
+        "zone": "all",
+        "stop_start_s": 0.0,
+        "stop_end_s": 90.0
+      },
+      {
+        "video": "33.mp4",
+        "zone": "all",
+        "stop_start_s": 165.0,
+        "stop_end_s": 240
+      },
+      {
+        "video": "35.mp4",
+        "zone": "all",
+        "stop_start_s": 106.0,
+        "stop_end_s": 185.0
+      }
+    ],
+    "ground_truth_file_sha256": "b542d8eff0b7786bd38d2d50615f1587546ab97f201ea1916180576c8afaf104",
+    "runs": [
+      {
+        "video": "2.mp4",
+        "source": {
+          "fps": 30.0,
+          "frames": 26820,
+          "duration": 894.0,
+          "width": 800,
+          "height": 410,
+          "sha256": "c6451f72bc4e67132600f8ebc30f950de207a47a8ec65cde910f3bdff20f59e1"
+        },
+        "job_id": "da1df8b9d81d48d59f9d1a964a798117",
+        "metrics": {
+          "wall_seconds": 32.082,
+          "model_seconds": 14.419,
+          "frames": 240,
+          "detection_observations": 460,
+          "event_count": 0,
+          "sampled_fps": 7.481,
+          "source_seconds": 240.0,
+          "configured_sample_fps": 1.0,
+          "congested_frames": 0,
+          "device": "NVIDIA GeForce GTX 1650",
+          "peak_vram_mb": 91.5,
+          "precision": "float32",
+          "cancelled": false
+        },
+        "score": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "start_mae_s": null,
+          "mean_alert_latency_s": null
+        }
+      },
+      {
+        "video": "9.mp4",
+        "source": {
+          "fps": 30.0,
+          "frames": 26628,
+          "duration": 887.6,
+          "width": 800,
+          "height": 410,
+          "sha256": "cfa4fc65f33477f0dd8089654e0c1e42502460a79dbcb0b95e927340785e973f"
+        },
+        "job_id": "b48d8006c86d4da7afef822cc2d280de",
+        "metrics": {
+          "wall_seconds": 18.997,
+          "model_seconds": 10.131,
+          "frames": 240,
+          "detection_observations": 754,
+          "event_count": 0,
+          "sampled_fps": 12.633,
+          "source_seconds": 240.0,
+          "configured_sample_fps": 1.0,
+          "congested_frames": 0,
+          "device": "NVIDIA GeForce GTX 1650",
+          "peak_vram_mb": 127.63,
+          "precision": "float32",
+          "cancelled": false
+        },
+        "score": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "start_mae_s": null,
+          "mean_alert_latency_s": null
+        }
+      },
+      {
+        "video": "11.mp4",
+        "source": {
+          "fps": 30.0,
+          "frames": 26658,
+          "duration": 888.6,
+          "width": 800,
+          "height": 410,
+          "sha256": "792dcae04dc7bd9c81938ef581befad43af538fe1f8491f9da83a53bf464bde8"
+        },
+        "job_id": "74218896fb634bc9ad11b6ccd3a563dc",
+        "metrics": {
+          "wall_seconds": 18.48,
+          "model_seconds": 9.468,
+          "frames": 240,
+          "detection_observations": 1578,
+          "event_count": 0,
+          "sampled_fps": 12.987,
+          "source_seconds": 240.0,
+          "configured_sample_fps": 1.0,
+          "congested_frames": 0,
+          "device": "NVIDIA GeForce GTX 1650",
+          "peak_vram_mb": 162.23,
+          "precision": "float32",
+          "cancelled": false
+        },
+        "score": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "start_mae_s": null,
+          "mean_alert_latency_s": null
+        }
+      },
+      {
+        "video": "14.mp4",
+        "source": {
+          "fps": 30.0,
+          "frames": 26560,
+          "duration": 885.3333333333334,
+          "width": 800,
+          "height": 410,
+          "sha256": "52a8c5712a68db86ef518b81b1ca119b8624d453eed09e8695e326ccd3acdc67"
+        },
+        "job_id": "e43fe4a969ae45e3a253c2d4c3fcfe1e",
+        "metrics": {
+          "wall_seconds": 17.242,
+          "model_seconds": 8.784,
+          "frames": 240,
+          "detection_observations": 775,
+          "event_count": 0,
+          "sampled_fps": 13.919,
+          "source_seconds": 240.0,
+          "configured_sample_fps": 1.0,
+          "congested_frames": 1,
+          "device": "NVIDIA GeForce GTX 1650",
+          "peak_vram_mb": 191.45,
+          "precision": "float32",
+          "cancelled": false
+        },
+        "score": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "start_mae_s": null,
+          "mean_alert_latency_s": null
+        }
+      },
+      {
+        "video": "33.mp4",
+        "source": {
+          "fps": 30.0,
+          "frames": 26820,
+          "duration": 894.0,
+          "width": 800,
+          "height": 410,
+          "sha256": "0aefb5f549de146aab44c56e715c7a830effa04001049bfc06b551f9313194d3"
+        },
+        "job_id": "c8b33687a3b14c1da6ea982dacd7e725",
+        "metrics": {
+          "wall_seconds": 15.934,
+          "model_seconds": 8.073,
+          "frames": 240,
+          "detection_observations": 702,
+          "event_count": 2,
+          "sampled_fps": 15.062,
+          "source_seconds": 240.0,
+          "configured_sample_fps": 1.0,
+          "congested_frames": 0,
+          "device": "NVIDIA GeForce GTX 1650",
+          "peak_vram_mb": 167.66,
+          "precision": "float32",
+          "cancelled": false
+        },
+        "score": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "start_mae_s": 21.5,
+          "mean_alert_latency_s": 41.5
+        }
+      },
+      {
+        "video": "35.mp4",
+        "source": {
+          "fps": 30.0,
+          "frames": 26646,
+          "duration": 888.2,
+          "width": 800,
+          "height": 410,
+          "sha256": "d9054afe2cb3e53d34ae9cb2c2a6c34e6790dac0bac12cc9a15bf4a75513d90f"
+        },
+        "job_id": "9e5502148a794d3cb32012cd7635f502",
+        "metrics": {
+          "wall_seconds": 19.146,
+          "model_seconds": 10.096,
+          "frames": 240,
+          "detection_observations": 1321,
+          "event_count": 1,
+          "sampled_fps": 12.535,
+          "source_seconds": 240.0,
+          "configured_sample_fps": 1.0,
+          "congested_frames": 0,
+          "device": "NVIDIA GeForce GTX 1650",
+          "peak_vram_mb": 127.63,
+          "precision": "float32",
+          "cancelled": false
+        },
+        "score": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "start_mae_s": 15.0,
+          "mean_alert_latency_s": 35.0
+        }
+      },
+      {
+        "video": "58.mp4",
+        "source": {
+          "fps": 14.29524683693487,
+          "frames": 12752,
+          "duration": 892.0447576359746,
+          "width": 800,
+          "height": 410,
+          "sha256": "763151949a10b1057c913fe540814827acfb3daec31ab8b4f6ba580198ac1deb"
+        },
+        "job_id": "622c70361f264e0390e37cc1f0813f38",
+        "metrics": {
+          "wall_seconds": 17.774,
+          "model_seconds": 11.003,
+          "frames": 240,
+          "detection_observations": 99,
+          "event_count": 0,
+          "sampled_fps": 13.503,
+          "source_seconds": 240.01,
+          "configured_sample_fps": 1.0,
+          "congested_frames": 0,
+          "device": "NVIDIA GeForce GTX 1650",
+          "peak_vram_mb": 164.5,
+          "precision": "float32",
+          "cancelled": false
+        },
+        "score": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "start_mae_s": null,
+          "mean_alert_latency_s": null
+        }
+      },
+      {
+        "video": "62.mp4",
+        "source": {
+          "fps": 30.0,
+          "frames": 26487,
+          "duration": 882.9,
+          "width": 800,
+          "height": 410,
+          "sha256": "86cbd497835b83d5369c99165641a969c99255a8f432ce46741e92d7b71ca0ff"
+        },
+        "job_id": "cd568eb38ac146ef97aa4b5c750d1e1d",
+        "metrics": {
+          "wall_seconds": 17.8,
+          "model_seconds": 8.726,
+          "frames": 240,
+          "detection_observations": 74,
+          "event_count": 0,
+          "sampled_fps": 13.483,
+          "source_seconds": 240.0,
+          "configured_sample_fps": 1.0,
+          "congested_frames": 0,
+          "device": "NVIDIA GeForce GTX 1650",
+          "peak_vram_mb": 200.33,
+          "precision": "float32",
+          "cancelled": false
+        },
+        "score": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "start_mae_s": null,
+          "mean_alert_latency_s": null
+        }
+      },
+      {
+        "video": "7.mp4",
+        "source": {
+          "fps": 30.0,
+          "frames": 26768,
+          "duration": 892.2666666666667,
+          "width": 800,
+          "height": 410,
+          "sha256": "1fc07889929bfb23c78e35219f767023bb001d010b42711e45af0a1dadc255b7"
+        },
+        "job_id": "657edc89893948878fb69e3a0ac68fd6",
+        "metrics": {
+          "wall_seconds": 15.067,
+          "model_seconds": 7.216,
+          "frames": 240,
+          "detection_observations": 1,
+          "event_count": 0,
+          "sampled_fps": 15.929,
+          "source_seconds": 240.0,
+          "configured_sample_fps": 1.0,
+          "congested_frames": 0,
+          "device": "NVIDIA GeForce GTX 1650",
+          "peak_vram_mb": 176.94,
+          "precision": "float32",
+          "cancelled": false
+        },
+        "score": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "start_mae_s": null,
+          "mean_alert_latency_s": null
+        }
+      }
+    ],
+    "aggregate_score": {
+      "tp": 3,
+      "fp": 0,
+      "fn": 2,
+      "precision": 1.0,
+      "recall": 0.6,
+      "f1": 0.75,
+      "start_mae_s": 19.33,
+      "mean_alert_latency_s": 39.33
+    },
+    "predictions": [
+      {
+        "track_id": 20,
+        "class_name": "car",
+        "zone_id": "all",
+        "zone_name": "all",
+        "severity": "watch",
+        "stop_start_s": 42.0,
+        "alert_time_s": 62.0,
+        "dwell_s": 20.0,
+        "bbox": [
+          300.5233154296875,
+          103.6745834350586,
+          335.366943359375,
+          123.0594711303711
+        ],
+        "confidence": 0.4051239490509033,
+        "snapshot": "evidence/acc4bfa9fa1f47c6ae28f5bdce456eb3.jpg",
+        "thumbnail": "evidence/acc4bfa9fa1f47c6ae28f5bdce456eb3-thumb.jpg",
+        "clip": "evidence/acc4bfa9fa1f47c6ae28f5bdce456eb3.mp4",
+        "clip_ready": true,
+        "frame": 1860,
+        "clip_start_s": 56.0,
+        "id": "da8a4afb013147b499b911fd3f767bfe",
+        "clip_end_s": 65.0,
+        "video": "33.mp4",
+        "zone": "all"
+      },
+      {
+        "track_id": 2696,
+        "class_name": "car",
+        "zone_id": "all",
+        "zone_name": "all",
+        "severity": "watch",
+        "stop_start_s": 166.0,
+        "alert_time_s": 186.0,
+        "dwell_s": 20.0,
+        "bbox": [
+          582.937744140625,
+          153.8588104248047,
+          613.6699829101562,
+          179.86305236816406
+        ],
+        "confidence": 0.6882849335670471,
+        "snapshot": "evidence/b82c00ce4db649e6a42c150fb9db1789.jpg",
+        "thumbnail": "evidence/b82c00ce4db649e6a42c150fb9db1789-thumb.jpg",
+        "clip": "evidence/b82c00ce4db649e6a42c150fb9db1789.mp4",
+        "clip_ready": true,
+        "frame": 5580,
+        "clip_start_s": 180.0,
+        "id": "baed74e64e9c4a34be931a685cc60489",
+        "clip_end_s": 189.0,
+        "video": "33.mp4",
+        "zone": "all"
+      },
+      {
+        "track_id": 953,
+        "class_name": "truck",
+        "zone_id": "all",
+        "zone_name": "all",
+        "severity": "watch",
+        "stop_start_s": 121.0,
+        "alert_time_s": 141.0,
+        "dwell_s": 20.0,
+        "bbox": [
+          0.0,
+          223.81857299804688,
+          46.32479476928711,
+          285.4315490722656
+        ],
+        "confidence": 0.5223230719566345,
+        "snapshot": "evidence/3a6a4c0e8bb74512bad3e6544d9a189f.jpg",
+        "thumbnail": "evidence/3a6a4c0e8bb74512bad3e6544d9a189f-thumb.jpg",
+        "clip": "evidence/3a6a4c0e8bb74512bad3e6544d9a189f.mp4",
+        "clip_ready": true,
+        "frame": 4230,
+        "clip_start_s": 135.0,
+        "id": "237381383aac4c56a0bc326b564549d7",
+        "clip_end_s": 144.0,
+        "video": "35.mp4",
+        "zone": "all"
+      }
+    ],
+    "environment": {
+      "git_commit": "06f38bc6bff630c8b3dcd3a4c8892fd70a3715fe",
+      "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+      "packages": {
+        "torch": "2.11.0+cu126",
+        "ultralytics": "8.4.184",
+        "numpy": "2.1.3",
+        "opencv-python": "4.12.0.88"
+      },
+      "device": "NVIDIA GeForce GTX 1650",
+      "precision": "float32",
+      "seed": 0,
+      "model_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+      "code_sha256": {
+        "curb\\__init__.py": "c52ae211f5b935585ea48227237e5fc8ebefb6944310d5f5cfc9889d51a210b6",
+        "curb\\__main__.py": "8aaa4298160e83e73472e8c6bde0094aaed54afb82bccf2320d59399b056e0f8",
+        "curb\\api.py": "b7120e29c1b6484a69ec86532b80d8cec0401ca10580a19e30ef2dfb5df5c810",
+        "curb\\backup.py": "93294b7dee7448e6b111247398f1aa6324f081889ed94854964998b4c43b3e4c",
+        "curb\\capture.py": "8360834a716337c842e050944912365ff6438932be0c2736285d65329fb02bef",
+        "curb\\desktop_service.py": "d19e57f459359b124b9a7e2407fe018708195d37d9fc3d8b9fb67218f10f5a2f",
+        "curb\\engine.py": "514600764f8be53c82edce73a61a86819bc3cdd7a243f3e21ea59b7cbab54e6c",
+        "curb\\instance.py": "9e811ab219ac59870c8ce8a81178a2317db1fefa365a1841b89ac74ac8e305a6",
+        "curb\\manager.py": "b11bbbc07ad8f0307aaee3865a3d827eba63ab1aeb7f71162a5624b090bfe40d",
+        "curb\\media.py": "35b4552b6a4f84849df2554409918a92d883abb2eed659ef011f0b71e4abec41",
+        "curb\\models.py": "026613659adb0134063f5ac278b5abc01757d2307d245ede2d6d0d507ac3befa",
+        "curb\\store.py": "e53a4b4164a1852c4b378d8c2429e893810c85123c65ddb9c70834bd7ad31bc5",
+        "curb\\worker.py": "89821478d34b5b1e8db9df06948f150f5b7d30964bbe682cfbdb23b97b9b3bf3"
+      }
+    },
+    "aggregate_performance": {
+      "processed_frames": 2160,
+      "sum_worker_wall_seconds": 172.522,
+      "sampled_frames_per_second": 12.52
+    },
+    "elapsed_seconds": 176.79
+  },
+  "live_experiments": [
+    {
+      "status": "completed",
+      "started_utc": "2026-11-14T05:30:01.641114+00:00",
+      "finished_utc": "2026-11-14T05:32:16.714958+00:00",
+      "requested_seconds": 120,
+      "metrics": {
+        "wall_seconds": 129.889,
+        "model_seconds": 5.938,
+        "frames": 74,
+        "detection_observations": 315,
+        "event_count": 0,
+        "sampled_fps": 0.57,
+        "source_seconds": 120.625,
+        "configured_sample_fps": 5.0,
+        "congested_frames": 0,
+        "device": "NVIDIA GeForce GTX 1650",
+        "peak_vram_mb": 110.52,
+        "precision": "float32",
+        "cancelled": false
+      },
+      "bridge_frames_produced": 120,
+      "bridge_max_gap_s": null,
+      "harness_sha256": "0f07e344df0d20043a89489aa8625a50a6358ebc0736f3f12bb296d1f58d319d",
+      "experiment": "original_120s",
+      "source": {
+        "id": "sJvEFrG0wq0",
+        "webpage_url": "https://www.youtube.com/watch?v=sJvEFrG0wq0",
+        "format_id": "94",
+        "width": 854,
+        "height": 480,
+        "fps": 30.0,
+        "live_status": "is_live"
+      },
+      "processed_frames_per_source_clock_second": 0.6135,
+      "artifact_directory": "outputs/research-2026-11-14/live-120s",
+      "report_sha256": "ace6d0b043c5635acb79c8b9241eb0faea694b14def26bac4aacdbd3440c6c19"
+    },
+    {
+      "status": "completed",
+      "started_utc": "2026-11-14T05:52:22.928751+00:00",
+      "finished_utc": "2026-11-14T05:55:01.594413+00:00",
+      "requested_seconds": 120,
+      "metrics": {
+        "wall_seconds": 156.285,
+        "model_seconds": 45.266,
+        "frames": 580,
+        "detection_observations": 3025,
+        "event_count": 2,
+        "sampled_fps": 3.711,
+        "source_seconds": 120.125,
+        "configured_sample_fps": 5.0,
+        "congested_frames": 92,
+        "device": "NVIDIA GeForce GTX 1650",
+        "peak_vram_mb": 110.52,
+        "precision": "float32",
+        "cancelled": false,
+        "capture_reconnects": 0,
+        "capture_read_timeouts": 0,
+        "capture_skipped_frames": 620,
+        "max_decoded_frame_age_seconds": 0.172,
+        "frame_age_scope": "time since this process decoded the frame; excludes upstream camera and streaming latency"
+      },
+      "bridge_frames_produced": 1563,
+      "bridge_max_gap_s": 0.422,
+      "harness_sha256": "065dadbd8ce74d160e1e89e53d3b7de1521aa3bd2792cd8562fcd72895d5d305",
+      "experiment": "capture_fix_limit10_120s",
+      "source": {
+        "id": "sJvEFrG0wq0",
+        "webpage_url": "https://www.youtube.com/watch?v=sJvEFrG0wq0",
+        "format_id": "231",
+        "width": 854,
+        "height": 480,
+        "fps": 30.0,
+        "live_status": "is_live"
+      },
+      "processed_frames_per_source_clock_second": 4.8283,
+      "artifact_directory": "outputs/realtime-fix-2026-11-14/live-fixed-120s",
+      "report_sha256": "e01802c450b1ccecf2c4eff363f594f258d03a4696ca8e3388f6f1aa637b6b52"
+    },
+    {
+      "status": "completed",
+      "started_utc": "2026-11-14T06:03:40.181151+00:00",
+      "finished_utc": "2026-11-14T06:08:51.130592+00:00",
+      "requested_seconds": 300,
+      "metrics": {
+        "wall_seconds": 308.487,
+        "model_seconds": 95.173,
+        "frames": 1336,
+        "detection_observations": 5551,
+        "event_count": 2,
+        "sampled_fps": 4.331,
+        "source_seconds": 300.062,
+        "configured_sample_fps": 5.0,
+        "congested_frames": 19,
+        "device": "NVIDIA GeForce GTX 1650",
+        "peak_vram_mb": 110.52,
+        "precision": "float32",
+        "cancelled": false,
+        "capture_reconnects": 4,
+        "capture_read_timeouts": 4,
+        "capture_skipped_frames": 1356,
+        "max_decoded_frame_age_seconds": 0.406,
+        "frame_age_scope": "time since this process decoded the frame; excludes upstream camera and streaming latency"
+      },
+      "bridge_frames_produced": 2785,
+      "bridge_max_gap_s": 15.172,
+      "harness_sha256": "065dadbd8ce74d160e1e89e53d3b7de1521aa3bd2792cd8562fcd72895d5d305",
+      "experiment": "capture_fix_limit10_300s",
+      "source": {
+        "id": "sJvEFrG0wq0",
+        "webpage_url": "https://www.youtube.com/watch?v=sJvEFrG0wq0",
+        "format_id": "231",
+        "width": 854,
+        "height": 480,
+        "fps": 30.0,
+        "live_status": "is_live"
+      },
+      "processed_frames_per_source_clock_second": 4.4524,
+      "artifact_directory": "outputs/realtime-fix-2026-11-14/live-fixed-300s",
+      "report_sha256": "86a53566a9034555149023e4c1526bd36ebd2821b8a254516cba3e7cead85d1c"
+    },
+    {
+      "status": "completed",
+      "started_utc": "2026-11-14T06:14:51.813481+00:00",
+      "finished_utc": "2026-11-14T06:20:05.006570+00:00",
+      "requested_seconds": 300,
+      "metrics": {
+        "wall_seconds": 311.381,
+        "model_seconds": 92.624,
+        "frames": 1475,
+        "detection_observations": 6807,
+        "event_count": 6,
+        "sampled_fps": 4.737,
+        "source_seconds": 300.0,
+        "configured_sample_fps": 5.0,
+        "congested_frames": 339,
+        "device": "NVIDIA GeForce GTX 1650",
+        "peak_vram_mb": 110.52,
+        "precision": "float32",
+        "cancelled": false,
+        "capture_reconnects": 0,
+        "capture_read_timeouts": 0,
+        "capture_skipped_frames": 1510,
+        "max_decoded_frame_age_seconds": 0.172,
+        "frame_age_scope": "time since this process decoded the frame; excludes upstream camera and streaming latency"
+      },
+      "bridge_frames_produced": 3110,
+      "bridge_max_gap_s": 3.141,
+      "harness_sha256": "e0ded40b4735e6e422446db9418617d288671987d40aca9eee7e19be765e4381",
+      "experiment": "capture_fix_limit60_300s",
+      "source": {
+        "id": "sJvEFrG0wq0",
+        "webpage_url": "https://www.youtube.com/watch?v=sJvEFrG0wq0",
+        "format_id": "231",
+        "width": 854,
+        "height": 480,
+        "fps": 30.0,
+        "live_status": "is_live"
+      },
+      "processed_frames_per_source_clock_second": 4.9167,
+      "artifact_directory": "outputs/realtime-fix-2026-11-14/live-clock-fixed-300s",
+      "report_sha256": "820d55719c289ef02670ea02fb8f109a68b67094d0b68f782496580bf954e0cd"
+    }
+  ],
+  "camera_clock_observations": {
+    "live-fixed-120s": {
+      "first_file_written": "2026-11-14T12:52:24.844625+07:00",
+      "last_preview_written": "2026-11-14T12:55:00.846812+07:00",
+      "received_frame_span_seconds": 156.002,
+      "visible_camera_clock_progress_seconds": 156.0,
+      "relative_lag_growth_seconds_approx": 0.002
+    },
+    "live-fixed-300s": {
+      "first_file_written": "2026-11-14T13:03:42.166795+07:00",
+      "last_preview_written": "2026-11-14T13:08:50.422794+07:00",
+      "received_frame_span_seconds": 308.256,
+      "visible_camera_clock_progress_seconds": 278.0,
+      "relative_lag_growth_seconds_approx": 30.256
+    },
+    "live-clock-fixed-300s": {
+      "first_file_written": "2026-11-14T13:14:53.140472+07:00",
+      "last_preview_written": "2026-11-14T13:20:04.268175+07:00",
+      "received_frame_span_seconds": 311.128,
+      "first_visible_camera_clock": "2026-11-14 13:14:55",
+      "last_visible_camera_clock": "2026-11-14 13:20:06",
+      "visible_camera_clock_progress_seconds": 311,
+      "relative_lag_growth_seconds_approx": 0.128,
+      "method": "Visually read burned-in clock in original first frame and final preview; 1 second resolution. File modification times measure receipt span; unknown constant clock offset cancels. Not absolute camera latency."
+    }
+  },
+  "clock_stall_reproduction": [
+    {
+      "limit_seconds": 10,
+      "media_seconds": 32,
+      "injected_network_stall_seconds": 13,
+      "wall_seconds": 44.828,
+      "clock_resets": 1,
+      "exit_code": 0
+    },
+    {
+      "limit_seconds": 60,
+      "media_seconds": 32,
+      "injected_network_stall_seconds": 13,
+      "wall_seconds": 31.953,
+      "clock_resets": 0,
+      "exit_code": 0
+    }
+  ],
+  "operator_bridge_check": {
+    "decoded_frames": 8,
+    "shape": [
+      480,
+      854,
+      3
+    ],
+    "decoder_test_seconds_including_wait_for_bridge_exit": 30.172,
+    "bridge_exit_code": 0
+  },
+  "verification": {
+    "unittest_count": 35,
+    "unittest_passed": true,
+    "unittest_log_sha256": "3d44845a5392eca205947c86e7880e3a9583443c5e217f9565e19275d3061464",
+    "integration_count": 24,
+    "integration_passed": true,
+    "integration_kind": "local integration and real inference; HTTP camera is a replay fixture, not a physical RTSP camera",
+    "integration_report_sha256": "5306f848eefb26d2bc3416a8fc0c0824cd9110c5c30f80e4c1240390904b1665"
+  },
+  "script_sha256": {
+    "scripts/download_aicity2021.py": "9175a723fc8921129db0e4956c9c110a94d83b11bf77b3b01f8092dd8e207a72",
+    "scripts/extract_aicity_training.py": "cacd5588a7149adb8bd114c9f9cfb0043fba3746b227f97ecf3ac2228d00807d",
+    "scripts/evaluate_aicity_local.py": "c583267c48d39c54d75629a6225069287e7de59066fd6ed6f7afc1274b1a6e6c",
+    "scripts/verify_public_live.py": "e0ded40b4735e6e422446db9418617d288671987d40aca9eee7e19be765e4381",
+    "scripts/benchmark_live_transport.py": "702e5bb5708a95f694e181850bb7a3eca6b7366fb0ddb3aefa551880016e1f13",
+    "scripts/verify_stream_clock.py": "821079bc8d99a43ae34e91bb6dbde942da55b1a5762a9361f5cb5bb0f15d1001",
+    "scripts/audit_research_results.py": "41130afe8a2cbdc6ea519116d0d588a1d0321ee251d709deae5d3f112d502244"
+  },
+  "limits": [
+    "9 train videos x first 240 seconds only; development data, not held-out official test",
+    "Legacy local temporal evaluator with tolerance 30 seconds; no official AI City score",
+    "Camera alerts unlabelled; 6 alerts in final run have not been judged for correctness",
+    "Decoded-frame age excludes upstream camera and HLS delay",
+    "Clock endpoint comparison does not measure absolute camera-to-alert delay or every intermediate frame",
+    "No physical RTSP camera, multi-camera load test, or 24/7 stability validation",
+    "Installed Curb 1.1.0 CPU package is unchanged; CUDA numbers apply to this patched source on GTX 1650"
+  ]
+}
